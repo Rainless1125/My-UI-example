@@ -1,0 +1,365 @@
+(window.UI_ATLAS = window.UI_ATLAS || []).push({
+  id: 'loading',
+  name: '載入與進度',
+  en: 'Loading & Progress',
+  icon: 'fa-solid fa-spinner',
+  desc: '旋轉器、跳動點、骨架屏、線性與環形進度、儀表、倒數與任務清單，讓等待時間變得可預期又不無聊。',
+  items: [
+    {
+      name: '旋轉載入器組',
+      en: 'Spinner Set',
+      tags: ['Spinner', '基礎'],
+      spec: [
+        '四種旋轉器並排：細圓環缺口（border-t-transparent）、雙色圓環、SVG 描邊伸縮弧線、Font Awesome fa-circle-notch。',
+        '尺寸統一 32px，主色為 indigo；SVG 版本同時旋轉並改變 stroke-dasharray 產生伸縮效果。',
+        '每個旋轉器附 role="status" 與 sr-only「載入中」文字。',
+      ],
+      html: `<div class="flex items-center gap-8">
+  <span role="status" class="w-8 h-8 rounded-full border-[3px] border-brand-600 border-t-transparent animate-spin"><span class="sr-only">載入中</span></span>
+  <span role="status" class="w-8 h-8 rounded-full border-[3px] border-brand-500/20 border-t-brand-600 animate-spin"><span class="sr-only">載入中</span></span>
+  <svg role="status" viewBox="0 0 50 50" class="w-8 h-8 animate-spin [animation-duration:1.4s]"><circle cx="25" cy="25" r="20" fill="none" stroke="#4f46e5" stroke-width="5" stroke-linecap="round" class="animate-dash"/></svg>
+  <i role="status" aria-label="載入中" class="fa-solid fa-circle-notch fa-spin text-3xl text-brand-600"></i>
+</div>`,
+    },
+    {
+      name: '跳動圓點',
+      en: 'Bouncing Dots',
+      tags: ['Dots', '輕量'],
+      spec: [
+        '三個 10px 圓點依序上下跳動，每個延遲 0.15 秒，跳起時透明度由 45% 變為 100%。',
+        '提供三種配色：主色、深灰、漸層（indigo → pink）。',
+        '動畫週期 1.2 秒，ease-in-out 無限循環。',
+      ],
+      html: `<div class="flex items-center gap-10">
+  <span class="flex gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-600 animate-hop"></span><span class="w-2.5 h-2.5 rounded-full bg-brand-600 animate-hop [animation-delay:.15s]"></span><span class="w-2.5 h-2.5 rounded-full bg-brand-600 animate-hop [animation-delay:.3s]"></span></span>
+  <span class="flex gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-ink animate-hop"></span><span class="w-2.5 h-2.5 rounded-full bg-ink animate-hop [animation-delay:.15s]"></span><span class="w-2.5 h-2.5 rounded-full bg-ink animate-hop [animation-delay:.3s]"></span></span>
+  <span class="flex gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-hop"></span><span class="w-2.5 h-2.5 rounded-full bg-fuchsia-500 animate-hop [animation-delay:.15s]"></span><span class="w-2.5 h-2.5 rounded-full bg-pink-500 animate-hop [animation-delay:.3s]"></span></span>
+</div>`,
+    },
+    {
+      name: '音波等化器',
+      en: 'Equalizer Bars',
+      tags: ['音訊', '長條'],
+      spec: [
+        '五條 4px 寬的圓角長條，以 scaleY 在 35%–100% 之間交錯伸縮，模擬音樂播放中的等化器。',
+        '每條延遲不同（0、0.2、0.4、0.1、0.3 秒），transform-origin 置於底部。',
+        '旁邊附「正在播放」文字與歌名，長條顏色為 emerald。',
+      ],
+      html: `<div class="flex items-center gap-3 h-12 pl-3 pr-4 rounded-full border border-line bg-surface shadow-sm">
+  <span class="flex items-end gap-[3px] h-5">
+    <span class="w-1 h-full rounded-full bg-emerald-500 origin-bottom animate-equalize"></span>
+    <span class="w-1 h-full rounded-full bg-emerald-500 origin-bottom animate-equalize [animation-delay:.2s]"></span>
+    <span class="w-1 h-full rounded-full bg-emerald-500 origin-bottom animate-equalize [animation-delay:.4s]"></span>
+    <span class="w-1 h-full rounded-full bg-emerald-500 origin-bottom animate-equalize [animation-delay:.1s]"></span>
+    <span class="w-1 h-full rounded-full bg-emerald-500 origin-bottom animate-equalize [animation-delay:.3s]"></span>
+  </span>
+  <span class="text-sm"><span class="text-ink-faint text-xs">正在播放</span> <span class="font-medium text-ink">夏日微風</span></span>
+</div>`,
+    },
+    {
+      name: '骨架屏卡片',
+      en: 'Skeleton Card',
+      tags: ['Skeleton', '流光'],
+      spec: [
+        '與真實卡片相同結構的骨架：封面矩形、頭像圓形、兩行標題與三行內文長條。',
+        '骨架底色為淺灰（subtle），表面有一道由左至右掃過的淡白色流光（linear-gradient + background-position 動畫）。',
+        '長條圓角 6px、寬度錯落（100%、80%、60%）以模擬真實文字。',
+      ],
+      html: `<div class="w-72 p-4 rounded-2xl border border-line bg-surface shadow-sm" aria-busy="true">
+  <div class="aspect-video rounded-xl bg-subtle bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.6),transparent)] dark:bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.06),transparent)] bg-[length:200%_100%] animate-shimmer"></div>
+  <div class="mt-4 flex items-center gap-3">
+    <span class="w-9 h-9 rounded-full bg-subtle bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.6),transparent)] dark:bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.06),transparent)] bg-[length:200%_100%] animate-shimmer"></span>
+    <div class="flex-1 space-y-2"><div class="h-3 w-3/4 rounded-md bg-subtle bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.6),transparent)] dark:bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.06),transparent)] bg-[length:200%_100%] animate-shimmer"></div><div class="h-2.5 w-1/2 rounded-md bg-subtle bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.6),transparent)] dark:bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.06),transparent)] bg-[length:200%_100%] animate-shimmer"></div></div>
+  </div>
+  <div class="mt-4 space-y-2"><div class="h-2.5 w-full rounded-md bg-subtle bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.6),transparent)] dark:bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.06),transparent)] bg-[length:200%_100%] animate-shimmer"></div><div class="h-2.5 w-4/5 rounded-md bg-subtle bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.6),transparent)] dark:bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.06),transparent)] bg-[length:200%_100%] animate-shimmer"></div><div class="h-2.5 w-3/5 rounded-md bg-subtle bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.6),transparent)] dark:bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.06),transparent)] bg-[length:200%_100%] animate-shimmer"></div></div>
+</div>`,
+    },
+    {
+      name: '骨架列表',
+      en: 'Skeleton List',
+      tags: ['Skeleton', '脈衝'],
+      spec: [
+        '三列列表骨架，每列為左側 40px 圓角方塊、中間兩條長短不一的文字條、右側小膠囊。',
+        '使用 animate-pulse 呼吸式透明度變化（與流光版本做出區隔），列與列之間有分隔線。',
+        '容器加上 aria-busy="true" 與 sr-only「載入中」。',
+      ],
+      html: `<div class="w-80 rounded-2xl border border-line bg-surface divide-y divide-line" aria-busy="true">
+  <span class="sr-only">載入中</span>
+  <div class="flex items-center gap-3 p-4 animate-pulse"><span class="w-10 h-10 rounded-xl bg-subtle"></span><div class="flex-1 space-y-2"><div class="h-3 w-2/3 rounded bg-subtle"></div><div class="h-2.5 w-1/3 rounded bg-subtle"></div></div><span class="w-12 h-5 rounded-full bg-subtle"></span></div>
+  <div class="flex items-center gap-3 p-4 animate-pulse [animation-delay:.15s]"><span class="w-10 h-10 rounded-xl bg-subtle"></span><div class="flex-1 space-y-2"><div class="h-3 w-1/2 rounded bg-subtle"></div><div class="h-2.5 w-2/5 rounded bg-subtle"></div></div><span class="w-12 h-5 rounded-full bg-subtle"></span></div>
+  <div class="flex items-center gap-3 p-4 animate-pulse [animation-delay:.3s]"><span class="w-10 h-10 rounded-xl bg-subtle"></span><div class="flex-1 space-y-2"><div class="h-3 w-3/4 rounded bg-subtle"></div><div class="h-2.5 w-1/4 rounded bg-subtle"></div></div><span class="w-12 h-5 rounded-full bg-subtle"></span></div>
+</div>`,
+    },
+    {
+      name: '線性進度條',
+      en: 'Linear Progress',
+      tags: ['Progress', '標籤'],
+      spec: [
+        '三條不同情境的進度條：上方為標題與右側百分比，下方為 8px 高圓角軌道與主色填充。',
+        '顏色依狀態：一般為主色、完成為 emerald（附 fa-circle-check）、警告為 amber。',
+        '使用 role="progressbar" 並設定 aria-valuenow / aria-valuemin / aria-valuemax。',
+      ],
+      html: `<div class="w-80 space-y-5 text-sm">
+  <div><div class="flex justify-between mb-2"><span class="font-medium text-ink">個人資料完成度</span><span class="text-ink-soft tabular-nums">64%</span></div><div role="progressbar" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100" class="h-2 rounded-full bg-subtle overflow-hidden"><div class="h-full w-[64%] rounded-full bg-brand-600"></div></div></div>
+  <div><div class="flex justify-between mb-2"><span class="font-medium text-ink">資料備份</span><span class="text-emerald-600 dark:text-emerald-400"><i class="fa-solid fa-circle-check mr-1"></i>完成</span></div><div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" class="h-2 rounded-full bg-subtle overflow-hidden"><div class="h-full w-full rounded-full bg-emerald-500"></div></div></div>
+  <div><div class="flex justify-between mb-2"><span class="font-medium text-ink">磁碟使用量</span><span class="text-amber-600 tabular-nums">87%</span></div><div role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" class="h-2 rounded-full bg-subtle overflow-hidden"><div class="h-full w-[87%] rounded-full bg-amber-500"></div></div></div>
+</div>`,
+    },
+    {
+      name: '不確定進度條',
+      en: 'Indeterminate Progress',
+      tags: ['Progress', '未知時長'],
+      spec: [
+        '無法預估時間時使用：4px 高的軌道中，一段 33% 寬的主色滑塊由左往右循環滑過。',
+        '滑塊以 translateX(-100%) → translateX(300%) 動畫，緩動曲線 cubic-bezier(.65,0,.35,1)，週期 1.4 秒。',
+        '上方附 fa-circle-notch 旋轉圖示與「正在同步資料…」文字。',
+      ],
+      html: `<div class="w-80">
+  <p class="mb-3 text-sm text-ink-soft"><i class="fa-solid fa-circle-notch fa-spin mr-2 text-brand-600"></i>正在同步資料…</p>
+  <div role="progressbar" aria-label="同步中" class="h-1 rounded-full bg-brand-500/15 overflow-hidden"><div class="h-full w-1/3 rounded-full bg-brand-600 animate-indeterminate"></div></div>
+</div>`,
+    },
+    {
+      name: '環形進度',
+      en: 'Circular Progress',
+      tags: ['Progress', 'SVG'],
+      spec: [
+        '三個 SVG 環形進度（72px）：圓周 = 2πr，以 stroke-dasharray 與 stroke-dashoffset 表示百分比，並旋轉 -90 度從頂部開始。',
+        '中央顯示百分比數字，下方附標籤；三者分別為主色 75%、emerald 92%、rose 38%。',
+        '描邊寬 6px、圓頭端點（stroke-linecap: round），軌道為淺灰。',
+      ],
+      html: `<div class="flex gap-8 text-center">
+  <div><div class="relative w-[72px] h-[72px]"><svg viewBox="0 0 72 72" class="w-full h-full -rotate-90"><circle cx="36" cy="36" r="30" fill="none" stroke="rgb(var(--subtle))" stroke-width="6"/><circle cx="36" cy="36" r="30" fill="none" stroke="#4f46e5" stroke-width="6" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="47.1"/></svg><span class="absolute inset-0 grid place-items-center text-sm font-semibold text-ink tabular-nums">75%</span></div><p class="mt-2 text-xs text-ink-faint">任務</p></div>
+  <div><div class="relative w-[72px] h-[72px]"><svg viewBox="0 0 72 72" class="w-full h-full -rotate-90"><circle cx="36" cy="36" r="30" fill="none" stroke="rgb(var(--subtle))" stroke-width="6"/><circle cx="36" cy="36" r="30" fill="none" stroke="#10b981" stroke-width="6" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="15.1"/></svg><span class="absolute inset-0 grid place-items-center text-sm font-semibold text-ink tabular-nums">92%</span></div><p class="mt-2 text-xs text-ink-faint">出席率</p></div>
+  <div><div class="relative w-[72px] h-[72px]"><svg viewBox="0 0 72 72" class="w-full h-full -rotate-90"><circle cx="36" cy="36" r="30" fill="none" stroke="rgb(var(--subtle))" stroke-width="6"/><circle cx="36" cy="36" r="30" fill="none" stroke="#f43f5e" stroke-width="6" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="116.9"/></svg><span class="absolute inset-0 grid place-items-center text-sm font-semibold text-ink tabular-nums">38%</span></div><p class="mt-2 text-xs text-ink-faint">預算</p></div>
+</div>`,
+    },
+    {
+      name: '分段步驟進度',
+      en: 'Segmented Progress',
+      tags: ['Progress', '步驟'],
+      spec: [
+        '五段等寬的細長條（間距 4px），已完成段為主色、進行中段為主色並帶有流光、未開始為淺灰。',
+        '上方左側為目前步驟名稱「上傳文件」，右側為「步驟 3 / 5」。',
+        '下方以小字列出各段名稱並與長條對齊。',
+      ],
+      html: `<div class="w-96 max-w-full">
+  <div class="flex justify-between mb-2.5 text-sm"><span class="font-medium text-ink">上傳文件</span><span class="text-ink-faint">步驟 3 / 5</span></div>
+  <div class="grid grid-cols-5 gap-1">
+    <span class="h-1.5 rounded-full bg-brand-600"></span><span class="h-1.5 rounded-full bg-brand-600"></span>
+    <span class="h-1.5 rounded-full bg-brand-600 bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.6),transparent)] bg-[length:200%_100%] animate-shimmer"></span>
+    <span class="h-1.5 rounded-full bg-subtle"></span><span class="h-1.5 rounded-full bg-subtle"></span>
+  </div>
+  <div class="mt-2 grid grid-cols-5 gap-1 text-[10px] text-center text-ink-faint"><span>帳號</span><span>資料</span><span class="text-brand-600 dark:text-brand-400 font-medium">文件</span><span>審核</span><span>完成</span></div>
+</div>`,
+    },
+    {
+      name: '儲存空間堆疊條',
+      en: 'Stacked Usage Bar',
+      tags: ['用量', '圖例'],
+      spec: [
+        '一條 12px 高的多色堆疊長條，依類別比例分段：文件（indigo）、圖片（pink）、影片（amber）、其他（teal），段落間 2px 間隙。',
+        '上方顯示「已使用 68.4 GB / 100 GB」大字，下方為圖例（色點 + 類別 + 容量）的兩欄網格。',
+        '長條每段 hover 時加深並顯示 title 提示。',
+      ],
+      html: `<div class="w-96 max-w-full p-5 rounded-2xl border border-line bg-surface shadow-sm">
+  <p class="text-sm text-ink-soft">已使用 <span class="text-lg font-semibold text-ink">68.4 GB</span> / 100 GB</p>
+  <div class="mt-3 flex gap-0.5 h-3 rounded-full overflow-hidden bg-subtle">
+    <span title="文件 24 GB" class="w-[24%] bg-indigo-500 hover:bg-indigo-600"></span><span title="圖片 18 GB" class="w-[18%] bg-pink-500 hover:bg-pink-600"></span><span title="影片 20 GB" class="w-[20%] bg-amber-400 hover:bg-amber-500"></span><span title="其他 6.4 GB" class="w-[6.4%] bg-teal-500 hover:bg-teal-600"></span>
+  </div>
+  <div class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
+    <span class="flex items-center gap-2 text-ink-soft"><span class="w-2 h-2 rounded-full bg-indigo-500"></span>文件<span class="ml-auto font-medium text-ink">24 GB</span></span>
+    <span class="flex items-center gap-2 text-ink-soft"><span class="w-2 h-2 rounded-full bg-pink-500"></span>圖片<span class="ml-auto font-medium text-ink">18 GB</span></span>
+    <span class="flex items-center gap-2 text-ink-soft"><span class="w-2 h-2 rounded-full bg-amber-400"></span>影片<span class="ml-auto font-medium text-ink">20 GB</span></span>
+    <span class="flex items-center gap-2 text-ink-soft"><span class="w-2 h-2 rounded-full bg-teal-500"></span>其他<span class="ml-auto font-medium text-ink">6.4 GB</span></span>
+  </div>
+</div>`,
+    },
+    {
+      name: '檔案上傳進度列',
+      en: 'File Upload Progress',
+      tags: ['上傳', '可取消'],
+      spec: [
+        '卡片式上傳列：左側為檔案類型圖示方塊，中間為檔名、「2.4 MB / 5.8 MB · 剩餘 12 秒」與細進度條。',
+        '右側為取消 fa-xmark 按鈕；完成狀態變體以 emerald 邊框與 fa-circle-check 顯示。',
+        '進度條為主色，寬度轉場 300ms。',
+      ],
+      html: `<div class="w-96 max-w-full space-y-2.5">
+  <div class="flex items-center gap-3 p-3.5 rounded-xl border border-line bg-surface shadow-sm">
+    <span class="w-10 h-10 rounded-lg bg-rose-500/10 text-rose-600 grid place-items-center"><i class="fa-solid fa-file-pdf"></i></span>
+    <div class="flex-1 min-w-0"><p class="text-sm font-medium text-ink truncate">年度財務報告.pdf</p><p class="text-[11px] text-ink-faint">2.4 MB / 5.8 MB · 剩餘 12 秒</p><div class="mt-1.5 h-1 rounded-full bg-subtle overflow-hidden"><div class="h-full w-[41%] rounded-full bg-brand-600 transition-all duration-300"></div></div></div>
+    <button type="button" aria-label="取消上傳" class="w-7 h-7 rounded-lg grid place-items-center text-ink-faint hover:bg-subtle hover:text-ink"><i class="fa-solid fa-xmark text-xs"></i></button>
+  </div>
+  <div class="flex items-center gap-3 p-3.5 rounded-xl border border-emerald-500/40 bg-emerald-500/[.04]">
+    <span class="w-10 h-10 rounded-lg bg-sky-500/10 text-sky-600 grid place-items-center"><i class="fa-solid fa-file-image"></i></span>
+    <div class="flex-1 min-w-0"><p class="text-sm font-medium text-ink truncate">封面設計.png</p><p class="text-[11px] text-emerald-600 dark:text-emerald-400">上傳完成 · 1.2 MB</p></div>
+    <i class="fa-solid fa-circle-check text-emerald-500"></i>
+  </div>
+</div>`,
+    },
+    {
+      name: '條紋動態進度',
+      en: 'Striped Progress',
+      tags: ['Progress', '條紋'],
+      spec: [
+        '12px 高的進度條，填充區為主色並疊加 45 度白色半透明斜條紋，條紋持續向右移動。',
+        '條紋以 repeating-linear-gradient 製作，background-size 1.5rem，動畫 0.8 秒線性循環。',
+        '進度條右端顯示百分比膠囊。',
+      ],
+      html: `<div class="w-80">
+  <div class="flex items-center justify-between mb-2 text-sm"><span class="font-medium text-ink">安裝套件中</span><span class="px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 text-xs font-semibold tabular-nums">72%</span></div>
+  <div class="h-3 rounded-full bg-subtle overflow-hidden"><div class="h-full w-[72%] rounded-full bg-brand-600 bg-[repeating-linear-gradient(45deg,rgb(255_255_255/.22)_0,rgb(255_255_255/.22)_.375rem,transparent_.375rem,transparent_.75rem)] bg-[length:1.5rem_1.5rem] animate-stripes"></div></div>
+  <p class="mt-2 text-xs font-mono text-ink-faint">@atlas/ui · 正在解壓縮…</p>
+</div>`,
+    },
+    {
+      name: '雷達脈衝',
+      en: 'Radar Pulse',
+      tags: ['搜尋中', '光環'],
+      spec: [
+        '中央 48px 主色圓形，內有白色 fa-satellite-dish 圖示；外圍三層同心光環由小擴大並淡出。',
+        '三層光環動畫延遲 0、0.7、1.4 秒，週期 2.2 秒，營造持續掃描的感覺。',
+        '下方為「正在搜尋附近的裝置…」文字。',
+      ],
+      html: `<div class="text-center">
+  <div class="relative mx-auto w-24 h-24 grid place-items-center">
+    <span class="absolute w-12 h-12 rounded-full bg-brand-500/40 animate-radar"></span>
+    <span class="absolute w-12 h-12 rounded-full bg-brand-500/40 animate-radar [animation-delay:.7s]"></span>
+    <span class="absolute w-12 h-12 rounded-full bg-brand-500/40 animate-radar [animation-delay:1.4s]"></span>
+    <span class="relative w-12 h-12 rounded-full bg-brand-600 text-white grid place-items-center shadow-lg shadow-brand-600/40"><i class="fa-solid fa-satellite-dish"></i></span>
+  </div>
+  <p class="mt-4 text-sm text-ink-soft">正在搜尋附近的裝置…</p>
+</div>`,
+    },
+    {
+      name: '軌道載入器',
+      en: 'Orbit Loader',
+      tags: ['Spinner', '軌道'],
+      spec: [
+        '中央為小型主色圓點，外圍兩條不同大小的細圓形軌道（虛線邊框），各有一顆小圓點沿軌道旋轉。',
+        '內圈 3 秒順時針、外圈 5 秒逆時針旋轉，速度不同營造行星運行感。',
+        '整體 80px，顏色為主色與 pink。',
+      ],
+      html: `<div class="relative w-20 h-20 grid place-items-center" role="status" aria-label="載入中">
+  <span class="w-3 h-3 rounded-full bg-brand-600"></span>
+  <span class="absolute w-12 h-12 rounded-full border border-dashed border-brand-500/40 animate-spin-slow"><span class="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-brand-500"></span></span>
+  <span class="absolute w-20 h-20 rounded-full border border-dashed border-pink-500/30 animate-[spin_5s_linear_infinite_reverse]"><span class="absolute top-1/2 -right-1 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-pink-500"></span></span>
+</div>`,
+    },
+    {
+      name: '頁面頂部載入條',
+      en: 'Top Loading Bar',
+      tags: ['路由切換', '瀏覽器'],
+      wide: true,
+      spec: [
+        '模擬瀏覽器視窗：頂部為三個圓點與網址列，網址列下緣有一條 2px 的主色進度條（類似 NProgress）。',
+        '進度條右端帶有發光的尖端（box-shadow），寬度約 60% 並以不確定動畫緩慢推進。',
+        '頁面內容區以骨架長條表示尚在載入。',
+      ],
+      html: `<div class="w-full max-w-2xl rounded-xl border border-line bg-surface shadow-lift overflow-hidden">
+  <div class="relative flex items-center gap-3 px-4 h-10 bg-subtle border-b border-line">
+    <span class="flex gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span><span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span></span>
+    <span class="flex-1 max-w-sm mx-auto h-6 px-3 rounded-md bg-surface text-[11px] text-ink-faint flex items-center gap-2"><i class="fa-solid fa-lock text-[9px]"></i>atlas.app/dashboard</span>
+    <span class="absolute left-0 bottom-0 h-0.5 w-[62%] bg-brand-600 shadow-[0_0_10px_#6366f1,0_0_4px_#6366f1] transition-all"><span class="absolute right-0 -top-px w-16 h-[3px] bg-brand-400 blur-[2px]"></span></span>
+  </div>
+  <div class="p-6 space-y-3 animate-pulse"><div class="h-5 w-48 rounded bg-subtle"></div><div class="grid grid-cols-3 gap-3"><div class="h-20 rounded-xl bg-subtle"></div><div class="h-20 rounded-xl bg-subtle"></div><div class="h-20 rounded-xl bg-subtle"></div></div><div class="h-3 w-full rounded bg-subtle"></div></div>
+</div>`,
+    },
+    {
+      name: '輸入中指示',
+      en: 'Typing Indicator',
+      tags: ['聊天', '即時'],
+      spec: [
+        '聊天介面中的對方訊息泡泡（左下角為直角），內有三個灰色跳動圓點表示對方正在輸入。',
+        '泡泡上方為對方的一則完整訊息，左側為頭像；下方小字「王小明正在輸入…」。',
+        '圓點 6px，跳動延遲 0.15 秒遞增。',
+      ],
+      html: `<div class="w-72 space-y-2">
+  <div class="flex items-end gap-2"><span class="w-7 h-7 rounded-full bg-sky-500 text-white grid place-items-center text-[11px]">王</span><div class="px-3.5 py-2 rounded-2xl rounded-bl-md bg-subtle text-sm text-ink">我剛看完設計稿了</div></div>
+  <div class="flex items-end gap-2"><span class="w-7"></span><div class="flex gap-1 px-4 py-3 rounded-2xl rounded-bl-md bg-subtle" aria-label="對方正在輸入"><span class="w-1.5 h-1.5 rounded-full bg-ink-faint animate-hop"></span><span class="w-1.5 h-1.5 rounded-full bg-ink-faint animate-hop [animation-delay:.15s]"></span><span class="w-1.5 h-1.5 rounded-full bg-ink-faint animate-hop [animation-delay:.3s]"></span></div></div>
+  <p class="pl-9 text-[11px] text-ink-faint">王小明正在輸入…</p>
+</div>`,
+    },
+    {
+      name: 'AI 生成中提示',
+      en: 'AI Generating Shimmer',
+      tags: ['AI', '流光文字'],
+      spec: [
+        '文字「正在思考並生成回答…」使用灰 → 主色 → 灰的漸層並以 bg-clip-text 呈現，漸層持續橫向流動。',
+        '左側為旋轉的 fa-wand-magic-sparkles 主色圖示（緩慢旋轉）。',
+        '下方為三條寬度遞減的流光骨架長條，模擬即將出現的段落。',
+      ],
+      html: `<div class="w-80">
+  <p class="flex items-center gap-2.5 text-sm font-medium">
+    <i class="fa-solid fa-wand-magic-sparkles text-brand-500 animate-pulse"></i>
+    <span class="bg-[linear-gradient(90deg,rgb(var(--ink-faint)),#6366f1,#ec4899,rgb(var(--ink-faint)))] bg-[length:200%_100%] bg-clip-text text-transparent animate-shimmer">正在思考並生成回答…</span>
+  </p>
+  <div class="mt-4 space-y-2.5">
+    <div class="h-2.5 w-full rounded-full bg-[linear-gradient(90deg,rgb(var(--subtle)),rgb(99_102_241/.18),rgb(var(--subtle)))] bg-[length:200%_100%] animate-shimmer"></div>
+    <div class="h-2.5 w-11/12 rounded-full bg-[linear-gradient(90deg,rgb(var(--subtle)),rgb(99_102_241/.18),rgb(var(--subtle)))] bg-[length:200%_100%] animate-shimmer [animation-delay:.2s]"></div>
+    <div class="h-2.5 w-3/5 rounded-full bg-[linear-gradient(90deg,rgb(var(--subtle)),rgb(99_102_241/.18),rgb(var(--subtle)))] bg-[length:200%_100%] animate-shimmer [animation-delay:.4s]"></div>
+  </div>
+</div>`,
+    },
+    {
+      name: '倒數計時環',
+      en: 'Countdown Timer',
+      tags: ['倒數', '計時'],
+      spec: [
+        '四個方塊並排顯示「天、時、分、秒」，每個方塊為深色底、白色 28px 等寬數字與下方小標籤。',
+        '方塊之間以冒號分隔；秒數方塊外圍有主色細邊框強調。',
+        '上方標題「限時優惠倒數」附 fa-hourglass-half 圖示。',
+      ],
+      html: `<div class="text-center">
+  <p class="text-sm font-medium text-ink-soft"><i class="fa-solid fa-hourglass-half mr-1.5 text-amber-500"></i>限時優惠倒數</p>
+  <div class="mt-3 flex items-center gap-2 font-mono">
+    <div class="w-16 py-2.5 rounded-xl bg-zinc-900 text-white"><p class="text-2xl font-semibold tabular-nums">02</p><p class="text-[10px] font-sans text-zinc-400">天</p></div><span class="text-xl font-bold text-ink-faint">:</span>
+    <div class="w-16 py-2.5 rounded-xl bg-zinc-900 text-white"><p class="text-2xl font-semibold tabular-nums">14</p><p class="text-[10px] font-sans text-zinc-400">時</p></div><span class="text-xl font-bold text-ink-faint">:</span>
+    <div class="w-16 py-2.5 rounded-xl bg-zinc-900 text-white"><p class="text-2xl font-semibold tabular-nums">36</p><p class="text-[10px] font-sans text-zinc-400">分</p></div><span class="text-xl font-bold text-ink-faint">:</span>
+    <div class="w-16 py-2.5 rounded-xl bg-zinc-900 text-white ring-2 ring-brand-500 ring-offset-2 ring-offset-canvas"><p class="text-2xl font-semibold tabular-nums">08</p><p class="text-[10px] font-sans text-zinc-400">秒</p></div>
+  </div>
+</div>`,
+    },
+    {
+      name: '任務執行清單',
+      en: 'Task Progress Checklist',
+      tags: ['部署', '步驟狀態'],
+      spec: [
+        '部署流程的步驟清單：完成步驟為 emerald fa-circle-check 與耗時、進行中為旋轉的 fa-circle-notch 主色、待處理為灰色空心圓。',
+        '進行中步驟的文字為深色粗體，右側顯示即時計時；失敗步驟示範可省略。',
+        '卡片頂部顯示整體進度「3 / 5」與細進度條。',
+      ],
+      html: `<div class="w-80 rounded-2xl border border-line bg-surface shadow-sm">
+  <div class="p-4 border-b border-line"><div class="flex justify-between text-sm"><span class="font-semibold text-ink"><i class="fa-solid fa-rocket mr-2 text-ink-faint"></i>部署至正式環境</span><span class="text-ink-faint">3 / 5</span></div><div class="mt-2.5 h-1 rounded-full bg-subtle"><div class="h-full w-3/5 rounded-full bg-brand-600"></div></div></div>
+  <ul class="p-4 space-y-3 text-[13px]">
+    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-500"></i><span class="flex-1 text-ink-soft">安裝相依套件</span><span class="font-mono text-[11px] text-ink-faint">12s</span></li>
+    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-500"></i><span class="flex-1 text-ink-soft">執行測試</span><span class="font-mono text-[11px] text-ink-faint">48s</span></li>
+    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-500"></i><span class="flex-1 text-ink-soft">建置產出檔</span><span class="font-mono text-[11px] text-ink-faint">1m 06s</span></li>
+    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-notch fa-spin text-brand-600"></i><span class="flex-1 font-semibold text-ink">上傳至 CDN</span><span class="font-mono text-[11px] text-brand-600">0:14</span></li>
+    <li class="flex items-center gap-3"><i class="fa-regular fa-circle text-ink-faint"></i><span class="flex-1 text-ink-faint">切換流量</span></li>
+  </ul>
+</div>`,
+    },
+    {
+      name: '半圓儀表',
+      en: 'Gauge Meter',
+      tags: ['儀表', 'SVG'],
+      spec: [
+        'SVG 半圓儀表（180 度弧形），軌道為淺灰，填充弧線為 emerald → amber → rose 的線性漸層，表示 0–100 分。',
+        '弧線末端以 stroke-dasharray 控制長度（目前 72 分），中央下方為大字分數與「良好」標籤。',
+        '左右兩端顯示 0 與 100 刻度文字。',
+      ],
+      html: `<div class="w-56 text-center">
+  <div class="relative">
+    <svg viewBox="0 0 200 110" class="w-full">
+      <defs><linearGradient id="gauge-g" x1="0" x2="1"><stop offset="0" stop-color="#10b981"/><stop offset=".55" stop-color="#f59e0b"/><stop offset="1" stop-color="#f43f5e"/></linearGradient></defs>
+      <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="rgb(var(--subtle))" stroke-width="14" stroke-linecap="round"/>
+      <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="url(#gauge-g)" stroke-width="14" stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="70.4"/>
+    </svg>
+    <div class="absolute inset-x-0 bottom-0"><p class="text-3xl font-bold text-ink tabular-nums">72</p><p class="text-xs font-medium text-amber-600">效能良好</p></div>
+  </div>
+  <div class="mt-1 flex justify-between px-2 text-[10px] text-ink-faint"><span>0</span><span>100</span></div>
+</div>`,
+    },
+  ],
+});
