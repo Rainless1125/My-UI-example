@@ -447,5 +447,95 @@
   <p class="mt-5 text-[11px] text-ink-faint leading-relaxed"><i class="fa-solid fa-circle-info mr-1"></i>請勿重新整理頁面，輪到你時會自動進入。</p>
 </div>`,
     },
+    {
+      name: '錐形漸層進度環',
+      en: 'Conic Progress Ring',
+      tags: ['Progress', 'conic-gradient'],
+      spec: [
+        '以 conic-gradient 製作的 112px 進度圓環：已完成部分為 indigo → violet 漸層，其餘為淺灰。',
+        '中央以與背景同色的內圓遮住形成 12px 環寬，內圓顯示大字「68%」與「已完成」小字。',
+        '外圍加上淡主色光暈，數字使用等寬字。',
+      ],
+      html: `<div class="relative w-28 h-28 rounded-full bg-[conic-gradient(#6366f1_0%,#a855f7_68%,rgb(var(--subtle))_68%)] shadow-[0_0_32px_-8px_rgb(99_102_241/.6)]" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100">
+  <div class="absolute inset-3 rounded-full bg-canvas grid place-items-center text-center"><div><p class="text-2xl font-bold text-ink tabular-nums">68%</p><p class="text-[11px] text-ink-faint">已完成</p></div></div>
+</div>`,
+    },
+    {
+      name: '輪播載入訊息',
+      en: 'Rotating Status Text',
+      tags: ['文字', '步驟'],
+      spec: [
+        '旋轉器右側為單行高度的文字視窗，內含四句載入訊息（連線伺服器、讀取設定、同步資料、即將完成），每 1.5 秒向上捲動切換一句。',
+        '以 overflow-hidden 的固定高度容器與 translateY 百分比動畫實作，切換時有緩動。',
+        '整體放在白底膠囊卡片中，左側為主色 fa-circle-notch 旋轉圖示。',
+      ],
+      html: `<div class="flex items-center gap-3 h-12 pl-4 pr-5 rounded-full border border-line bg-surface shadow-soft" role="status">
+  <i class="fa-solid fa-circle-notch fa-spin text-brand-600"></i>
+  <div class="h-5 overflow-hidden text-sm text-ink">
+    <ul class="animate-ticker">
+      <li class="h-5 leading-5">正在連線伺服器…</li>
+      <li class="h-5 leading-5">讀取工作區設定…</li>
+      <li class="h-5 leading-5">同步最新資料…</li>
+      <li class="h-5 leading-5">即將完成…</li>
+    </ul>
+  </div>
+</div>`,
+    },
+    {
+      name: '雲端上傳動畫',
+      en: 'Cloud Upload Animation',
+      tags: ['上傳', '圖示動畫'],
+      spec: [
+        '大型 fa-cloud 圖示（主色淡色）中央疊放白色 fa-arrow-up 箭頭，箭頭持續上下跳動（animate-bounce）。',
+        '下方為標題「正在上傳 3 個檔案」、細進度條（帶條紋動畫）與「12.4 MB / 18.0 MB」。',
+        '整體置中排列於白底卡片中。',
+      ],
+      html: `<div class="w-72 p-6 rounded-2xl border border-line bg-surface shadow-sm text-center">
+  <div class="relative mx-auto w-20 h-16 grid place-items-center">
+    <i class="fa-solid fa-cloud text-6xl text-brand-500/20"></i>
+    <i class="fa-solid fa-arrow-up absolute text-brand-600 animate-bounce"></i>
+  </div>
+  <p class="mt-3 text-sm font-semibold text-ink">正在上傳 3 個檔案</p>
+  <div class="mt-3 h-2 rounded-full bg-subtle overflow-hidden"><div class="h-full w-[69%] rounded-full bg-brand-600 bg-[repeating-linear-gradient(45deg,rgb(255_255_255/.22)_0,rgb(255_255_255/.22)_.375rem,transparent_.375rem,transparent_.75rem)] bg-[length:1.5rem_1.5rem] animate-stripes"></div></div>
+  <p class="mt-2 text-xs font-mono text-ink-faint">12.4 MB / 18.0 MB</p>
+</div>`,
+    },
+    {
+      name: '骨架表格',
+      en: 'Skeleton Table',
+      tags: ['Skeleton', '表格'],
+      wide: true,
+      spec: [
+        '資料表的載入骨架：表頭為真實欄位名稱（灰字），表身為四列骨架長條，每欄長條寬度不同以模擬真實內容。',
+        '第一欄包含圓形頭像骨架與兩行文字骨架，狀態欄為膠囊骨架，最後一欄為小方塊骨架。',
+        '整體使用 animate-pulse，列與列之間以分隔線區隔，外框圓角 16px。',
+      ],
+      html: `<div class="w-full max-w-3xl rounded-2xl border border-line bg-surface overflow-hidden" aria-busy="true">
+  <div class="grid grid-cols-[2fr_1fr_1fr_1fr_48px] gap-4 px-5 h-11 items-center bg-subtle/60 border-b border-line text-xs font-medium text-ink-faint"><span>成員</span><span>角色</span><span>狀態</span><span>最後上線</span><span></span></div>
+  <div class="divide-y divide-line animate-pulse">
+    <div class="grid grid-cols-[2fr_1fr_1fr_1fr_48px] gap-4 px-5 h-16 items-center"><div class="flex items-center gap-3"><span class="w-8 h-8 rounded-full bg-subtle"></span><div class="space-y-1.5"><div class="h-2.5 w-28 rounded bg-subtle"></div><div class="h-2 w-36 rounded bg-subtle"></div></div></div><div class="h-2.5 w-16 rounded bg-subtle"></div><div class="h-5 w-14 rounded-full bg-subtle"></div><div class="h-2.5 w-20 rounded bg-subtle"></div><div class="h-6 w-6 rounded-md bg-subtle"></div></div>
+    <div class="grid grid-cols-[2fr_1fr_1fr_1fr_48px] gap-4 px-5 h-16 items-center"><div class="flex items-center gap-3"><span class="w-8 h-8 rounded-full bg-subtle"></span><div class="space-y-1.5"><div class="h-2.5 w-24 rounded bg-subtle"></div><div class="h-2 w-32 rounded bg-subtle"></div></div></div><div class="h-2.5 w-12 rounded bg-subtle"></div><div class="h-5 w-14 rounded-full bg-subtle"></div><div class="h-2.5 w-16 rounded bg-subtle"></div><div class="h-6 w-6 rounded-md bg-subtle"></div></div>
+    <div class="grid grid-cols-[2fr_1fr_1fr_1fr_48px] gap-4 px-5 h-16 items-center"><div class="flex items-center gap-3"><span class="w-8 h-8 rounded-full bg-subtle"></span><div class="space-y-1.5"><div class="h-2.5 w-32 rounded bg-subtle"></div><div class="h-2 w-28 rounded bg-subtle"></div></div></div><div class="h-2.5 w-20 rounded bg-subtle"></div><div class="h-5 w-14 rounded-full bg-subtle"></div><div class="h-2.5 w-24 rounded bg-subtle"></div><div class="h-6 w-6 rounded-md bg-subtle"></div></div>
+  </div>
+</div>`,
+    },
+    {
+      name: '時鐘指針載入',
+      en: 'Clock Loader',
+      tags: ['Spinner', '時鐘'],
+      spec: [
+        '48px 圓形時鐘外框（2.5px 深色邊框），內有長針與短針兩條圓角線段，從中心點以不同速度旋轉（長針 1.2 秒、短針 7 秒一圈）。',
+        '中央有 6px 主色圓點遮住指針交會處。',
+        '下方為「處理中，請稍候」文字。',
+      ],
+      html: `<div class="text-center" role="status">
+  <div class="relative mx-auto w-12 h-12 rounded-full border-[2.5px] border-ink">
+    <span class="absolute left-1/2 top-1/2 -ml-[1.25px] w-[2.5px] h-[18px] -mt-[18px] rounded-full bg-ink origin-bottom animate-[spin_1.2s_linear_infinite]"></span>
+    <span class="absolute left-1/2 top-1/2 -ml-[1.25px] w-[2.5px] h-[12px] -mt-[12px] rounded-full bg-ink origin-bottom animate-[spin_7s_linear_infinite]"></span>
+    <span class="absolute left-1/2 top-1/2 -ml-[3px] -mt-[3px] w-1.5 h-1.5 rounded-full bg-brand-600"></span>
+  </div>
+  <p class="mt-4 text-sm text-ink-soft">處理中，請稍候</p>
+</div>`,
+    },
   ],
 });

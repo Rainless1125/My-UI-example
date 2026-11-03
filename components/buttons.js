@@ -415,5 +415,87 @@
   <a href="#" onclick="return false" class="inline-flex items-center gap-3 h-12 pl-4 pr-5 rounded-xl bg-black text-white hover:bg-zinc-800 hover:-translate-y-px dark:ring-1 dark:ring-white/15 transition"><i class="fa-brands fa-google-play text-xl"></i><span class="leading-tight text-left"><span class="block text-[10px] text-white/70">立即取得</span><span class="block text-[15px] font-semibold">Google Play</span></span></a>
 </div>`,
     },
+    {
+      name: '社群分享按鈕組',
+      en: 'Social Share Buttons',
+      tags: ['分享', '品牌'],
+      spec: [
+        '一排 40px 圓形分享按鈕：LINE、Facebook、X、LinkedIn（fa-brands），以及最後一個複製連結 fa-link。',
+        '平時為白底細框、灰色圖示；hover 時背景填滿該品牌色、圖示轉白並上移 2px。',
+        '左側附「分享這篇文章」文字，複製連結按鈕點擊後圖示短暫變為 fa-check。',
+      ],
+      html: `<div class="flex items-center gap-3">
+  <span class="mr-1 text-sm text-ink-soft">分享這篇文章</span>
+  <a href="#" onclick="return false" aria-label="分享到 LINE" class="w-10 h-10 rounded-full border border-line bg-surface grid place-items-center text-ink-soft hover:bg-[#06C755] hover:border-[#06C755] hover:text-white hover:-translate-y-0.5 transition"><i class="fa-brands fa-line"></i></a>
+  <a href="#" onclick="return false" aria-label="分享到 Facebook" class="w-10 h-10 rounded-full border border-line bg-surface grid place-items-center text-ink-soft hover:bg-[#1877F2] hover:border-[#1877F2] hover:text-white hover:-translate-y-0.5 transition"><i class="fa-brands fa-facebook-f"></i></a>
+  <a href="#" onclick="return false" aria-label="分享到 X" class="w-10 h-10 rounded-full border border-line bg-surface grid place-items-center text-ink-soft hover:bg-black hover:border-black hover:text-white hover:-translate-y-0.5 transition"><i class="fa-brands fa-x-twitter"></i></a>
+  <a href="#" onclick="return false" aria-label="分享到 LinkedIn" class="w-10 h-10 rounded-full border border-line bg-surface grid place-items-center text-ink-soft hover:bg-[#0A66C2] hover:border-[#0A66C2] hover:text-white hover:-translate-y-0.5 transition"><i class="fa-brands fa-linkedin-in"></i></a>
+  <button type="button" onclick="UIK.copy(this,location.href)" aria-label="複製連結" class="w-10 h-10 rounded-full border border-line bg-surface grid place-items-center text-ink-soft hover:bg-ink hover:border-ink hover:text-canvas hover:-translate-y-0.5 transition"><i class="fa-solid fa-link"></i></button>
+</div>`,
+    },
+    {
+      name: '霓虹發光按鈕',
+      en: 'Neon Glow Button',
+      tags: ['霓虹', '深色背景'],
+      spec: [
+        '放在深色背景上的外框按鈕：1.5px cyan 邊框與 cyan 文字，周圍有柔和的 cyan 外發光（多層 box-shadow）。',
+        'hover 時背景填滿 cyan、文字轉為深色，外發光增強並向外擴散。',
+        '另一顆為 fuchsia 配色版本；兩顆皆使用大寫英文字與加寬字距。',
+      ],
+      html: `<div class="flex gap-4 p-8 rounded-2xl bg-zinc-950">
+  <button type="button" class="h-11 px-6 rounded-lg border-[1.5px] border-cyan-400 text-cyan-300 text-xs font-bold tracking-[.2em] shadow-[0_0_12px_rgb(34_211_238/.35),inset_0_0_12px_rgb(34_211_238/.15)] hover:bg-cyan-400 hover:text-zinc-950 hover:shadow-[0_0_24px_rgb(34_211_238/.7),0_0_48px_rgb(34_211_238/.35)] transition duration-300"><i class="fa-solid fa-bolt mr-2"></i>LAUNCH</button>
+  <button type="button" class="h-11 px-6 rounded-lg border-[1.5px] border-fuchsia-400 text-fuchsia-300 text-xs font-bold tracking-[.2em] shadow-[0_0_12px_rgb(232_121_249/.35),inset_0_0_12px_rgb(232_121_249/.15)] hover:bg-fuchsia-400 hover:text-zinc-950 hover:shadow-[0_0_24px_rgb(232_121_249/.7),0_0_48px_rgb(232_121_249/.35)] transition duration-300">PLAY NOW</button>
+</div>`,
+    },
+    {
+      name: '推薦投票按鈕',
+      en: 'Upvote Button',
+      tags: ['投票', '計數'],
+      spec: [
+        '垂直排列的投票按鈕：上方 fa-caret-up 箭頭、下方等寬數字票數，寬 56px、高 64px、圓角 12px、白底細框。',
+        '點擊後切換為已投票狀態：主色淡底、主色邊框與文字，票數加一；再次點擊取消。',
+        '旁邊搭配產品名稱、一句話介紹與分類標籤，呈現產品排行榜的列表項目。',
+      ],
+      html: `<div class="w-[400px] max-w-full flex items-center gap-4 p-4 rounded-2xl border border-line bg-surface shadow-sm">
+  <span class="w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br from-orange-400 to-rose-500 text-white grid place-items-center text-lg"><i class="fa-solid fa-feather-pointed"></i></span>
+  <div class="flex-1 min-w-0"><p class="text-sm font-semibold text-ink">Inkwell</p><p class="text-xs text-ink-soft truncate">用 AI 幫你把會議錄音整理成筆記</p><p class="mt-1 text-[11px] text-ink-faint">生產力 · 人工智慧</p></div>
+  <button type="button" aria-pressed="false" aria-label="投票" onclick="UIK.flip(this)" data-on="bg-brand-500/10 border-brand-500 text-brand-600 dark:text-brand-400" data-off="bg-surface border-line text-ink" class="w-14 h-16 shrink-0 rounded-xl border bg-surface border-line text-ink flex flex-col items-center justify-center gap-0.5 hover:border-brand-400 active:scale-95 transition">
+    <i class="fa-solid fa-caret-up text-lg leading-none"></i><span data-count class="text-sm font-bold tabular-nums">482</span>
+  </button>
+</div>`,
+    },
+    {
+      name: '快捷鍵提示按鈕',
+      en: 'Button with Shortcut Hint',
+      tags: ['快捷鍵', '生產力'],
+      spec: [
+        '按鈕文字右側內嵌快捷鍵鍵帽，示範「搜尋 Ctrl K」（外框按鈕）與「送出 Ctrl Enter」（深色按鈕）。',
+        '外框按鈕的鍵帽為淺灰底；深色按鈕的鍵帽為白色 15% 半透明底與淡白字。',
+        '鍵帽字級 10px、高度 20px、圓角 4px，與按鈕文字垂直置中對齊。',
+      ],
+      html: `<div class="flex flex-wrap items-center gap-3">
+  <button type="button" class="inline-flex items-center gap-2.5 h-10 pl-3.5 pr-2 rounded-[10px] border border-line bg-surface text-sm text-ink-soft shadow-sm hover:text-ink hover:bg-subtle transition"><i class="fa-solid fa-magnifying-glass text-xs"></i>搜尋<span class="ml-3 flex gap-0.5"><kbd class="h-5 px-1.5 rounded bg-subtle border border-line text-[10px] font-medium font-sans grid place-items-center">Ctrl</kbd><kbd class="h-5 px-1.5 rounded bg-subtle border border-line text-[10px] font-medium font-sans grid place-items-center">K</kbd></span></button>
+  <button type="button" class="inline-flex items-center gap-2.5 h-10 pl-4 pr-2 rounded-[10px] bg-ink text-canvas text-sm font-medium hover:opacity-85 transition">送出<span class="ml-2 flex gap-0.5"><kbd class="h-5 px-1.5 rounded bg-canvas/15 text-[10px] font-medium font-sans opacity-80 grid place-items-center">Ctrl</kbd><kbd class="h-5 px-1.5 rounded bg-canvas/15 text-[10px] font-medium font-sans opacity-80 grid place-items-center"><i class="fa-solid fa-arrow-turn-down rotate-90 text-[9px]"></i></kbd></span></button>
+</div>`,
+    },
+    {
+      name: '錄製按鈕',
+      en: 'Record Button',
+      tags: ['媒體', '切換'],
+      spec: [
+        '圓形 56px 白底按鈕，中央為紅色圓點；點擊開始錄製時，紅點變形為圓角方塊（停止符號），外圍出現紅色脈衝光環。',
+        '按鈕旁的狀態文字由「點擊開始錄音」切換為「錄製中」並顯示紅色閃爍小點。',
+        '形狀轉換以 width / height / border-radius 的 200ms 過渡完成。',
+      ],
+      html: `<div class="flex items-center gap-4">
+  <button type="button" aria-pressed="false" aria-label="開始錄製" onclick="UIK.flip(this)" class="group relative w-14 h-14 rounded-full bg-surface border border-line shadow-lift grid place-items-center">
+    <span class="absolute inset-0 rounded-full border-2 border-rose-500 opacity-0 group-aria-pressed:opacity-100 group-aria-pressed:animate-ping"></span>
+    <span class="w-6 h-6 rounded-full bg-rose-500 transition-all duration-200 group-aria-pressed:w-5 group-aria-pressed:h-5 group-aria-pressed:rounded-md"></span>
+    <span class="absolute left-full ml-4 whitespace-nowrap text-sm text-ink-soft group-aria-pressed:hidden">點擊開始錄音</span>
+    <span class="absolute left-full ml-4 whitespace-nowrap text-sm font-medium text-rose-600 hidden group-aria-pressed:flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>錄製中</span>
+  </button>
+  <span class="w-24"></span>
+</div>`,
+    },
   ],
 });
