@@ -340,5 +340,80 @@
   <button type="button" onclick="UIK.copy(this,'npm install @atlas/ui')" aria-label="複製指令" class="ml-2 w-9 h-9 rounded-lg grid place-items-center text-zinc-400 hover:text-white hover:bg-white/10 transition"><i class="fa-regular fa-copy"></i></button>
 </div>`,
     },
+    {
+      name: '長按確認按鈕',
+      en: 'Hold-to-Confirm Button',
+      tags: ['防誤觸', '危險操作'],
+      spec: [
+        '危險操作用的長按按鈕：按住時 rose 色填充由左至右推進約 1.2 秒，放開則快速退回。',
+        '按鈕為 rose 淡底與 rose 文字，填充層使用 rose-600 並以 mix-blend 讓文字在填滿區反白。',
+        '左側 fa-fingerprint 圖示，文字為「按住以刪除帳號」；可用 :active 與 transition 實作，正式版需在動畫結束時觸發事件。',
+      ],
+      html: `<button type="button" class="group relative inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 text-sm font-semibold overflow-hidden select-none">
+  <span class="absolute inset-y-0 left-0 w-0 bg-rose-600 transition-[width] duration-200 ease-out group-active:w-full group-active:duration-[1200ms] group-active:ease-linear"></span>
+  <span class="relative flex items-center gap-2 group-active:text-white transition-colors"><i class="fa-solid fa-fingerprint"></i>按住以刪除帳號</span>
+</button>`,
+    },
+    {
+      name: '展開標籤圖示按鈕',
+      en: 'Expanding Icon Button',
+      tags: ['hover', '精簡'],
+      spec: [
+        '平時為 40px 圓形圖示按鈕，hover 或 focus 時向右展開並顯示文字標籤，寬度以 max-width 過渡 300ms。',
+        '示範三個並排的按鈕：新增（深色）、分享（外框）、收藏（rose 淡底）。',
+        '文字以 opacity 淡入，展開時保持圖示位置不動。',
+      ],
+      html: `<div class="flex items-center gap-2">
+  <button type="button" class="group inline-flex items-center h-10 px-3 rounded-full bg-ink text-canvas text-sm font-medium"><i class="fa-solid fa-plus w-4"></i><span class="max-w-0 overflow-hidden whitespace-nowrap opacity-0 group-hover:max-w-[96px] group-hover:ml-2 group-hover:opacity-100 group-focus-visible:max-w-[96px] group-focus-visible:ml-2 group-focus-visible:opacity-100 transition-all duration-300">新增項目</span></button>
+  <button type="button" class="group inline-flex items-center h-10 px-3 rounded-full border border-line bg-surface text-ink text-sm font-medium shadow-sm"><i class="fa-solid fa-share-nodes w-4"></i><span class="max-w-0 overflow-hidden whitespace-nowrap opacity-0 group-hover:max-w-[96px] group-hover:ml-2 group-hover:opacity-100 transition-all duration-300">分享</span></button>
+  <button type="button" class="group inline-flex items-center h-10 px-3 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 text-sm font-medium"><i class="fa-solid fa-heart w-4"></i><span class="max-w-0 overflow-hidden whitespace-nowrap opacity-0 group-hover:max-w-[96px] group-hover:ml-2 group-hover:opacity-100 transition-all duration-300">加入收藏</span></button>
+</div>`,
+    },
+    {
+      name: '漸層外框按鈕',
+      en: 'Gradient Outline Button',
+      tags: ['漸層', '外框'],
+      spec: [
+        '外層 1.5px 內距的 indigo → fuchsia → orange 漸層作為邊框，內層為頁面底色，文字同樣為漸層（bg-clip-text）。',
+        'hover 時內層變透明，整顆按鈕被漸層填滿、文字轉為白色。',
+        '圓角全膠囊，右側附 fa-arrow-right。',
+      ],
+      html: `<button type="button" class="group inline-flex p-[1.5px] rounded-full bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-orange-400">
+  <span class="inline-flex items-center gap-2 h-10 px-5 rounded-full bg-surface group-hover:bg-transparent transition-colors duration-300">
+    <span class="text-sm font-semibold bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-orange-400 bg-clip-text text-transparent group-hover:text-white transition-colors">探索新功能</span>
+    <i class="fa-solid fa-arrow-right text-xs text-fuchsia-500 group-hover:text-white group-hover:translate-x-0.5 transition"></i>
+  </span>
+</button>`,
+    },
+    {
+      name: '訂閱切換按鈕',
+      en: 'Subscribe Toggle',
+      tags: ['切換', '頻道'],
+      spec: [
+        '未訂閱時為深色實心「訂閱」按鈕；點擊後變為淺灰底「已訂閱」，並顯示 fa-bell 鈴鐺圖示。',
+        '左側附頻道名稱與訂閱人數。',
+        '使用 aria-pressed 標示狀態，切換過渡 200ms。',
+      ],
+      html: `<div class="flex items-center gap-3">
+  <div class="text-right"><p class="text-sm font-semibold text-ink">設計週報</p><p class="text-xs text-ink-faint"><span>12,480</span> 位訂閱者</p></div>
+  <button type="button" aria-pressed="false" onclick="UIK.flip(this)" data-on="bg-subtle text-ink" data-off="bg-ink text-canvas" class="inline-flex items-center gap-2 h-10 px-4 rounded-full bg-ink text-canvas text-sm font-semibold transition-colors duration-200">
+    <i data-swap="hidden" class="hidden fa-solid fa-bell text-xs"></i><span data-alt="已訂閱">訂閱</span>
+  </button>
+</div>`,
+    },
+    {
+      name: '應用程式下載按鈕',
+      en: 'App Store Buttons',
+      tags: ['品牌', '下載'],
+      spec: [
+        '兩個黑底的應用程式商店按鈕：左側為大型 fa-brands fa-apple 或 fa-google-play 圖示，右側為兩行文字（小字「下載於」、大字商店名稱）。',
+        '高度 48px、圓角 12px，深色模式加上細白框。',
+        'hover 時背景微亮並向上浮動 1px。',
+      ],
+      html: `<div class="flex flex-wrap gap-3">
+  <a href="#" onclick="return false" class="inline-flex items-center gap-3 h-12 pl-4 pr-5 rounded-xl bg-black text-white hover:bg-zinc-800 hover:-translate-y-px dark:ring-1 dark:ring-white/15 transition"><i class="fa-brands fa-apple text-2xl"></i><span class="leading-tight text-left"><span class="block text-[10px] text-white/70">下載於</span><span class="block text-[15px] font-semibold">App Store</span></span></a>
+  <a href="#" onclick="return false" class="inline-flex items-center gap-3 h-12 pl-4 pr-5 rounded-xl bg-black text-white hover:bg-zinc-800 hover:-translate-y-px dark:ring-1 dark:ring-white/15 transition"><i class="fa-brands fa-google-play text-xl"></i><span class="leading-tight text-left"><span class="block text-[10px] text-white/70">立即取得</span><span class="block text-[15px] font-semibold">Google Play</span></span></a>
+</div>`,
+    },
   ],
 });

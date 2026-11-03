@@ -370,5 +370,92 @@
   </div>
 </div>`,
     },
+    {
+      name: '評分徽章',
+      en: 'Rating Badges',
+      tags: ['評分', '商品'],
+      spec: [
+        '三種評分徽章：琥珀色淡底膠囊（fa-star + 4.8 + 評論數）、emerald 實心方塊分數（9.2 + 「極佳」文字，常見於訂房網站）、單色極簡（星星 + 分數）。',
+        '分數使用等寬數字與粗體，評論數為灰色小字。',
+        '三者垂直排列，展示不同情境下的用法。',
+      ],
+      html: `<div class="flex flex-col items-center gap-4">
+  <span class="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 text-xs font-semibold"><i class="fa-solid fa-star text-[10px]"></i>4.8<span class="font-normal text-ink-faint">（2,481 則評論）</span></span>
+  <span class="inline-flex items-center gap-2.5"><span class="w-9 h-9 rounded-lg rounded-bl-none bg-emerald-600 text-white grid place-items-center text-sm font-bold tabular-nums">9.2</span><span class="text-left leading-tight"><span class="block text-sm font-semibold text-ink">極佳</span><span class="block text-[11px] text-ink-faint">1,204 則住客評價</span></span></span>
+  <span class="inline-flex items-center gap-1 text-sm"><i class="fa-solid fa-star text-ink text-xs"></i><span class="font-semibold text-ink tabular-nums">4.92</span><span class="text-ink-faint">· 318 則</span></span>
+</div>`,
+    },
+    {
+      name: '價格標籤',
+      en: 'Price Tags',
+      tags: ['電商', '折扣'],
+      spec: [
+        '現價大字粗體、原價刪除線灰字，右側為 rose 實心「-25%」折扣標籤。',
+        '下方另有兩種標籤：吊牌造型（左側斜切角 + 小圓孔）的「特價」標籤，以及 emerald 淡底的「免運費」小膠囊（fa-truck-fast）。',
+        '價格使用等寬數字。',
+      ],
+      html: `<div class="flex flex-col items-center gap-4">
+  <div class="flex items-center gap-2.5"><span class="text-2xl font-bold text-ink tabular-nums">$2,990</span><span class="text-sm text-ink-faint line-through tabular-nums">$3,990</span><span class="px-1.5 py-0.5 rounded-md bg-rose-500 text-white text-xs font-bold">-25%</span></div>
+  <div class="flex items-center gap-3">
+    <span class="relative inline-flex items-center h-7 pl-5 pr-3 bg-amber-400 text-black text-xs font-bold [clip-path:polygon(12px_0,100%_0,100%_100%,12px_100%,0_50%)]"><span class="absolute left-[9px] w-1.5 h-1.5 rounded-full bg-white/90"></span>特價</span>
+    <span class="inline-flex items-center gap-1.5 h-6 px-2 rounded-md bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-medium"><i class="fa-solid fa-truck-fast text-[10px]"></i>免運費</span>
+  </div>
+</div>`,
+    },
+    {
+      name: '限時動態頭像',
+      en: 'Story Ring Avatars',
+      tags: ['頭像', '漸層外環'],
+      spec: [
+        '一排 56px 圓形頭像，未讀的限時動態外圍有 amber → pink → violet 的漸層外環（2px 外環 + 2px 背景色間隔）。',
+        '已讀的頭像外環為灰色；第一個為「你的動態」，右下角有主色圓形 fa-plus 按鈕。',
+        '頭像下方為 11px 名稱，超出寬度以省略號截斷。',
+      ],
+      html: `<div class="flex gap-4 text-center">
+  <div class="w-16"><span class="relative mx-auto block w-14 h-14 p-[2px] rounded-full bg-line"><span class="block w-full h-full rounded-full ring-2 ring-canvas bg-gradient-to-br from-zinc-300 to-zinc-500 grid place-items-center text-white font-semibold">我</span><span class="absolute -right-0.5 -bottom-0.5 w-5 h-5 rounded-full bg-brand-600 text-white grid place-items-center text-[9px] ring-2 ring-canvas"><i class="fa-solid fa-plus"></i></span></span><p class="mt-1.5 text-[11px] text-ink-soft truncate">你的動態</p></div>
+  <div class="w-16"><span class="mx-auto block w-14 h-14 p-[2px] rounded-full bg-gradient-to-tr from-amber-400 via-pink-500 to-violet-600"><span class="block w-full h-full rounded-full ring-2 ring-canvas bg-gradient-to-br from-sky-400 to-blue-600 grid place-items-center text-white font-semibold">晴</span></span><p class="mt-1.5 text-[11px] text-ink truncate">yuching</p></div>
+  <div class="w-16"><span class="mx-auto block w-14 h-14 p-[2px] rounded-full bg-gradient-to-tr from-amber-400 via-pink-500 to-violet-600"><span class="block w-full h-full rounded-full ring-2 ring-canvas bg-gradient-to-br from-emerald-400 to-teal-600 grid place-items-center text-white font-semibold">豪</span></span><p class="mt-1.5 text-[11px] text-ink truncate">hao.design</p></div>
+  <div class="w-16"><span class="mx-auto block w-14 h-14 p-[2px] rounded-full bg-line"><span class="block w-full h-full rounded-full ring-2 ring-canvas bg-gradient-to-br from-rose-300 to-pink-500 grid place-items-center text-white font-semibold">妤</span></span><p class="mt-1.5 text-[11px] text-ink-faint truncate">yu.photo</p></div>
+</div>`,
+    },
+    {
+      name: '等級經驗徽章',
+      en: 'Level & XP Badge',
+      tags: ['遊戲化', '等級'],
+      spec: [
+        '左側為漸層圓角方塊中的「Lv.12」等級文字與小型 fa-bolt 圖示，右側為稱號「資深貢獻者」。',
+        '下方為經驗值進度條（violet → fuchsia 漸層）與「2,480 / 3,000 XP」等寬數字。',
+        '整體包在膠囊形白底卡片中，寬 280px。',
+      ],
+      html: `<div class="w-[280px] p-3.5 rounded-2xl border border-line bg-surface shadow-sm">
+  <div class="flex items-center gap-3">
+    <span class="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white grid place-items-center leading-none shadow-md shadow-violet-500/30"><span class="text-center"><i class="fa-solid fa-bolt text-[9px] block mb-0.5"></i><span class="text-xs font-bold">Lv.12</span></span></span>
+    <div class="flex-1"><p class="text-sm font-semibold text-ink">資深貢獻者</p><p class="text-[11px] text-ink-faint">距離下一級還差 520 XP</p></div>
+  </div>
+  <div class="mt-3 h-2 rounded-full bg-subtle overflow-hidden"><div class="h-full w-[83%] rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500"></div></div>
+  <p class="mt-1.5 text-right text-[11px] font-mono text-ink-faint">2,480 / 3,000 XP</p>
+</div>`,
+    },
+    {
+      name: '檔案類型標籤',
+      en: 'File Type Chips',
+      tags: ['檔案', '格式'],
+      spec: [
+        '各種檔案格式的標籤：PDF（rose）、DOCX（sky）、XLSX（emerald）、PNG（violet）、ZIP（amber）、MP4（pink），各附對應的 fa-file-* 圖示。',
+        '標籤為等寬字 11px 大寫、淡色底、圓角 6px。',
+        '下方示範檔案列：檔名 + 類型標籤 + 檔案大小。',
+      ],
+      html: `<div class="space-y-4">
+  <div class="flex flex-wrap gap-1.5 justify-center max-w-xs font-mono text-[11px] font-semibold">
+    <span class="inline-flex items-center gap-1 h-6 px-2 rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400"><i class="fa-solid fa-file-pdf text-[10px]"></i>PDF</span>
+    <span class="inline-flex items-center gap-1 h-6 px-2 rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400"><i class="fa-solid fa-file-word text-[10px]"></i>DOCX</span>
+    <span class="inline-flex items-center gap-1 h-6 px-2 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"><i class="fa-solid fa-file-excel text-[10px]"></i>XLSX</span>
+    <span class="inline-flex items-center gap-1 h-6 px-2 rounded-md bg-violet-500/10 text-violet-600 dark:text-violet-400"><i class="fa-solid fa-file-image text-[10px]"></i>PNG</span>
+    <span class="inline-flex items-center gap-1 h-6 px-2 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400"><i class="fa-solid fa-file-zipper text-[10px]"></i>ZIP</span>
+    <span class="inline-flex items-center gap-1 h-6 px-2 rounded-md bg-pink-500/10 text-pink-600 dark:text-pink-400"><i class="fa-solid fa-file-video text-[10px]"></i>MP4</span>
+  </div>
+  <div class="flex items-center gap-3 p-3 rounded-xl border border-line bg-surface text-sm"><span class="flex-1 text-ink truncate">第三季營運報告</span><span class="inline-flex items-center h-5 px-1.5 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 font-mono text-[10px] font-semibold">PDF</span><span class="text-xs text-ink-faint">2.4 MB</span></div>
+</div>`,
+    },
   ],
 });

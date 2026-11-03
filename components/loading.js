@@ -361,5 +361,91 @@
   <div class="mt-1 flex justify-between px-2 text-[10px] text-ink-faint"><span>0</span><span>100</span></div>
 </div>`,
     },
+    {
+      name: '圓點環形旋轉',
+      en: 'Dot Ring Spinner',
+      tags: ['Spinner', '圓點'],
+      spec: [
+        '八個 6px 圓點平均排列成 36px 的圓環，透明度由 100% 遞減到 20%，整個圓環以階梯式（steps(8)）旋轉。',
+        '提供主色與深灰兩種配色並排展示。',
+        '使用 role="status" 與 sr-only 文字「載入中」。',
+      ],
+      html: `<div class="flex items-center gap-10">
+  <span role="status" class="relative w-9 h-9 animate-[spin_.9s_steps(8)_infinite]"><span class="sr-only">載入中</span>
+    <span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-brand-600"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-brand-600 opacity-90 origin-[3px_18px] rotate-45"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-brand-600 opacity-80 origin-[3px_18px] rotate-90"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-brand-600 opacity-70 origin-[3px_18px] rotate-[135deg]"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-brand-600 opacity-60 origin-[3px_18px] rotate-180"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-brand-600 opacity-45 origin-[3px_18px] rotate-[225deg]"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-brand-600 opacity-30 origin-[3px_18px] rotate-[270deg]"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-brand-600 opacity-20 origin-[3px_18px] rotate-[315deg]"></span>
+  </span>
+  <span role="status" class="relative w-9 h-9 animate-[spin_.9s_steps(8)_infinite]"><span class="sr-only">載入中</span>
+    <span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-ink"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-ink opacity-90 origin-[3px_18px] rotate-45"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-ink opacity-80 origin-[3px_18px] rotate-90"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-ink opacity-70 origin-[3px_18px] rotate-[135deg]"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-ink opacity-60 origin-[3px_18px] rotate-180"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-ink opacity-45 origin-[3px_18px] rotate-[225deg]"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-ink opacity-30 origin-[3px_18px] rotate-[270deg]"></span><span class="absolute left-1/2 top-0 -ml-[3px] w-1.5 h-1.5 rounded-full bg-ink opacity-20 origin-[3px_18px] rotate-[315deg]"></span>
+  </span>
+</div>`,
+    },
+    {
+      name: '心跳線動畫',
+      en: 'Heartbeat Line',
+      tags: ['SVG', '監控'],
+      spec: [
+        '一條類似心電圖的 SVG 折線，以 stroke-dasharray 與 stroke-dashoffset 動畫從左到右「繪製」出來，循環播放。',
+        '線條為 emerald、寬 2.5px、圓角端點，下方有淡色網格背景。',
+        '左上角顯示 fa-heart-pulse 圖示與「伺服器監控中」，右上角為即時數值「72 ms」。',
+      ],
+      html: `<div class="w-80 p-4 rounded-2xl border border-line bg-surface shadow-sm">
+  <div class="flex items-center justify-between text-sm"><span class="text-ink-soft"><i class="fa-solid fa-heart-pulse text-emerald-500 mr-2"></i>伺服器監控中</span><span class="font-mono font-semibold text-ink">72 ms</span></div>
+  <div class="mt-3 h-20 rounded-lg bg-[linear-gradient(rgb(var(--line)/.6)_1px,transparent_1px),linear-gradient(90deg,rgb(var(--line)/.6)_1px,transparent_1px)] bg-[size:16px_16px]">
+    <svg viewBox="0 0 280 80" class="w-full h-full" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 H70 L82 40 L92 14 L104 66 L116 30 L124 40 H180 L190 40 L198 22 L208 58 L216 40 H280" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="400" class="animate-draw"/></svg>
+  </div>
+</div>`,
+    },
+    {
+      name: '圖片載入佔位',
+      en: 'Image Placeholder',
+      tags: ['圖片', 'Skeleton'],
+      spec: [
+        '三種圖片載入狀態並排：載入中（淺灰底流光加中央 fa-image 圖示）、模糊預覽（低解析漸層加 blur，中央小型旋轉器）、載入完成（清晰漸層）。',
+        '每張為 1:1 圓角 12px，下方以小字標示狀態。',
+        '流光使用 linear-gradient 背景位移動畫。',
+      ],
+      html: `<div class="flex gap-4 text-center text-[11px] text-ink-faint">
+  <div><div class="w-24 h-24 rounded-xl bg-subtle bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.6),transparent)] dark:bg-[linear-gradient(90deg,transparent,rgb(255_255_255/.06),transparent)] bg-[length:200%_100%] animate-shimmer grid place-items-center"><i class="fa-regular fa-image text-xl text-ink-faint"></i></div><p class="mt-2">載入中</p></div>
+  <div><div class="relative w-24 h-24 rounded-xl overflow-hidden"><div class="absolute inset-0 bg-gradient-to-br from-orange-300 via-rose-400 to-indigo-500 blur-md scale-110 opacity-80"></div><span class="absolute inset-0 grid place-items-center"><span class="w-6 h-6 rounded-full border-2 border-white/60 border-t-white animate-spin"></span></span></div><p class="mt-2">模糊預覽</p></div>
+  <div><div class="w-24 h-24 rounded-xl bg-gradient-to-br from-orange-300 via-rose-400 to-indigo-500 grid place-items-center"><i class="fa-solid fa-mountain-sun text-2xl text-white/70"></i></div><p class="mt-2">載入完成</p></div>
+</div>`,
+    },
+    {
+      name: '方塊網格載入',
+      en: 'Grid Loader',
+      tags: ['Spinner', '網格'],
+      spec: [
+        '3 × 3 的小方塊網格（每格 10px、間距 4px、圓角 3px），每格依對角線順序延遲縮放淡出再恢復。',
+        '方塊顏色由左上主色漸變到右下 violet。',
+        '動畫週期 1.3 秒，延遲以 0.1 秒為單位遞增。',
+      ],
+      html: `<div role="status" aria-label="載入中" class="grid grid-cols-3 gap-1">
+  <span class="w-2.5 h-2.5 rounded-[3px] bg-indigo-500 animate-grid-fade"></span><span class="w-2.5 h-2.5 rounded-[3px] bg-indigo-500 animate-grid-fade [animation-delay:.1s]"></span><span class="w-2.5 h-2.5 rounded-[3px] bg-violet-500 animate-grid-fade [animation-delay:.2s]"></span>
+  <span class="w-2.5 h-2.5 rounded-[3px] bg-indigo-500 animate-grid-fade [animation-delay:.1s]"></span><span class="w-2.5 h-2.5 rounded-[3px] bg-violet-500 animate-grid-fade [animation-delay:.2s]"></span><span class="w-2.5 h-2.5 rounded-[3px] bg-violet-500 animate-grid-fade [animation-delay:.3s]"></span>
+  <span class="w-2.5 h-2.5 rounded-[3px] bg-violet-500 animate-grid-fade [animation-delay:.2s]"></span><span class="w-2.5 h-2.5 rounded-[3px] bg-violet-500 animate-grid-fade [animation-delay:.3s]"></span><span class="w-2.5 h-2.5 rounded-[3px] bg-fuchsia-500 animate-grid-fade [animation-delay:.4s]"></span>
+</div>`,
+    },
+    {
+      name: '排隊等候卡',
+      en: 'Queue Position Card',
+      tags: ['排隊', '等待'],
+      spec: [
+        '等待頁面的排隊卡片：頂部為大字「第 12 位」（等寬數字、主色），下方為「前方還有 11 位」。',
+        '中間為不確定進度條，下方三欄資訊：預估等待時間、目前線上人數、已等待時間。',
+        '底部說明「請勿重新整理頁面，輪到你時會自動進入」，搭配 fa-circle-info。',
+      ],
+      html: `<div class="w-80 p-6 rounded-[20px] border border-line bg-surface shadow-lift text-center">
+  <p class="text-xs font-medium text-ink-faint"><i class="fa-solid fa-users-line mr-1.5"></i>你目前排在</p>
+  <p class="mt-1 text-4xl font-bold tracking-tight text-brand-600 dark:text-brand-400 tabular-nums">第 12 位</p>
+  <p class="mt-1 text-sm text-ink-soft">前方還有 11 位</p>
+  <div class="mt-5 h-1.5 rounded-full bg-brand-500/15 overflow-hidden"><div class="h-full w-1/3 rounded-full bg-brand-600 animate-indeterminate"></div></div>
+  <div class="mt-5 grid grid-cols-3 divide-x divide-line text-xs">
+    <div><p class="font-semibold text-ink tabular-nums">~3 分</p><p class="text-ink-faint">預估等待</p></div>
+    <div><p class="font-semibold text-ink tabular-nums">1,284</p><p class="text-ink-faint">線上人數</p></div>
+    <div><p class="font-semibold text-ink tabular-nums">0:48</p><p class="text-ink-faint">已等待</p></div>
+  </div>
+  <p class="mt-5 text-[11px] text-ink-faint leading-relaxed"><i class="fa-solid fa-circle-info mr-1"></i>請勿重新整理頁面，輪到你時會自動進入。</p>
+</div>`,
+    },
   ],
 });
