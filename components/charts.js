@@ -200,6 +200,204 @@ ${[['造訪首頁', 24800, 100, null], ['查看定價', 11200, 45, '45%'], ['開
   </div>
 </div>`,
       },
+      {
+        name: '雷達圖',
+        en: 'Radar Chart',
+        tags: ['雷達', '能力評估'],
+        spec: [
+          '五軸雷達圖（設計、開發、溝通、規劃、分析），背景為三層同心五邊形格線與從中心放射的軸線。',
+          '資料區為主色 20% 填色與主色 2px 外框的多邊形，頂點以小圓點標示；另一組比較資料為 amber 虛線多邊形。',
+          '各軸外側顯示標籤文字，下方為圖例。',
+        ],
+        html: `<div class="w-72 p-5 rounded-2xl border border-line bg-surface shadow-sm text-center">
+    ${(() => {
+      const ax = ['設計', '開發', '溝通', '規劃', '分析']; const cx = 110, cy = 105, R = 72;
+      const pt = (i, r) => { const a = -Math.PI / 2 + (i * 2 * Math.PI) / 5; return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; };
+      const poly = (vals) => vals.map((v, i) => pt(i, R * v).map((n) => n.toFixed(1)).join(',')).join(' ');
+      const a = [0.9, 0.7, 0.8, 0.55, 0.75], b = [0.6, 0.85, 0.5, 0.7, 0.6];
+      return `<svg viewBox="0 0 220 210" class="w-full" aria-hidden="true">
+      ${[1, 0.66, 0.33].map((s) => `<polygon points="${poly([s, s, s, s, s])}" fill="none" stroke="rgb(var(--line))"/>`).join('')}
+      ${ax.map((_, i) => { const [x, y] = pt(i, R); return `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgb(var(--line))"/>`; }).join('')}
+      <polygon points="${poly(b)}" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <polygon points="${poly(a)}" fill="rgb(99 102 241 / .2)" stroke="#6366f1" stroke-width="2"/>
+      ${a.map((v, i) => { const [x, y] = pt(i, R * v); return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="#6366f1"/>`; }).join('')}
+      ${ax.map((t, i) => { const [x, y] = pt(i, R + 16); return `<text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="middle" font-size="11" fill="rgb(var(--ink-soft))">${t}</text>`; }).join('')}
+    </svg>`;
+    })()}
+    <div class="flex justify-center gap-4 text-[11px] text-ink-soft"><span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-brand-500"></span>你</span><span class="flex items-center gap-1.5"><span class="w-3 border-t-2 border-dashed border-amber-500"></span>團隊平均</span></div>
+  </div>`,
+      },
+      {
+        name: '散佈圖',
+        en: 'Scatter Plot',
+        tags: ['散佈', '相關性'],
+        spec: [
+          'SVG 散佈圖顯示「廣告花費」與「轉換數」的關係：X 軸與 Y 軸為淡灰色格線與刻度標籤。',
+          '資料點為半透明主色圓點（半徑依第三個數值變化），另有一條 rose 色虛線趨勢線。',
+          '其中一個資料點以白色外框強調並標示說明文字。',
+        ],
+        html: `<div class="w-[400px] max-w-full p-5 rounded-2xl border border-line bg-surface shadow-sm">
+    <p class="text-sm font-semibold text-ink">廣告花費 vs 轉換數</p>
+    <svg viewBox="0 0 340 180" class="mt-3 w-full" aria-hidden="true">
+      <g stroke="rgb(var(--line))">${[20, 60, 100, 140].map((y) => `<line x1="30" x2="335" y1="${y}" y2="${y}"/>`).join('')}<line x1="30" x2="30" y1="10" y2="150"/></g>
+      <g font-size="9" fill="rgb(var(--ink-faint))">${['300', '200', '100', '0'].map((t, i) => `<text x="24" y="${23 + i * 40}" text-anchor="end">${t}</text>`).join('')}${['0', '5萬', '10萬', '15萬'].map((t, i) => `<text x="${30 + i * 100}" y="166" text-anchor="middle">${t}</text>`).join('')}</g>
+      <line x1="40" y1="138" x2="325" y2="30" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="5 4"/>
+      ${[[50, 132, 5], [70, 120, 7], [92, 126, 4], [110, 104, 8], [138, 98, 6], [160, 86, 9], [178, 92, 5], [205, 70, 7], [228, 62, 10], [252, 66, 6], [270, 48, 8], [298, 40, 6], [316, 34, 9], [190, 118, 4], [120, 70, 5]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="rgb(99 102 241 / .45)"/>`).join('')}
+      <circle cx="228" cy="62" r="10" fill="#6366f1" stroke="rgb(var(--surface))" stroke-width="2.5"/>
+      <text x="244" y="58" font-size="10" font-weight="600" fill="rgb(var(--ink))">雙 11 檔期</text>
+    </svg>
+  </div>`,
+      },
+      {
+        name: '錐形圓餅圖',
+        en: 'Pie Chart',
+        tags: ['圓餅', 'conic-gradient'],
+        spec: [
+          '以 CSS conic-gradient 繪製的實心圓餅圖（140px），四個區塊顏色為 indigo、teal、amber、rose，區塊之間有細白色分隔。',
+          '圓餅下方為兩欄圖例，每項為色點、名稱、百分比與金額。',
+          '卡片頂部為標題「支出分佈」與總金額。',
+        ],
+        html: `<div class="w-72 p-5 rounded-2xl border border-line bg-surface shadow-sm">
+    <div class="flex items-end justify-between"><p class="text-sm font-semibold text-ink">支出分佈</p><p class="text-xs text-ink-faint">共 <span class="font-semibold text-ink">$48,600</span></p></div>
+    <div class="mt-4 mx-auto w-36 h-36 rounded-full bg-[conic-gradient(#6366f1_0_40%,rgb(var(--surface))_40%_40.6%,#14b8a6_40.6%_68%,rgb(var(--surface))_68%_68.6%,#f59e0b_68.6%_88%,rgb(var(--surface))_88%_88.6%,#f43f5e_88.6%_99.4%,rgb(var(--surface))_99.4%)]" role="img" aria-label="支出分佈圓餅圖"></div>
+    <ul class="mt-5 grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs">
+      <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span><span class="flex-1 text-ink-soft">房租</span><span class="font-semibold text-ink">40%</span></li>
+      <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-teal-500"></span><span class="flex-1 text-ink-soft">餐飲</span><span class="font-semibold text-ink">28%</span></li>
+      <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span><span class="flex-1 text-ink-soft">交通</span><span class="font-semibold text-ink">20%</span></li>
+      <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-rose-500"></span><span class="flex-1 text-ink-soft">娛樂</span><span class="font-semibold text-ink">12%</span></li>
+    </ul>
+  </div>`,
+      },
+      {
+        name: '分組長條圖',
+        en: 'Grouped Bar Chart',
+        tags: ['比較', '長條圖'],
+        spec: [
+          '每個季度兩根並排長條（今年主色實心、去年主色 25% 淡色），用來比較兩期數據。',
+          '長條頂端圓角，hover 時顯示 title 提示數值；底部為季度標籤，右上角為圖例。',
+          '左側有淡灰色水平格線與刻度。',
+        ],
+        html: `<div class="w-[400px] max-w-full p-5 rounded-2xl border border-line bg-surface shadow-sm">
+    <div class="flex items-center justify-between"><p class="text-sm font-semibold text-ink">季度營收比較</p><div class="flex gap-3 text-[11px] text-ink-soft"><span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-brand-600"></span>2026</span><span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-brand-500/25"></span>2025</span></div></div>
+    <div class="relative mt-5 h-40 pl-8">
+      <div class="absolute inset-0 left-8 flex flex-col justify-between pb-6">${['', '', '', ''].map(() => '<span class="border-t border-line"></span>').join('')}</div>
+      <div class="absolute left-0 inset-y-0 pb-6 flex flex-col justify-between text-[9px] text-ink-faint -mt-1.5"><span>300</span><span>200</span><span>100</span><span>0</span></div>
+      <div class="relative h-full flex items-end justify-around pb-6">
+  ${[['Q1', 62, 48], ['Q2', 74, 55], ['Q3', 68, 60], ['Q4', 90, 70]].map(([q, a, b]) => `      <div class="relative h-full flex items-end gap-1.5"><span title="2026：${a * 3}" class="w-6 rounded-t-md bg-brand-600 hover:opacity-80" style="height:${a}%"></span><span title="2025：${b * 3}" class="w-6 rounded-t-md bg-brand-500/25 hover:bg-brand-500/40" style="height:${b}%"></span><span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-ink-faint">${q}</span></div>`).join('\n')}
+      </div>
+    </div>
+  </div>`,
+      },
+      {
+        name: '瀑布圖',
+        en: 'Waterfall Chart',
+        tags: ['財務', '增減'],
+        spec: [
+          '由期初值、各項增減與期末值組成的瀑布圖：增加為 emerald 浮動長條、減少為 rose 浮動長條，期初與期末為深色完整長條。',
+          '每根長條上方顯示數值（帶正負號），長條之間以細虛線連接前一根的頂端高度。',
+          '底部為項目標籤。',
+        ],
+        html: `<div class="w-[440px] max-w-full p-5 rounded-2xl border border-line bg-surface shadow-sm">
+    <p class="text-sm font-semibold text-ink">本季現金流</p>
+    <div class="mt-5 h-44 flex items-end gap-2">
+  ${(() => { const steps = [['期初', 0, 50, 'base'], ['營收', 50, 30, 'up'], ['薪資', 80, -22, 'down'], ['行銷', 58, -10, 'down'], ['投資', 48, 18, 'up'], ['期末', 0, 66, 'base']]; return steps.map(([n, start, d, t]) => { const bottom = d < 0 ? start + d : start; const h = Math.abs(d); const c = t === 'base' ? 'bg-ink' : t === 'up' ? 'bg-emerald-500' : 'bg-rose-500'; return `    <div class="relative flex-1 h-full"><span class="absolute inset-x-0 rounded-md ${c}" style="bottom:calc(${bottom}% + 20px);height:${h}%"></span><span class="absolute inset-x-0 text-center text-[10px] font-semibold ${t === 'down' ? 'text-rose-600 dark:text-rose-400' : t === 'up' ? 'text-emerald-600 dark:text-emerald-400' : 'text-ink'}" style="bottom:calc(${bottom + h}% + 24px)">${t === 'base' ? d : (d > 0 ? '+' : '') + d}</span><span class="absolute bottom-0 inset-x-0 text-center text-[10px] text-ink-faint">${n}</span></div>`; }).join('\n'); })()}
+    </div>
+  </div>`,
+      },
+      {
+        name: '指標迷你長條組',
+        en: 'KPI Tiles with Mini Bars',
+        tags: ['儀表板', '迷你圖'],
+        wide: true,
+        spec: [
+          '四張並排的 KPI 卡片，每張包含指標名稱、大字數值、漲跌百分比，以及右下角由 7 根細長條組成的迷你長條圖。',
+          '迷你長條最後一根為卡片主題色實心、其餘為主題色 25% 淡色，代表最近 7 天的走勢。',
+          '四張卡片主題色分別為 indigo、emerald、amber、rose。',
+        ],
+        html: `<div class="w-full max-w-3xl grid grid-cols-2 lg:grid-cols-4 gap-3">
+  ${[['新訪客', '3,842', '+12%', 'indigo', [4, 6, 5, 7, 6, 8, 9]], ['訂單數', '1,206', '+8%', 'emerald', [5, 4, 6, 6, 7, 6, 8]], ['平均客單', '$842', '-3%', 'amber', [8, 7, 7, 6, 7, 6, 5]], ['退貨率', '2.1%', '-0.4%', 'rose', [6, 7, 5, 6, 4, 5, 3]]].map(([n, v, c, col, bars]) => `  <div class="p-4 rounded-2xl border border-line bg-surface shadow-sm"><p class="text-xs text-ink-faint">${n}</p><div class="mt-2 flex items-end justify-between"><div><p class="text-xl font-bold text-ink tabular-nums">${v}</p><p class="text-[11px] font-semibold ${c.startsWith('+') ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">${c}</p></div><div class="flex items-end gap-0.5 h-8">${bars.map((b, i) => `<span class="w-1.5 rounded-sm ${i === 6 ? `bg-${col}-500` : `bg-${col}-500/25`}" style="height:${b * 11}%"></span>`).join('')}</div></div></div>`).join('\n')}
+  </div>`,
+      },
+      {
+        name: '格點百分比圖',
+        en: 'Waffle Chart',
+        tags: ['比例', '格點'],
+        spec: [
+          '10 × 10 共 100 個小方格的格點圖，每格代表 1%，依比例以不同顏色填色（已完成 emerald、進行中 sky、未開始灰色）。',
+          '方格 12px、間距 3px、圓角 3px；右側為圖例與每類百分比大字。',
+          '標題「年度目標進度」。',
+        ],
+        html: `<div class="w-[380px] max-w-full p-5 rounded-2xl border border-line bg-surface shadow-sm">
+    <p class="text-sm font-semibold text-ink">年度目標進度</p>
+    <div class="mt-4 flex items-center gap-6">
+      <div class="grid grid-cols-10 gap-[3px]">${Array.from({ length: 100 }, (_, i) => `<span class="w-3 h-3 rounded-[3px] ${i < 58 ? 'bg-emerald-500' : i < 81 ? 'bg-sky-400' : 'bg-subtle'}"></span>`).join('')}</div>
+      <ul class="space-y-3 text-xs">
+        <li><p class="flex items-center gap-1.5 text-ink-soft"><span class="w-2 h-2 rounded-sm bg-emerald-500"></span>已完成</p><p class="text-lg font-bold text-ink tabular-nums">58%</p></li>
+        <li><p class="flex items-center gap-1.5 text-ink-soft"><span class="w-2 h-2 rounded-sm bg-sky-400"></span>進行中</p><p class="text-lg font-bold text-ink tabular-nums">23%</p></li>
+        <li><p class="flex items-center gap-1.5 text-ink-soft"><span class="w-2 h-2 rounded-sm bg-line"></span>未開始</p><p class="text-lg font-bold text-ink tabular-nums">19%</p></li>
+      </ul>
+    </div>
+  </div>`,
+      },
+      {
+        name: '同心活動圓環',
+        en: 'Activity Rings',
+        tags: ['健康', '多重進度'],
+        spec: [
+          '三層同心 SVG 圓環（類似健身 App 的活動圓環），由外到內分別為活動（rose）、運動（lime）、站立（cyan），每層有淡色軌道。',
+          '圓環以 stroke-dasharray 表示達成比例，端點圓角；放在深色卡片中。',
+          '右側列出三項指標：目前值 / 目標值與單位。',
+        ],
+        html: `<div class="flex items-center gap-6 p-5 rounded-3xl bg-zinc-950 text-white">
+    <svg viewBox="0 0 120 120" class="w-32 h-32 -rotate-90" aria-hidden="true">
+      ${[[50, '#f43f5e', 0.82], [38, '#a3e635', 0.64], [26, '#22d3ee', 0.92]].map(([r, c, p]) => { const C = 2 * Math.PI * r; return `<circle cx="60" cy="60" r="${r}" fill="none" stroke="${c}" stroke-opacity=".2" stroke-width="10"/><circle cx="60" cy="60" r="${r}" fill="none" stroke="${c}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${(C * p).toFixed(1)} ${C.toFixed(1)}"/>`; }).join('')}
+    </svg>
+    <ul class="space-y-2.5 text-sm">
+      <li><p class="text-[11px] text-zinc-400">活動</p><p class="font-semibold text-rose-400 tabular-nums">410 / 500 <span class="text-xs">大卡</span></p></li>
+      <li><p class="text-[11px] text-zinc-400">運動</p><p class="font-semibold text-lime-400 tabular-nums">19 / 30 <span class="text-xs">分鐘</span></p></li>
+      <li><p class="text-[11px] text-zinc-400">站立</p><p class="font-semibold text-cyan-400 tabular-nums">11 / 12 <span class="text-xs">小時</span></p></li>
+    </ul>
+  </div>`,
+      },
+      {
+        name: '前後對比圖',
+        en: 'Dumbbell Chart',
+        tags: ['對比', '改善幅度'],
+        spec: [
+          '啞鈴圖比較改版前後的數據：每列為指標名稱，右側軌道上以灰色圓點表示改版前、主色圓點表示改版後，兩點之間以粗線連接。',
+          '連接線為主色 30% 淡色，右側顯示改善幅度；軌道下方有 0 到 100 的刻度。',
+          '卡片頂部附「改版前 / 改版後」圖例。',
+        ],
+        html: `<div class="w-[440px] max-w-full p-5 rounded-2xl border border-line bg-surface shadow-sm">
+    <div class="flex items-center justify-between"><p class="text-sm font-semibold text-ink">改版成效</p><div class="flex gap-3 text-[11px] text-ink-soft"><span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-ink-faint"></span>改版前</span><span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-600"></span>改版後</span></div></div>
+    <div class="mt-5 space-y-4 text-[13px]">
+  ${[['任務完成率', 54, 82], ['滿意度', 61, 78], ['回訪率', 32, 47], ['轉換率', 18, 29]].map(([n, a, b]) => `    <div class="grid grid-cols-[80px_1fr_44px] items-center gap-3"><span class="text-ink-soft">${n}</span><div class="relative h-3"><span class="absolute inset-x-0 top-1/2 h-px bg-line"></span><span class="absolute top-1/2 -translate-y-1/2 h-1.5 rounded-full bg-brand-500/30" style="left:${a}%;width:${b - a}%"></span><span class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-ink-faint" style="left:${a}%"></span><span class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-brand-600 ring-2 ring-surface" style="left:${b}%"></span></div><span class="text-right text-xs font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums">+${b - a}</span></div>`).join('\n')}
+      <div class="grid grid-cols-[80px_1fr_44px] gap-3 text-[10px] text-ink-faint"><span></span><div class="flex justify-between"><span>0</span><span>50</span><span>100</span></div><span></span></div>
+    </div>
+  </div>`,
+      },
+      {
+        name: '即時數據圖',
+        en: 'Live Streaming Chart',
+        tags: ['即時', '監控'],
+        spec: [
+          '即時監控卡片：左上為「LIVE」紅色呼吸燈徽章與指標名稱，右上為目前數值（大字等寬）。',
+          'SVG 折線圖的最右端資料點有向外擴散的脈衝圓圈，代表最新數據；折線下方有淡色漸層面積。',
+          '底部顯示「每 5 秒更新」與最後更新時間。',
+        ],
+        html: `<div class="w-[400px] max-w-full p-5 rounded-2xl border border-line bg-surface shadow-sm">
+    <div class="flex items-start justify-between">
+      <div><span class="inline-flex items-center gap-1.5 h-5 px-1.5 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 text-[10px] font-bold tracking-wider"><span class="relative flex w-1.5 h-1.5"><span class="absolute inset-0 rounded-full bg-rose-500 animate-ping"></span><span class="relative w-1.5 h-1.5 rounded-full bg-rose-500"></span></span>LIVE</span><p class="mt-1.5 text-sm text-ink-soft">每秒請求數</p></div>
+      <p class="text-2xl font-bold text-ink tabular-nums">1,842<span class="text-xs font-normal text-ink-faint"> req/s</span></p>
+    </div>
+    <svg viewBox="0 0 340 90" class="mt-3 w-full overflow-visible" aria-hidden="true">
+      <defs><linearGradient id="live-g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f43f5e" stop-opacity=".2"/><stop offset="1" stop-color="#f43f5e" stop-opacity="0"/></linearGradient></defs>
+      ${(() => { const v = [40, 46, 38, 52, 48, 58, 50, 62, 55, 66, 60, 72, 64, 70]; const d = line(v, 330, 80, 90); return `<path d="${d} L330 90 L0 90Z" fill="url(#live-g)"/><path d="${d}" fill="none" stroke="#f43f5e" stroke-width="2" stroke-linejoin="round"/>`; })()}
+      <circle cx="330" cy="${(80 - (70 / 90) * 80).toFixed(1)}" r="4" fill="#f43f5e"/><circle cx="330" cy="${(80 - (70 / 90) * 80).toFixed(1)}" r="4" fill="#f43f5e" class="animate-ping [transform-box:fill-box] origin-center"/>
+    </svg>
+    <p class="mt-2 text-[11px] text-ink-faint"><i class="fa-solid fa-rotate mr-1"></i>每 5 秒更新 · 最後更新 14:32:05</p>
+  </div>`,
+      },
     ],
   });
 })();

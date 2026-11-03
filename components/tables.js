@@ -248,6 +248,211 @@ ${people.map((p) => `      <tr class="hover:bg-subtle/50 transition-colors"><td 
   </table>
 </div>`,
       },
+      {
+        name: '分組列表格',
+        en: 'Grouped Rows Table',
+        tags: ['分組', '任務'],
+        wide: true,
+        spec: [
+          '依狀態分組的任務表格：每組前有一列淺灰底的分組標題（色點 + 狀態名稱 + 數量），可點擊 fa-chevron-down 收合該組。',
+          '任務列包含核取方塊、任務名稱、負責人頭像、截止日與優先級圖示；已逾期的截止日為 rose 色。',
+          '各組之間不留空白，以分組標題作為視覺分隔。',
+        ],
+        html: `<div class="w-full max-w-3xl rounded-2xl border border-line bg-surface shadow-sm overflow-hidden text-sm">
+    <div>
+      <button type="button" aria-expanded="true" onclick="UIK.acc(this)" class="w-full flex items-center gap-2 px-4 h-9 bg-subtle/70 text-xs font-semibold text-ink"><i data-chevron="0" style="transform:rotate(0deg)" class="fa-solid fa-chevron-down text-[9px] text-ink-faint transition-transform -rotate-90"></i><span class="w-2 h-2 rounded-full bg-sky-500"></span>進行中<span class="text-ink-faint font-normal">3</span></button>
+      <div class="grid transition-[grid-template-rows] duration-300" style="grid-template-rows:1fr"><div class="overflow-hidden divide-y divide-line border-y border-line">
+  ${[['設計結帳頁面', '林', 'bg-pink-500', '11/08', false, 'fa-angles-up text-rose-500'], ['串接金流 API', '陳', 'bg-amber-500', '11/02', true, 'fa-equals text-amber-500'], ['撰寫使用說明', '黃', 'bg-emerald-500', '11/20', false, 'fa-angles-down text-sky-500']].map(([t, a, c, d, late, p]) => `      <div class="grid grid-cols-[32px_1fr_80px_80px_40px] items-center px-4 h-11"><input type="checkbox" aria-label="完成" class="w-4 h-4 accent-brand-600"><span class="text-ink">${t}</span><span class="w-6 h-6 rounded-full ${c} text-white grid place-items-center text-[10px]">${a}</span><span class="${late ? 'text-rose-600 dark:text-rose-400 font-medium' : 'text-ink-soft'} text-xs">${late ? '<i class="fa-solid fa-clock mr-1"></i>' : ''}${d}</span><i class="fa-solid ${p} text-xs"></i></div>`).join('\n')}
+      </div></div>
+    </div>
+    <div>
+      <button type="button" aria-expanded="false" onclick="UIK.acc(this)" class="w-full flex items-center gap-2 px-4 h-9 bg-subtle/70 text-xs font-semibold text-ink"><i data-chevron="0" class="fa-solid fa-chevron-down text-[9px] text-ink-faint transition-transform -rotate-90"></i><span class="w-2 h-2 rounded-full bg-emerald-500"></span>已完成<span class="text-ink-faint font-normal">12</span></button>
+      <div class="grid transition-[grid-template-rows] duration-300" style="grid-template-rows:0fr"><div class="overflow-hidden"><p class="px-4 py-3 text-xs text-ink-faint border-t border-line">12 項已完成的任務</p></div></div>
+    </div>
+  </div>`,
+      },
+      {
+        name: '排行榜表格',
+        en: 'Leaderboard Table',
+        tags: ['排名', '遊戲化'],
+        spec: [
+          '前三名以金、銀、銅色的 fa-medal 圖示表示名次，其餘以等寬數字顯示。',
+          '每列為頭像、名稱、積分（粗體等寬數字）與名次變化（fa-caret-up emerald / fa-caret-down rose / 持平灰色橫線）。',
+          '目前使用者所在的列以淡主色底與「你」小徽章標示。',
+        ],
+        html: `<div class="w-[400px] max-w-full rounded-2xl border border-line bg-surface shadow-sm overflow-hidden text-sm">
+    <div class="flex items-center justify-between px-4 h-12 border-b border-line"><p class="font-semibold text-ink"><i class="fa-solid fa-trophy text-amber-500 mr-2"></i>本月貢獻排行</p><span class="text-xs text-ink-faint">11 月</span></div>
+  ${[['fa-medal text-amber-400', '周品妤', 'bg-violet-500', 2480, 'up', false], ['fa-medal text-zinc-400', '許承恩', 'bg-sky-500', 2310, 'same', false], ['fa-medal text-orange-600', '你', 'bg-brand-600', 2190, 'up', true], ['4', '蔡宜庭', 'bg-pink-500', 1960, 'down', false]].map(([r, n, c, s, t, me]) => `  <div class="flex items-center gap-3 px-4 h-12 border-b border-line last:border-0 ${me ? 'bg-brand-500/[.06]' : ''}"><span class="w-6 text-center">${r.startsWith('fa') ? `<i class="fa-solid ${r}"></i>` : `<span class="font-mono text-xs text-ink-faint">${r}</span>`}</span><span class="w-7 h-7 rounded-full ${c} text-white grid place-items-center text-[11px]">${n[0]}</span><span class="flex-1 text-ink ${me ? 'font-semibold' : ''}">${n}${me ? '<span class="ml-1.5 px-1.5 rounded bg-brand-600 text-white text-[10px]">你</span>' : ''}</span><span class="font-semibold text-ink tabular-nums">${s.toLocaleString()}</span><span class="w-5 text-center">${t === 'up' ? '<i class="fa-solid fa-caret-up text-emerald-500"></i>' : t === 'down' ? '<i class="fa-solid fa-caret-down text-rose-500"></i>' : '<i class="fa-solid fa-minus text-[10px] text-ink-faint"></i>'}</span></div>`).join('\n')}
+  </div>`,
+      },
+      {
+        name: '發票明細表',
+        en: 'Invoice Line Items',
+        tags: ['發票', '金額'],
+        spec: [
+          '發票的品項表格：品項名稱與說明、數量、單價、金額四欄，數字欄靠右對齊並使用等寬數字。',
+          '表格下方右側為小計、折扣（emerald 負數）、營業稅 5% 與合計，合計以較大粗體字與上方分隔線強調。',
+          '頂部為發票編號與「已付款」emerald 徽章。',
+        ],
+        html: `<div class="w-[460px] max-w-full p-5 rounded-2xl border border-line bg-surface shadow-sm text-sm">
+    <div class="flex items-center justify-between"><div><p class="text-xs text-ink-faint">發票編號</p><p class="font-mono font-semibold text-ink">INV-2026-0412</p></div><span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-medium"><i class="fa-solid fa-circle-check mr-1"></i>已付款</span></div>
+    <table class="mt-4 w-full tabular-nums">
+      <thead><tr class="border-b border-line text-xs text-ink-faint"><th class="py-2 text-left font-medium">品項</th><th class="py-2 text-right font-medium">數量</th><th class="py-2 text-right font-medium">單價</th><th class="py-2 text-right font-medium">金額</th></tr></thead>
+      <tbody class="divide-y divide-line">
+        <tr><td class="py-2.5"><p class="text-ink">專業版年費</p><p class="text-[11px] text-ink-faint">2026/11 – 2027/10</p></td><td class="text-right text-ink-soft">5</td><td class="text-right text-ink-soft">2,880</td><td class="text-right text-ink">14,400</td></tr>
+        <tr><td class="py-2.5"><p class="text-ink">額外儲存空間</p><p class="text-[11px] text-ink-faint">100 GB</p></td><td class="text-right text-ink-soft">1</td><td class="text-right text-ink-soft">1,200</td><td class="text-right text-ink">1,200</td></tr>
+      </tbody>
+    </table>
+    <dl class="mt-3 ml-auto w-56 space-y-1.5 text-[13px] tabular-nums">
+      <div class="flex justify-between"><dt class="text-ink-faint">小計</dt><dd class="text-ink">15,600</dd></div>
+      <div class="flex justify-between"><dt class="text-ink-faint">年繳折扣</dt><dd class="text-emerald-600 dark:text-emerald-400">-1,560</dd></div>
+      <div class="flex justify-between"><dt class="text-ink-faint">營業稅 5%</dt><dd class="text-ink">702</dd></div>
+      <div class="flex justify-between pt-2 border-t border-line text-base font-bold"><dt class="text-ink">合計</dt><dd class="text-ink">NT$ 14,742</dd></div>
+    </dl>
+  </div>`,
+      },
+      {
+        name: '權限矩陣',
+        en: 'Permission Matrix',
+        tags: ['權限', '角色'],
+        wide: true,
+        spec: [
+          '列為權限項目（依模組分組），欄為角色（擁有者、管理員、編輯者、檢視者），每格為置中的核取方塊。',
+          '擁有者欄位的核取方塊皆為勾選且停用（附 fa-lock 提示無法修改）；欄標題下方顯示該角色的成員數。',
+          '權限名稱下方附灰色小字說明，表格 hover 時整列淺灰底。',
+        ],
+        html: `<div class="w-full max-w-3xl rounded-2xl border border-line bg-surface shadow-sm overflow-x-auto text-sm">
+    <table class="w-full min-w-[560px]">
+      <thead class="border-b border-line"><tr><th class="px-5 py-3 text-left text-xs font-medium text-ink-faint">權限</th>${[['擁有者', 1], ['管理員', 3], ['編輯者', 8], ['檢視者', 24]].map(([r, n]) => `<th class="px-3 py-3 text-center"><p class="text-[13px] font-semibold text-ink">${r}${r === '擁有者' ? ' <i class="fa-solid fa-lock text-[10px] text-ink-faint"></i>' : ''}</p><p class="text-[11px] font-normal text-ink-faint">${n} 位</p></th>`).join('')}</tr></thead>
+      <tbody>
+        <tr><td colspan="5" class="px-5 pt-3 pb-1.5 text-[11px] font-semibold uppercase tracking-wider text-ink-faint">專案</td></tr>
+  ${[['檢視專案', '查看所有專案內容', [1, 1, 1, 1]], ['編輯內容', '新增與修改頁面', [1, 1, 1, 0]], ['刪除專案', '永久移除專案與檔案', [1, 1, 0, 0]]].map(([n, d, v]) => `      <tr class="border-t border-line hover:bg-subtle/50"><td class="px-5 py-2.5"><p class="text-ink">${n}</p><p class="text-[11px] text-ink-faint">${d}</p></td>${v.map((x, i) => `<td class="text-center"><input type="checkbox" ${x ? 'checked' : ''} ${i === 0 ? 'disabled' : ''} aria-label="${n}" class="w-4 h-4 accent-brand-600 disabled:opacity-60"></td>`).join('')}</tr>`).join('\n')}
+        <tr><td colspan="5" class="px-5 pt-3 pb-1.5 text-[11px] font-semibold uppercase tracking-wider text-ink-faint border-t border-line">帳務</td></tr>
+        <tr class="border-t border-line hover:bg-subtle/50"><td class="px-5 py-2.5"><p class="text-ink">管理付款方式</p><p class="text-[11px] text-ink-faint">變更信用卡與發票資訊</p></td><td class="text-center"><input type="checkbox" checked disabled aria-label="管理付款方式" class="w-4 h-4 accent-brand-600 disabled:opacity-60"></td><td class="text-center"><input type="checkbox" aria-label="管理付款方式" class="w-4 h-4 accent-brand-600"></td><td class="text-center"><input type="checkbox" aria-label="管理付款方式" class="w-4 h-4 accent-brand-600"></td><td class="text-center"><input type="checkbox" aria-label="管理付款方式" class="w-4 h-4 accent-brand-600"></td></tr>
+      </tbody>
+    </table>
+  </div>`,
+      },
+      {
+        name: '檔案總管清單',
+        en: 'File Browser Table',
+        tags: ['檔案', '雲端硬碟'],
+        wide: true,
+        spec: [
+          '雲端硬碟的檔案清單：名稱欄為檔案類型圖示（資料夾為 amber fa-folder）與檔名，資料夾列在最上方。',
+          '其餘欄位為擁有者、修改日期、檔案大小（資料夾顯示「—」）與共用成員頭像堆疊。',
+          '目前選取的列為淡主色底，列 hover 時右側出現下載與更多圖示按鈕。',
+        ],
+        html: `<div class="w-full max-w-3xl rounded-2xl border border-line bg-surface shadow-sm overflow-x-auto text-[13px]">
+    <div class="min-w-[580px]">
+      <div class="grid grid-cols-[2fr_1fr_1fr_80px_90px_64px] items-center px-4 h-10 border-b border-line text-xs font-medium text-ink-faint"><span>名稱</span><span>擁有者</span><span>修改日期</span><span class="text-right">大小</span><span class="pl-4">共用</span><span></span></div>
+  ${[['fa-folder text-amber-500', '設計素材', '我', '昨天', '—', 3, false], ['fa-folder text-amber-500', '合約文件', '王雅琪', '10/28', '—', 2, false], ['fa-file-pdf text-rose-500', '2026 年度報告.pdf', '我', '今天 09:12', '4.2 MB', 0, true], ['fa-file-video text-sky-500', '產品展示.mp4', '陳俊宏', '10/15', '128 MB', 4, false]].map(([ic, n, o, d, s, sh, sel]) => `    <div class="group grid grid-cols-[2fr_1fr_1fr_80px_90px_64px] items-center px-4 h-11 border-b border-line last:border-0 ${sel ? 'bg-brand-500/[.07]' : 'hover:bg-subtle/50'}"><span class="flex items-center gap-2.5 text-ink font-medium truncate"><i class="fa-solid ${ic}"></i>${n}</span><span class="text-ink-soft">${o}</span><span class="text-ink-soft">${d}</span><span class="text-right text-ink-faint tabular-nums">${s}</span><span class="pl-4 flex -space-x-1.5">${sh ? ['bg-sky-400', 'bg-pink-400', 'bg-amber-400', 'bg-emerald-400'].slice(0, sh).map((c) => `<span class="w-5 h-5 rounded-full ring-2 ring-surface ${c}"></span>`).join('') : '<i class="fa-solid fa-lock text-[10px] text-ink-faint"></i>'}</span><span class="flex justify-end gap-0.5 opacity-0 group-hover:opacity-100 ${sel ? 'opacity-100' : ''}"><button type="button" aria-label="下載" class="w-7 h-7 rounded-md text-ink-faint hover:bg-subtle hover:text-ink"><i class="fa-solid fa-download text-xs"></i></button><button type="button" aria-label="更多" class="w-7 h-7 rounded-md text-ink-faint hover:bg-subtle hover:text-ink"><i class="fa-solid fa-ellipsis-vertical text-xs"></i></button></span></div>`).join('\n')}
+    </div>
+  </div>`,
+      },
+      {
+        name: '交易紀錄列表',
+        en: 'Transaction History',
+        tags: ['金流', '帳戶'],
+        spec: [
+          '銀行或錢包 App 的交易紀錄：依日期分組，每筆交易左側為圓形商家圖示（依類別著色），中間為商家名稱與類別。',
+          '右側金額：收入為 emerald 並帶「+」，支出為一般文字色帶「-」；處理中的交易附 amber「處理中」小字。',
+          '金額使用等寬數字並靠右對齊。',
+        ],
+        html: `<div class="w-[380px] max-w-full rounded-2xl border border-line bg-surface shadow-sm text-sm">
+    <p class="px-4 pt-4 pb-2 text-[11px] font-semibold text-ink-faint">今天</p>
+  ${[['fa-mug-hot', 'bg-amber-500/10 text-amber-600', '日光咖啡', '餐飲', '-150', ''], ['fa-briefcase', 'bg-emerald-500/10 text-emerald-600', 'Acme 股份有限公司', '薪資入帳', '+62,000', ''], ['fa-cart-shopping', 'bg-violet-500/10 text-violet-600', '線上購物', '購物', '-2,380', '處理中']].map(([ic, c, n, cat, a, st]) => `  <div class="flex items-center gap-3 px-4 h-14"><span class="w-9 h-9 rounded-full ${c} grid place-items-center"><i class="fa-solid ${ic} text-sm"></i></span><div class="flex-1"><p class="font-medium text-ink">${n}</p><p class="text-[11px] text-ink-faint">${cat}${st ? ` · <span class="text-amber-600">${st}</span>` : ''}</p></div><span class="font-semibold tabular-nums ${a.startsWith('+') ? 'text-emerald-600 dark:text-emerald-400' : 'text-ink'}">${a}</span></div>`).join('\n')}
+    <p class="px-4 pt-3 pb-2 text-[11px] font-semibold text-ink-faint border-t border-line">11 月 2 日</p>
+    <div class="flex items-center gap-3 px-4 h-14 pb-1"><span class="w-9 h-9 rounded-full bg-sky-500/10 text-sky-600 grid place-items-center"><i class="fa-solid fa-train-subway text-sm"></i></span><div class="flex-1"><p class="font-medium text-ink">捷運儲值</p><p class="text-[11px] text-ink-faint">交通</p></div><span class="font-semibold tabular-nums text-ink">-500</span></div>
+  </div>`,
+      },
+      {
+        name: '空資料表格',
+        en: 'Empty Table State',
+        tags: ['空狀態', '表格'],
+        wide: true,
+        spec: [
+          '保留表頭的資料表，在表身區域置中顯示空狀態：圓角方塊中的 fa-magnifying-glass 圖示、標題「找不到符合的結果」與說明。',
+          '說明中列出目前的搜尋關鍵字，下方為「清除篩選」外框按鈕與「新增客戶」深色按鈕。',
+          '空狀態區塊高度約 240px，與表頭共用外框。',
+        ],
+        html: `<div class="w-full max-w-3xl rounded-2xl border border-line bg-surface shadow-sm overflow-hidden">
+    <div class="grid grid-cols-4 px-5 h-10 items-center bg-subtle/60 border-b border-line text-xs font-medium text-ink-faint"><span>客戶名稱</span><span>聯絡人</span><span>方案</span><span>建立日期</span></div>
+    <div class="py-12 px-6 text-center">
+      <span class="mx-auto w-12 h-12 rounded-xl border border-line bg-surface shadow-soft grid place-items-center text-ink-faint"><i class="fa-solid fa-magnifying-glass"></i></span>
+      <p class="mt-4 font-semibold text-ink">找不到符合的結果</p>
+      <p class="mt-1 text-sm text-ink-soft">沒有客戶符合「<span class="font-medium text-ink">台中 + 企業版</span>」，試試調整篩選條件。</p>
+      <div class="mt-5 flex justify-center gap-2"><button type="button" class="h-9 px-4 rounded-[10px] border border-line text-sm font-medium text-ink hover:bg-subtle">清除篩選</button><button type="button" class="h-9 px-4 rounded-[10px] bg-ink text-canvas text-sm font-medium"><i class="fa-solid fa-plus mr-1.5 text-xs"></i>新增客戶</button></div>
+    </div>
+  </div>`,
+      },
+      {
+        name: '分頁表格',
+        en: 'Paginated Table',
+        tags: ['分頁', '頁尾'],
+        wide: true,
+        spec: [
+          '資料表底部附帶分頁頁尾：左側為「每頁顯示」下拉與「第 11–20 筆，共 86 筆」，右側為上一頁、頁碼與下一頁。',
+          '表格列使用一般高度，最後一欄為狀態徽章；頁碼中目前頁為深色實心。',
+          '頁尾以上方分隔線與表格區隔、背景淺灰。',
+        ],
+        html: `<div class="w-full max-w-3xl rounded-2xl border border-line bg-surface shadow-sm overflow-hidden text-sm">
+    <table class="w-full">
+      <thead class="border-b border-line"><tr class="text-xs text-ink-faint"><th class="px-5 h-10 text-left font-medium">工單</th><th class="px-5 text-left font-medium">主旨</th><th class="px-5 text-left font-medium">狀態</th></tr></thead>
+      <tbody class="divide-y divide-line">
+        <tr><td class="px-5 h-11 font-mono text-xs text-ink-soft">#1043</td><td class="px-5 text-ink">無法匯出 PDF 報表</td><td class="px-5"><span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 text-xs font-medium">處理中</span></td></tr>
+        <tr><td class="px-5 h-11 font-mono text-xs text-ink-soft">#1042</td><td class="px-5 text-ink">新增成員時發生錯誤</td><td class="px-5"><span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-medium">已解決</span></td></tr>
+        <tr><td class="px-5 h-11 font-mono text-xs text-ink-soft">#1041</td><td class="px-5 text-ink">發票抬頭需要修改</td><td class="px-5"><span class="px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-700 dark:text-sky-400 text-xs font-medium">待回覆</span></td></tr>
+      </tbody>
+    </table>
+    <div class="flex flex-wrap items-center gap-3 px-5 h-14 border-t border-line bg-subtle/40 text-xs text-ink-soft">
+      <label class="flex items-center gap-2">每頁顯示<select class="h-8 px-2 rounded-lg border border-line bg-surface text-ink focus:outline-none"><option>10</option><option>25</option></select></label>
+      <span>第 11–20 筆，共 86 筆</span>
+      <div data-pick data-on="bg-ink text-canvas" data-off="text-ink-soft hover:bg-surface" class="ml-auto flex items-center gap-1 tabular-nums">
+        <button type="button" aria-label="上一頁" class="w-8 h-8 rounded-lg hover:bg-surface"><i class="fa-solid fa-chevron-left text-[10px]"></i></button>
+        <button type="button" data-item onclick="UIK.pick(this)" class="w-8 h-8 rounded-lg text-ink-soft hover:bg-surface">1</button><button type="button" data-item aria-selected="true" onclick="UIK.pick(this)" class="w-8 h-8 rounded-lg bg-ink text-canvas">2</button><button type="button" data-item onclick="UIK.pick(this)" class="w-8 h-8 rounded-lg text-ink-soft hover:bg-surface">3</button><span class="px-1">…</span><button type="button" data-item onclick="UIK.pick(this)" class="w-8 h-8 rounded-lg text-ink-soft hover:bg-surface">9</button>
+        <button type="button" aria-label="下一頁" class="w-8 h-8 rounded-lg hover:bg-surface"><i class="fa-solid fa-chevron-right text-[10px]"></i></button>
+      </div>
+    </div>
+  </div>`,
+      },
+      {
+        name: '樹狀表格',
+        en: 'Tree Table',
+        tags: ['階層', '組織'],
+        wide: true,
+        spec: [
+          '具有階層的表格（部門 → 小組 → 成員），名稱欄依層級縮排 20px，有子項目的列前方顯示 fa-chevron-right 展開按鈕。',
+          '展開時箭頭旋轉 90 度並顯示子列；部門列為粗體並以淡灰底區隔。',
+          '其他欄位為人數與預算（等寬數字靠右）。',
+        ],
+        html: `<div class="w-full max-w-3xl rounded-2xl border border-line bg-surface shadow-sm overflow-hidden text-sm">
+    <div class="grid grid-cols-[1fr_80px_120px] px-4 h-10 items-center border-b border-line text-xs font-medium text-ink-faint"><span>部門 / 小組</span><span class="text-right">人數</span><span class="text-right">年度預算</span></div>
+    <div>
+      <button type="button" aria-expanded="true" onclick="UIK.acc(this)" class="w-full grid grid-cols-[1fr_80px_120px] items-center px-4 h-11 bg-subtle/50 border-b border-line text-left font-semibold text-ink"><span class="flex items-center gap-2"><i data-chevron="90" style="transform:rotate(90deg)" class="fa-solid fa-chevron-right text-[9px] text-ink-faint w-3 transition-transform"></i><i class="fa-solid fa-building text-xs text-ink-faint"></i>產品研發部</span><span class="text-right tabular-nums">24</span><span class="text-right tabular-nums">$18.6M</span></button>
+      <div class="grid transition-[grid-template-rows] duration-300" style="grid-template-rows:1fr"><div class="overflow-hidden">
+        <div class="grid grid-cols-[1fr_80px_120px] items-center px-4 h-11 border-b border-line text-ink"><span class="flex items-center gap-2 pl-5"><i class="fa-solid fa-chevron-right text-[9px] text-ink-faint w-3"></i><i class="fa-solid fa-users text-xs text-ink-faint"></i>前端組</span><span class="text-right tabular-nums text-ink-soft">9</span><span class="text-right tabular-nums text-ink-soft">$6.2M</span></div>
+        <div class="grid grid-cols-[1fr_80px_120px] items-center px-4 h-11 border-b border-line text-ink"><span class="flex items-center gap-2 pl-5"><i class="fa-solid fa-chevron-right text-[9px] text-ink-faint w-3"></i><i class="fa-solid fa-users text-xs text-ink-faint"></i>後端組</span><span class="text-right tabular-nums text-ink-soft">11</span><span class="text-right tabular-nums text-ink-soft">$8.4M</span></div>
+        <div class="grid grid-cols-[1fr_80px_120px] items-center px-4 h-11 border-b border-line text-ink"><span class="flex items-center gap-2 pl-10"><span class="w-3"></span><span class="w-5 h-5 rounded-full bg-sky-500 text-white grid place-items-center text-[9px]">許</span>許承恩（組長）</span><span class="text-right text-ink-faint">—</span><span class="text-right text-ink-faint">—</span></div>
+      </div></div>
+    </div>
+    <button type="button" aria-expanded="false" onclick="UIK.acc(this)" class="w-full grid grid-cols-[1fr_80px_120px] items-center px-4 h-11 bg-subtle/50 text-left font-semibold text-ink"><span class="flex items-center gap-2"><i data-chevron="90" class="fa-solid fa-chevron-right text-[9px] text-ink-faint w-3 transition-transform"></i><i class="fa-solid fa-building text-xs text-ink-faint"></i>行銷部</span><span class="text-right tabular-nums">12</span><span class="text-right tabular-nums">$9.1M</span></button>
+    <div class="grid transition-[grid-template-rows] duration-300" style="grid-template-rows:0fr"><div class="overflow-hidden"><p class="px-4 py-3 pl-12 text-xs text-ink-faint border-t border-line">品牌組、數位廣告組</p></div></div>
+  </div>`,
+      },
+      {
+        name: '規格對照表',
+        en: 'Specs Table',
+        tags: ['商品規格', '鍵值'],
+        spec: [
+          '商品頁的規格表：兩欄式鍵值排列，左欄為淺灰底的規格名稱（寬 120px），右欄為規格值。',
+          '規格依「顯示器」「效能」「電池」分組，每組上方有附圖示的小標題（fa-display、fa-microchip、fa-battery-full）。',
+          '列與列之間以 1px 分隔線區隔，外框圓角 12px。',
+        ],
+        html: `<div class="w-[400px] max-w-full space-y-4 text-[13px]">
+  ${[['fa-display', '顯示器', [['尺寸', '14.2 吋 Liquid Retina'], ['解析度', '3024 × 1964'], ['更新率', '最高 120Hz']]], ['fa-microchip', '效能', [['處理器', '12 核心 CPU'], ['記憶體', '32 GB 統一記憶體']]], ['fa-battery-full', '電池', [['續航力', '最長 22 小時']]]].map(([ic, t, rows]) => `  <div><p class="mb-2 text-xs font-semibold text-ink"><i class="fa-solid ${ic} mr-1.5 text-ink-faint"></i>${t}</p><dl class="rounded-xl border border-line overflow-hidden divide-y divide-line">${rows.map(([k, v]) => `<div class="grid grid-cols-[120px_1fr]"><dt class="px-3 py-2.5 bg-subtle/60 text-ink-faint">${k}</dt><dd class="px-3 py-2.5 text-ink">${v}</dd></div>`).join('')}</dl></div>`).join('\n')}
+  </div>`,
+      },
     ],
   });
 })();

@@ -196,5 +196,203 @@ ${[['林', '林以晴', '共同創辦人 · 執行長', 'from-sky-400 to-indigo-
   </div>
 </section>`,
     },
+    {
+      name: '圖文交錯功能區',
+      en: 'Alternating Feature Rows',
+      tags: ['功能', '圖文'],
+      wide: true,
+      spec: [
+        '兩列功能介紹，每列左右分欄：一側為文字（小標、標題、說明、fa-check 清單與「了解更多」連結），另一側為漸層背景的介面示意圖。',
+        '第二列左右對調，形成圖文交錯的節奏。',
+        '示意圖為圓角 20px 的卡片，內含簡化的介面元素（長條、圓形、文字條）。',
+      ],
+      html: `<section class="w-full max-w-4xl p-8 sm:p-10 rounded-3xl border border-line bg-surface space-y-12">
+${[['協作', '即時多人編輯', '團隊成員可以同時編輯同一份文件，游標與變更即時同步。', ['即時游標', '版本歷史', '行內留言'], 'from-indigo-100 to-sky-100 dark:from-indigo-500/20 dark:to-sky-500/20', false], ['自動化', '把重複的工作交給系統', '設定觸發條件與動作，自動完成通知、指派與報表寄送。', ['200+ 整合', '視覺化流程編輯', '排程執行'], 'from-emerald-100 to-teal-100 dark:from-emerald-500/20 dark:to-teal-500/20', true]].map(([k, t, d, list, g, rev]) => `  <div class="grid md:grid-cols-2 gap-8 items-center">
+    <div class="${rev ? 'md:order-2' : ''}"><p class="text-xs font-semibold uppercase tracking-[.18em] text-brand-600 dark:text-brand-400">${k}</p><h3 class="mt-2 text-2xl font-bold tracking-tight text-ink">${t}</h3><p class="mt-3 text-ink-soft">${d}</p><ul class="mt-4 space-y-2 text-sm text-ink">${list.map((x) => `<li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>${x}</li>`).join('')}</ul><a href="#" onclick="return false" class="mt-5 inline-block text-sm font-semibold text-ink hover:underline">了解更多 <i class="fa-solid fa-arrow-right text-xs"></i></a></div>
+    <div class="aspect-[4/3] rounded-[20px] bg-gradient-to-br ${g} p-6 grid place-items-center"><div class="w-full max-w-[260px] p-4 rounded-xl bg-surface shadow-lift space-y-2.5"><div class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-brand-500"></span><span class="h-2 w-20 rounded bg-subtle"></span></div><span class="block h-2 w-full rounded bg-subtle"></span><span class="block h-2 w-4/5 rounded bg-subtle"></span><span class="block h-14 rounded-lg bg-brand-500/10"></span></div></div>
+  </div>`).join('\n')}
+</section>`,
+    },
+    {
+      name: '使用步驟區塊',
+      en: 'How It Works',
+      tags: ['步驟', '流程'],
+      wide: true,
+      spec: [
+        '「三步驟開始使用」區塊：三欄並排，每欄頂部為主色淡底的大型編號圓（01、02、03），下方為圖示、標題與說明。',
+        '欄與欄之間以水平虛線連接編號圓，窄螢幕時改為垂直排列並隱藏連接線。',
+        '區塊底部置中一個深色「立即開始」按鈕。',
+      ],
+      html: `<section class="w-full max-w-4xl p-8 sm:p-10 rounded-3xl border border-line bg-surface text-center">
+  <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-ink">三步驟開始使用</h2>
+  <p class="mt-2 text-ink-soft">不到五分鐘就能完成設定</p>
+  <div class="relative mt-10 grid sm:grid-cols-3 gap-8">
+    <div class="hidden sm:block absolute top-6 left-[16.6%] right-[16.6%] border-t-2 border-dashed border-line"></div>
+${[['01', 'fa-user-plus', '建立帳號', '使用 Google 或電子郵件，30 秒完成註冊。'], ['02', 'fa-file-import', '匯入資料', '從試算表或其他工具一鍵匯入既有內容。'], ['03', 'fa-rocket', '邀請團隊', '發送邀請連結，馬上開始一起協作。']].map(([n, ic, t, d]) => `    <div class="relative"><span class="mx-auto w-12 h-12 rounded-full bg-surface border-2 border-brand-500 text-brand-600 dark:text-brand-400 grid place-items-center font-bold">${n}</span><i class="fa-solid ${ic} mt-5 text-xl text-ink-soft"></i><h3 class="mt-3 font-semibold text-ink">${t}</h3><p class="mt-1.5 text-sm text-ink-soft">${d}</p></div>`).join('\n')}
+  </div>
+  <button type="button" class="mt-10 h-11 px-6 rounded-xl bg-ink text-canvas text-sm font-semibold">立即開始</button>
+</section>`,
+    },
+    {
+      name: '整合生態系',
+      en: 'Integrations Showcase',
+      tags: ['整合', '品牌'],
+      wide: true,
+      spec: [
+        '左側為標題「與你常用的工具無縫整合」、說明與「瀏覽所有整合」按鈕；右側為品牌圖示環繞的視覺。',
+        '右側中央為產品標誌（深色圓角方塊），外圍兩圈虛線圓軌道上分布 fa-brands 圖示圓片（Slack、GitHub、Figma、Google Drive、Dropbox、Trello）。',
+        '圖示圓片為白底細框並帶柔和陰影，外圈軌道緩慢旋轉。',
+      ],
+      html: `<section class="w-full max-w-4xl grid md:grid-cols-2 gap-8 items-center p-8 sm:p-10 rounded-3xl border border-line bg-surface overflow-hidden">
+  <div><h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-ink">與你常用的工具<br>無縫整合</h2><p class="mt-3 text-ink-soft">支援超過 200 種應用程式，資料自動同步，不需要寫程式。</p><button type="button" class="mt-6 h-10 px-5 rounded-xl border border-line text-sm font-semibold text-ink hover:bg-subtle">瀏覽所有整合 <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button></div>
+  <div class="relative mx-auto w-64 h-64 grid place-items-center">
+    <div class="absolute inset-0 rounded-full border border-dashed border-line animate-[spin_40s_linear_infinite]">${[['fa-slack', '#E01E5A', 0], ['fa-github', 'currentColor', 120], ['fa-figma', '#A259FF', 240]].map(([i, c, d]) => `<span class="absolute left-1/2 top-1/2 w-11 h-11 -ml-[22px] -mt-[22px] rounded-full bg-surface border border-line shadow-soft grid place-items-center text-lg text-ink" style="transform:rotate(${d}deg) translateY(-128px) rotate(-${d}deg)"><i class="fa-brands ${i}" style="color:${c}"></i></span>`).join('')}</div>
+    <div class="absolute inset-12 rounded-full border border-dashed border-line">${[['fa-google-drive', '#1FA463', 60], ['fa-dropbox', '#0061FF', 200], ['fa-trello', '#0079BF', 310]].map(([i, c, d]) => `<span class="absolute left-1/2 top-1/2 w-10 h-10 -ml-5 -mt-5 rounded-full bg-surface border border-line shadow-soft grid place-items-center text-ink" style="transform:rotate(${d}deg) translateY(-80px) rotate(-${d}deg)"><i class="fa-brands ${i}" style="color:${c}"></i></span>`).join('')}</div>
+    <span class="relative w-16 h-16 rounded-2xl bg-ink text-canvas grid place-items-center text-2xl shadow-lift"><i class="fa-solid fa-shapes"></i></span>
+  </div>
+</section>`,
+    },
+    {
+      name: '影片展示區',
+      en: 'Video Showcase',
+      tags: ['影片', '展示'],
+      wide: true,
+      spec: [
+        '置中標題與說明下方為 16:9 的影片預覽框：漸層背景與產品介面剪影，中央為白色毛玻璃大圓形播放按鈕（fa-play）。',
+        '播放按鈕外圍有緩慢擴散的白色光環，hover 時按鈕放大 110%。',
+        '影片框左下角顯示影片長度膠囊「2:48」，下方附三個重點時間軸標籤。',
+      ],
+      html: `<section class="w-full max-w-4xl p-8 sm:p-10 rounded-3xl border border-line bg-surface text-center">
+  <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-ink">三分鐘看懂產品</h2>
+  <p class="mt-2 text-ink-soft">從建立專案到交付成果的完整流程</p>
+  <div class="group relative mt-8 aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-500 cursor-pointer">
+    <div class="absolute inset-8 rounded-xl bg-white/10 border border-white/20"></div>
+    <div class="absolute inset-0 grid place-items-center"><span class="relative w-20 h-20 rounded-full bg-white/20 backdrop-blur border border-white/40 grid place-items-center text-white text-2xl group-hover:scale-110 transition"><span class="absolute inset-0 rounded-full border-2 border-white/50 animate-ping [animation-duration:2s]"></span><i class="fa-solid fa-play ml-1"></i></span></div>
+    <span class="absolute left-4 bottom-4 px-2 py-0.5 rounded-md bg-black/50 text-white text-xs font-mono">2:48</span>
+  </div>
+  <div class="mt-4 flex flex-wrap justify-center gap-2 text-xs">${[['0:12', '建立專案'], ['1:05', '邀請成員'], ['2:10', '分享成果']].map(([t, n]) => `<button type="button" class="h-8 px-3 rounded-full bg-subtle text-ink-soft hover:text-ink"><span class="font-mono text-brand-600 dark:text-brand-400 mr-1.5">${t}</span>${n}</button>`).join('')}</div>
+</section>`,
+    },
+    {
+      name: '方案對比區塊',
+      en: 'Before / After Comparison',
+      tags: ['比較', '說服'],
+      wide: true,
+      spec: [
+        '「傳統做法 vs 使用我們」雙欄比較：左欄為灰底，標題附 fa-circle-xmark，清單項目為 rose 色 fa-xmark 與灰色文字。',
+        '右欄為主色淡底並有主色外框，標題附 fa-circle-check，清單項目為 emerald fa-check 與深色文字。',
+        '區塊頂部置中標題，兩欄等高。',
+      ],
+      html: `<section class="w-full max-w-4xl p-8 sm:p-10 rounded-3xl border border-line bg-surface">
+  <h2 class="text-center text-2xl sm:text-3xl font-bold tracking-tight text-ink">為什麼團隊選擇我們</h2>
+  <div class="mt-8 grid md:grid-cols-2 gap-4">
+    <div class="p-6 rounded-2xl bg-subtle/70"><p class="font-semibold text-ink-soft"><i class="fa-solid fa-circle-xmark text-rose-500 mr-2"></i>傳統做法</p><ul class="mt-4 space-y-3 text-sm text-ink-soft">${['檔案散落在信箱與聊天群組', '每週花 5 小時整理報表', '版本混亂，不知道哪份是最新', '新人需要兩週才能上手'].map((x) => `<li class="flex gap-2.5"><i class="fa-solid fa-xmark mt-1 text-rose-500 text-xs"></i>${x}</li>`).join('')}</ul></div>
+    <div class="p-6 rounded-2xl bg-brand-500/[.06] border border-brand-500/30"><p class="font-semibold text-ink"><i class="fa-solid fa-circle-check text-emerald-500 mr-2"></i>使用 Atlas</p><ul class="mt-4 space-y-3 text-sm text-ink">${['所有資料集中在同一個工作區', '報表自動產生並寄送', '完整版本歷史，一鍵還原', '直覺介面，第一天就能上手'].map((x) => `<li class="flex gap-2.5"><i class="fa-solid fa-check mt-1 text-emerald-500 text-xs"></i>${x}</li>`).join('')}</ul></div>
+  </div>
+</section>`,
+    },
+    {
+      name: '部落格文章區',
+      en: 'Blog Section',
+      tags: ['部落格', '內容'],
+      wide: true,
+      spec: [
+        '區塊頂部左側為標題「最新文章」，右側為「查看全部」連結；下方三欄文章卡片。',
+        '每張卡片為 16:10 漸層封面、分類標籤與閱讀時間、兩行內的標題，以及作者頭像與日期。',
+        '卡片 hover 時封面放大 105%、標題轉為主色。',
+      ],
+      html: `<section class="w-full max-w-4xl p-8 sm:p-10 rounded-3xl border border-line bg-surface">
+  <div class="flex items-end justify-between"><h2 class="text-2xl font-bold tracking-tight text-ink">最新文章</h2><a href="#" onclick="return false" class="text-sm font-medium text-ink-soft hover:text-ink">查看全部 <i class="fa-solid fa-arrow-right text-xs"></i></a></div>
+  <div class="mt-6 grid sm:grid-cols-3 gap-5">
+${[['設計系統', '如何建立可擴充的色彩 Token', 'from-indigo-300 to-violet-400', '陳', 'bg-sky-500', '11/01', 6], ['產品', '我們如何決定下一個功能', 'from-amber-200 to-rose-400', '林', 'bg-pink-500', '10/24', 4], ['工程', '把首頁載入時間縮短一半的過程', 'from-emerald-200 to-teal-500', '許', 'bg-emerald-500', '10/15', 9]].map(([c, t, g, a, ac, d, m]) => `    <a href="#" onclick="return false" class="group block"><div class="aspect-[16/10] rounded-xl overflow-hidden"><div class="w-full h-full bg-gradient-to-br ${g} transition-transform duration-500 group-hover:scale-105"></div></div><p class="mt-3 text-[11px] text-ink-faint"><span class="font-semibold text-brand-600 dark:text-brand-400">${c}</span> · ${m} 分鐘閱讀</p><h3 class="mt-1 font-semibold text-ink leading-snug line-clamp-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">${t}</h3><p class="mt-2 flex items-center gap-2 text-xs text-ink-faint"><span class="w-5 h-5 rounded-full ${ac} text-white grid place-items-center text-[9px]">${a}</span>${d}</p></a>`).join('\n')}
+  </div>
+</section>`,
+    },
+    {
+      name: '聯絡我們區塊',
+      en: 'Contact Section',
+      tags: ['聯絡', '表單'],
+      wide: true,
+      spec: [
+        '左欄為標題「聯絡我們」、說明，以及三個聯絡方式（fa-envelope 信箱、fa-phone 電話、fa-location-dot 地址），每項有圖示方塊與兩行文字。',
+        '右欄為表單卡片：姓名與公司並排、電子郵件、需求類型下拉、留言文字區與全寬送出按鈕。',
+        '表單卡片為淺灰底、圓角 20px。',
+      ],
+      html: `<section class="w-full max-w-4xl grid md:grid-cols-2 gap-8 p-8 sm:p-10 rounded-3xl border border-line bg-surface">
+  <div><h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-ink">聯絡我們</h2><p class="mt-3 text-ink-soft">有任何問題或合作提案，歡迎與我們聯繫，我們會在一個工作天內回覆。</p>
+    <ul class="mt-8 space-y-5 text-sm">${[['fa-envelope', '電子郵件', 'hello@atlas.app'], ['fa-phone', '電話', '02-2345-6789'], ['fa-location-dot', '辦公室', '台北市信義區松仁路 100 號']].map(([i, t, v]) => `<li class="flex items-center gap-3.5"><span class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 grid place-items-center"><i class="fa-solid ${i}"></i></span><span><span class="block text-xs text-ink-faint">${t}</span><span class="block font-medium text-ink">${v}</span></span></li>`).join('')}</ul>
+  </div>
+  <form onsubmit="event.preventDefault()" class="p-6 rounded-[20px] bg-subtle/70 space-y-3.5">
+    <div class="grid grid-cols-2 gap-3"><input placeholder="姓名" class="h-10 px-3 rounded-[10px] border border-line bg-surface text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15"><input placeholder="公司" class="h-10 px-3 rounded-[10px] border border-line bg-surface text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15"></div>
+    <input type="email" placeholder="電子郵件" class="w-full h-10 px-3 rounded-[10px] border border-line bg-surface text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15">
+    <select class="w-full h-10 px-3 rounded-[10px] border border-line bg-surface text-sm text-ink-soft focus:outline-none"><option>需求類型：產品諮詢</option><option>合作提案</option><option>技術支援</option></select>
+    <textarea rows="3" placeholder="請簡述你的需求" class="w-full px-3 py-2.5 rounded-[10px] border border-line bg-surface text-sm text-ink placeholder:text-ink-faint resize-none focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15"></textarea>
+    <button type="submit" class="w-full h-11 rounded-xl bg-ink text-canvas text-sm font-semibold">送出訊息</button>
+  </form>
+</section>`,
+    },
+    {
+      name: '內頁標題橫幅',
+      en: 'Page Header Banner',
+      tags: ['內頁', '麵包屑'],
+      wide: true,
+      spec: [
+        '內頁頂部的標題橫幅：上方為麵包屑（fa-house / 資源 / 部落格），下方為大標題與說明文字。',
+        '右側為搜尋框，下方一列為分類膠囊篩選；背景為淺灰底並在右上角有淡主色網格裝飾。',
+        '整個橫幅底部以 1px 分隔線結束。',
+      ],
+      html: `<section class="relative w-full max-w-4xl px-8 pt-8 pb-6 rounded-3xl bg-subtle/70 border border-line overflow-hidden">
+  <div class="absolute right-0 top-0 w-64 h-40 opacity-50 bg-[linear-gradient(rgb(99_102_241/.18)_1px,transparent_1px),linear-gradient(90deg,rgb(99_102_241/.18)_1px,transparent_1px)] bg-[size:20px_20px] [mask-image:radial-gradient(circle_at_top_right,#000,transparent_70%)]"></div>
+  <nav class="relative text-xs text-ink-faint"><a href="#" onclick="return false" class="hover:text-ink"><i class="fa-solid fa-house"></i></a><i class="fa-solid fa-chevron-right text-[8px] mx-2"></i><a href="#" onclick="return false" class="hover:text-ink">資源</a><i class="fa-solid fa-chevron-right text-[8px] mx-2"></i><span class="text-ink">部落格</span></nav>
+  <div class="relative mt-4 flex flex-wrap items-end justify-between gap-4">
+    <div><h1 class="text-3xl font-bold tracking-tight text-ink">部落格</h1><p class="mt-2 text-ink-soft">產品更新、設計觀點與團隊故事。</p></div>
+    <label class="relative"><i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-xs text-ink-faint"></i><input type="search" placeholder="搜尋文章" class="w-56 h-10 pl-8 pr-3 rounded-xl border border-line bg-surface text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15"></label>
+  </div>
+  <div data-pick data-on="bg-ink text-canvas" data-off="bg-surface text-ink-soft border border-line" class="relative mt-6 flex flex-wrap gap-2 text-[13px] font-medium">${['全部', '產品更新', '設計', '工程', '團隊'].map((t, i) => `<button type="button" data-item ${i ? '' : 'aria-selected="true"'} onclick="UIK.pick(this)" class="h-8 px-3.5 rounded-full ${i ? 'bg-surface text-ink-soft border border-line' : 'bg-ink text-canvas'}">${t}</button>`).join('')}</div>
+</section>`,
+    },
+    {
+      name: '下載 App 區塊',
+      en: 'App Download Section',
+      tags: ['App', '下載'],
+      wide: true,
+      spec: [
+        '深色背景的區塊，左側為標題「隨時隨地掌握進度」、說明、App Store 與 Google Play 下載按鈕，以及評分資訊（五顆星 4.8）。',
+        '右側為手機外框模擬圖（圓角 32px、深色邊框），內含簡化的 App 介面，手機略微傾斜並帶有主色光暈。',
+        '窄螢幕時手機圖置於文字下方。',
+      ],
+      html: `<section class="relative w-full max-w-4xl grid md:grid-cols-2 gap-8 items-center p-8 sm:p-10 rounded-3xl bg-zinc-900 text-white overflow-hidden">
+  <div class="absolute right-10 top-10 w-72 h-72 rounded-full bg-indigo-500/30 blur-3xl"></div>
+  <div class="relative"><h2 class="text-2xl sm:text-3xl font-bold tracking-tight">隨時隨地掌握進度</h2><p class="mt-3 text-zinc-400">下載行動 App，通勤路上也能審核、留言與核准。</p>
+    <div class="mt-6 flex flex-wrap gap-3"><a href="#" onclick="return false" class="inline-flex items-center gap-2.5 h-12 pl-4 pr-5 rounded-xl bg-white text-zinc-900"><i class="fa-brands fa-apple text-2xl"></i><span class="leading-tight text-left"><span class="block text-[10px] text-zinc-500">下載於</span><span class="block text-sm font-semibold">App Store</span></span></a><a href="#" onclick="return false" class="inline-flex items-center gap-2.5 h-12 pl-4 pr-5 rounded-xl border border-white/20 hover:bg-white/10"><i class="fa-brands fa-google-play text-xl"></i><span class="leading-tight text-left"><span class="block text-[10px] text-zinc-400">立即取得</span><span class="block text-sm font-semibold">Google Play</span></span></a></div>
+    <p class="mt-5 text-xs text-zinc-400"><span class="text-amber-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></span> 4.8 · 超過 5 萬則評分</p>
+  </div>
+  <div class="relative flex justify-center"><div class="w-48 h-[360px] rounded-[32px] border-[6px] border-zinc-700 bg-zinc-950 p-3 rotate-6 shadow-[0_30px_60px_-20px_rgb(99_102_241/.6)]">
+    <div class="mx-auto w-16 h-4 rounded-full bg-zinc-800"></div>
+    <div class="mt-4 space-y-2.5"><div class="h-3 w-20 rounded bg-zinc-700"></div><div class="h-20 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500"></div><div class="grid grid-cols-2 gap-2"><div class="h-14 rounded-lg bg-zinc-800"></div><div class="h-14 rounded-lg bg-zinc-800"></div></div><div class="h-10 rounded-lg bg-zinc-800"></div><div class="h-10 rounded-lg bg-zinc-800"></div></div>
+  </div></div>
+</section>`,
+    },
+    {
+      name: '客戶成功案例',
+      en: 'Case Study Highlight',
+      tags: ['案例', '社會證明'],
+      wide: true,
+      spec: [
+        '左側為大型引言（24px、fa-quote-left 主色圖示）、客戶頭像、姓名與公司，以及「閱讀完整案例」連結。',
+        '右側為三個成果指標卡片垂直排列：大字數字（主色）與說明，例如「-40% 交付時間」「3 倍產能」「98% 員工滿意度」。',
+        '左上角顯示客戶公司的品牌標誌（fa-brands）。',
+      ],
+      html: `<section class="w-full max-w-4xl grid md:grid-cols-[1.5fr_1fr] gap-8 p-8 sm:p-10 rounded-3xl border border-line bg-surface">
+  <div class="flex flex-col">
+    <p class="flex items-center gap-2 text-sm font-semibold text-ink-soft"><i class="fa-brands fa-shopify text-xl text-[#95BF47]"></i>Shopify 合作夥伴</p>
+    <i class="fa-solid fa-quote-left mt-6 text-3xl text-brand-500/30"></i>
+    <blockquote class="mt-3 text-xl sm:text-2xl font-medium leading-relaxed text-ink">導入半年後，我們的上架流程從兩週縮短到三天，團隊終於有時間專注在真正重要的事情上。</blockquote>
+    <div class="mt-6 flex items-center gap-3"><span class="w-11 h-11 rounded-full bg-gradient-to-br from-amber-300 to-orange-500 text-white grid place-items-center font-semibold">吳</span><div><p class="font-semibold text-ink">吳佳蓉</p><p class="text-xs text-ink-faint">營運總監 · Bloom 選品</p></div></div>
+    <a href="#" onclick="return false" class="mt-6 text-sm font-semibold text-brand-600 dark:text-brand-400">閱讀完整案例 <i class="fa-solid fa-arrow-right text-xs"></i></a>
+  </div>
+  <div class="space-y-3">${[['-40%', '產品交付時間'], ['3 倍', '團隊產能提升'], ['98%', '員工滿意度']].map(([n, d]) => `<div class="p-5 rounded-2xl bg-subtle/70"><p class="text-3xl font-bold tracking-tight text-brand-600 dark:text-brand-400 tabular-nums">${n}</p><p class="mt-1 text-sm text-ink-soft">${d}</p></div>`).join('')}</div>
+</section>`,
+    },
   ],
 });
