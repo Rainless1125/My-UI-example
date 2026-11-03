@@ -39,6 +39,7 @@
           'gradient-x': { '0%,100%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' } },
           'fade-up': { '0%': { opacity: '0', transform: 'translateY(6px)' }, '100%': { opacity: '1', transform: 'none' } },
           radar: { '0%': { transform: 'scale(.6)', opacity: '.8' }, '100%': { transform: 'scale(2.4)', opacity: '0' } },
+          ticker: { '0%,20%': { transform: 'translateY(0)' }, '25%,45%': { transform: 'translateY(-25%)' }, '50%,70%': { transform: 'translateY(-50%)' }, '75%,95%': { transform: 'translateY(-75%)' }, '100%': { transform: 'translateY(0)' } },
           draw: { '0%': { strokeDashoffset: '400' }, '60%,100%': { strokeDashoffset: '0' } },
           'grid-fade': { '0%,70%,100%': { transform: 'scale(1)', opacity: '1' }, '35%': { transform: 'scale(.4)', opacity: '.3' } },
           dash: {
@@ -61,6 +62,7 @@
           'spin-slow': 'spin 3s linear infinite',
           dash: 'dash 1.5s ease-in-out infinite',
           draw: 'draw 2.4s ease-in-out infinite',
+          ticker: 'ticker 6s cubic-bezier(.65,0,.35,1) infinite',
           'grid-fade': 'grid-fade 1.3s ease-in-out infinite',
         },
       },
