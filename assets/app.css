@@ -1,0 +1,55 @@
+/* UI Atlas 展示頁外殼樣式（元件本身的樣式皆為 Tailwind utility） */
+html { scroll-behavior: smooth; }
+body { -webkit-font-smoothing: antialiased; }
+
+.stage {
+  position: relative;
+  background-color: rgb(var(--canvas));
+  background-image: radial-gradient(rgb(var(--line)) 1px, transparent 1px);
+  background-size: 18px 18px;
+  background-position: -9px -9px;
+}
+.stage > * { max-width: 100%; }
+
+.thin-scroll { scrollbar-width: thin; scrollbar-color: rgb(var(--line)) transparent; }
+.thin-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.thin-scroll::-webkit-scrollbar-thumb { background: rgb(var(--line)); border-radius: 999px; border: 2px solid transparent; background-clip: padding-box; }
+
+.code-block {
+  margin: 0;
+  max-height: 460px;
+  overflow: auto;
+  padding: 16px 18px;
+  border-radius: 12px;
+  border: 1px solid rgb(var(--line));
+  background: rgb(var(--subtle));
+  color: rgb(var(--ink));
+  font: 12.5px/1.75 "JetBrains Mono", ui-monospace, monospace;
+  tab-size: 2;
+}
+
+.btn-primary, .btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 36px; padding: 0 14px; border-radius: 9px;
+  font-size: 13px; font-weight: 500; transition: all .15s ease; cursor: pointer;
+}
+.btn-primary { background: rgb(var(--ink)); color: rgb(var(--canvas)); }
+.btn-primary:hover { opacity: .88; }
+.btn-ghost { border: 1px solid rgb(var(--line)); background: rgb(var(--surface)); color: rgb(var(--ink-soft)); }
+.btn-ghost:hover { color: rgb(var(--ink)); background: rgb(var(--subtle)); }
+.btn-primary:focus-visible, .btn-ghost:focus-visible { outline: 2px solid #6366f1; outline-offset: 2px; }
+
+.cat-link.is-active { background: rgb(var(--surface)); color: rgb(var(--ink)); font-weight: 500; box-shadow: 0 0 0 1px rgb(var(--line)), 0 1px 2px rgb(0 0 0 / .04); }
+.cat-link.is-active .cat-ico { background: rgb(var(--ink)); color: rgb(var(--canvas)); }
+
+.ui-card { transition: box-shadow .2s ease, border-color .2s ease, transform .2s ease; }
+.ui-card:hover { border-color: rgb(var(--ink-faint) / .45); box-shadow: 0 1px 2px rgb(0 0 0 / .04), 0 16px 40px -16px rgb(0 0 0 / .18); }
+
+body.drawer-open { overflow: hidden; }
+#drawerRoot.is-open { pointer-events: auto; }
+#drawerRoot.is-open #drawerBackdrop { opacity: 1; }
+#drawerRoot.is-open #drawer { transform: translateX(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}

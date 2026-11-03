@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Atlas — 現代化網頁 UI 元件庫與提示詞</title>
+  <meta name="description" content="10 大類別、每類 20 款，共 200 個現代化網頁 UI 元件，可即時預覽並一鍵複製 AI 提示詞與程式碼。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <script>
+    // 介面預設為淺色；只有使用者手動切換過才套用深色
+    try { if (localStorage.getItem('ui-atlas-theme') === 'dark') document.documentElement.classList.add('dark'); } catch (e) {}
+  </script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="assets/kit.js"></script>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body class="bg-canvas text-ink font-sans antialiased">
+
+  <!-- 頂部列 -->
+  <header class="sticky top-0 z-40 h-14 border-b border-line bg-surface/80 backdrop-blur-xl">
+    <div class="h-full px-4 lg:px-6 flex items-center gap-3">
+      <button id="navToggle" type="button" class="lg:hidden w-9 h-9 -ml-1 rounded-lg grid place-items-center text-ink-soft hover:bg-subtle" aria-label="開啟類別選單">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <a href="#" class="flex items-center gap-2.5 shrink-0" id="brandLink">
+        <span class="w-8 h-8 rounded-[10px] bg-ink text-canvas grid place-items-center shadow-soft">
+          <i class="fa-solid fa-shapes text-[13px]"></i>
+        </span>
+        <span class="font-semibold tracking-tight">UI Atlas</span>
+        <span class="hidden md:inline-flex items-center h-5 px-1.5 rounded-md bg-subtle text-[11px] font-medium text-ink-soft border border-line">200 元件</span>
+      </a>
+
+      <div class="flex-1 flex justify-center px-2">
+        <label class="relative w-full max-w-md">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-xs text-ink-faint"></i>
+          <input id="search" type="search" autocomplete="off" placeholder="搜尋元件，例如：開關、漸層、骨架屏" class="w-full h-9 pl-8 pr-14 rounded-lg bg-subtle border border-transparent text-sm placeholder:text-ink-faint focus:outline-none focus:bg-surface focus:border-line focus:ring-4 focus:ring-brand-500/10 transition">
+          <kbd class="hidden sm:flex absolute right-2 top-1/2 -translate-y-1/2 items-center gap-0.5 h-5 px-1.5 rounded border border-line bg-surface text-[10px] font-medium text-ink-faint font-sans">Ctrl K</kbd>
+        </label>
+      </div>
+
+      <div class="flex items-center gap-1.5">
+        <div class="relative hidden sm:block">
+          <button type="button" id="stackBtn" onclick="UIK.menu(this)" class="h-9 pl-3 pr-2.5 rounded-lg border border-line bg-surface text-[13px] font-medium text-ink-soft hover:text-ink hover:bg-subtle flex items-center gap-2 transition">
+            <i class="fa-solid fa-code text-xs text-ink-faint"></i>
+            <span id="stackLabel">HTML + Tailwind</span>
+            <i class="fa-solid fa-chevron-down text-[10px] text-ink-faint"></i>
+          </button>
+          <div data-menu class="hidden absolute right-0 mt-2 w-72 p-1.5 rounded-xl border border-line bg-surface shadow-lift z-50" id="stackMenu"></div>
+        </div>
+        <button id="themeBtn" type="button" class="w-9 h-9 rounded-lg grid place-items-center text-ink-soft hover:text-ink hover:bg-subtle transition" aria-label="切換深淺色">
+          <i class="fa-solid fa-moon dark:hidden"></i>
+          <i class="fa-solid fa-sun hidden dark:inline"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex">
+    <!-- 側邊欄 -->
+    <aside id="sidebar" class="fixed lg:sticky top-14 z-30 h-[calc(100vh-3.5rem)] w-72 lg:w-64 shrink-0 border-r border-line bg-surface lg:bg-transparent overflow-y-auto thin-scroll -translate-x-full lg:translate-x-0 transition-transform duration-300">
+      <div class="p-4 space-y-6">
+        <div>
+          <p class="px-2 mb-2 text-[11px] font-semibold uppercase tracking-wider text-ink-faint">元件類別</p>
+          <nav id="catNav" class="space-y-0.5"></nav>
+        </div>
+        <div>
+          <p class="px-2 mb-2 text-[11px] font-semibold uppercase tracking-wider text-ink-faint">個人</p>
+          <a href="#favorites" data-cat="favorites" class="cat-link group flex items-center gap-3 h-9 px-2 rounded-lg text-sm text-ink-soft hover:text-ink hover:bg-subtle transition">
+            <span class="w-6 h-6 rounded-md grid place-items-center bg-subtle text-ink-faint group-hover:text-rose-500 text-[11px]"><i class="fa-solid fa-heart"></i></span>
+            <span class="flex-1">我的收藏</span>
+            <span id="favCount" class="text-[11px] font-mono text-ink-faint">0</span>
+          </a>
+        </div>
+        <div class="rounded-xl border border-line bg-surface p-4">
+          <div class="flex items-center gap-2 text-[13px] font-semibold">
+            <i class="fa-solid fa-wand-magic-sparkles text-brand-500"></i>提示詞怎麼用
+          </div>
+          <ol class="mt-2.5 space-y-1.5 text-xs text-ink-soft leading-relaxed list-decimal pl-4">
+            <li>右上角選擇想要輸出的技術組合。</li>
+            <li>按下卡片上的「複製提示詞」。</li>
+            <li>貼到 Claude、ChatGPT 或 Gemini，即可產生相同風格的元件。</li>
+          </ol>
+        </div>
+      </div>
+    </aside>
+    <div id="backdrop" class="fixed inset-0 top-14 z-20 bg-black/30 backdrop-blur-[2px] hidden lg:hidden"></div>
+
+    <!-- 主內容 -->
+    <main class="flex-1 min-w-0">
+      <div class="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-10 py-8 lg:py-10">
+        <section id="hero" class="mb-8"></section>
+        <div id="grid" class="grid grid-flow-row-dense grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-5"></div>
+        <div id="empty" class="hidden py-24 text-center">
+          <div class="w-12 h-12 mx-auto rounded-xl bg-subtle grid place-items-center text-ink-faint"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <p class="mt-4 font-semibold" id="emptyTitle">找不到符合的元件</p>
+          <p class="mt-1 text-sm text-ink-soft" id="emptyDesc">換個關鍵字試試，例如「卡片」、「進度」或「玻璃」。</p>
+        </div>
+        <footer class="mt-16 pt-6 border-t border-line text-xs text-ink-faint flex flex-wrap items-center justify-between gap-3">
+          <span>UI Atlas · 10 類別 × 20 款元件 · 圖示使用 Font Awesome 6</span>
+          <span>預覽以 Tailwind CSS 建置，提示詞可輸出至多種技術組合</span>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <!-- 詳細檢視抽屜 -->
+  <div id="drawerRoot" class="fixed inset-0 z-50 pointer-events-none">
+    <div id="drawerBackdrop" class="absolute inset-0 bg-black/30 backdrop-blur-[2px] opacity-0 transition-opacity duration-300"></div>
+    <aside id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" class="absolute right-0 top-0 h-full w-full sm:w-[640px] bg-surface border-l border-line shadow-lift flex flex-col translate-x-full transition-transform duration-300">
+      <div class="h-14 shrink-0 px-5 flex items-center gap-3 border-b border-line">
+        <div class="min-w-0 flex-1">
+          <h2 id="drawerTitle" class="font-semibold truncate"></h2>
+          <p id="drawerSub" class="text-xs text-ink-faint truncate"></p>
+        </div>
+        <button id="drawerFav" type="button" class="w-8 h-8 rounded-lg grid place-items-center text-ink-faint hover:bg-subtle transition" aria-label="收藏"><i class="fa-regular fa-heart"></i></button>
+        <button id="drawerClose" type="button" class="w-8 h-8 rounded-lg grid place-items-center text-ink-faint hover:text-ink hover:bg-subtle transition" aria-label="關閉"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="flex-1 overflow-y-auto thin-scroll">
+        <div id="drawerStage" class="stage min-h-[260px] p-8 flex items-center justify-center border-b border-line"></div>
+        <div class="p-5">
+          <div class="flex items-center justify-between gap-3">
+            <div class="inline-flex p-1 rounded-lg bg-subtle" id="drawerTabs" data-pick data-on="bg-surface text-ink shadow-sm" data-off="text-ink-soft">
+              <button type="button" data-item data-tab="prompt" aria-selected="true" onclick="UIK.pick(this)" class="h-8 px-3 rounded-md text-[13px] font-medium bg-surface text-ink shadow-sm transition"><i class="fa-solid fa-wand-magic-sparkles mr-1.5 text-xs"></i>提示詞</button>
+              <button type="button" data-item data-tab="code" aria-selected="false" onclick="UIK.pick(this)" class="h-8 px-3 rounded-md text-[13px] font-medium text-ink-soft transition"><i class="fa-solid fa-code mr-1.5 text-xs"></i>HTML 原始碼</button>
+            </div>
+            <select id="drawerStack" class="h-9 px-2.5 rounded-lg border border-line bg-surface text-[13px] text-ink-soft focus:outline-none focus:ring-4 focus:ring-brand-500/10"></select>
+          </div>
+          <div id="panelPrompt" class="mt-4">
+            <pre id="drawerPrompt" class="code-block whitespace-pre-wrap"></pre>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <button type="button" id="copyPromptBtn" class="btn-primary"><i class="fa-regular fa-copy"></i>複製提示詞</button>
+            </div>
+          </div>
+          <div id="panelCode" class="mt-4 hidden">
+            <pre id="drawerCode" class="code-block overflow-x-auto"></pre>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <button type="button" id="copyCodeBtn" class="btn-primary"><i class="fa-regular fa-copy"></i>複製 HTML</button>
+              <button type="button" id="copyFullBtn" class="btn-ghost"><i class="fa-regular fa-file-code"></i>複製完整單檔</button>
+              <button type="button" id="downloadBtn" class="btn-ghost"><i class="fa-solid fa-download"></i>下載 .html</button>
+            </div>
+            <p class="mt-3 text-xs text-ink-faint leading-relaxed">片段使用了本頁的設計 Token（如 <code class="font-mono">bg-surface</code>、<code class="font-mono">text-ink</code>）與互動函式 <code class="font-mono">UIK</code>；「完整單檔」與「下載」已內含所有設定，可直接開啟使用。</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div id="toasts" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-[60] flex flex-col items-center gap-2 pointer-events-none"></div>
+
+  <!-- 元件資料（每個類別一個檔案） -->
+  <script src="components/buttons.js"></script>
+  <script src="components/inputs.js"></script>
+  <script src="components/selection.js"></script>
+  <script src="components/cards.js"></script>
+  <script src="components/navigation.js"></script>
+  <script src="components/menus.js"></script>
+  <script src="components/feedback.js"></script>
+  <script src="components/badges.js"></script>
+  <script src="components/overlays.js"></script>
+  <script src="components/loading.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
