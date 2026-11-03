@@ -439,5 +439,116 @@
   <p class="mt-6 pt-5 border-t border-line text-center text-sm text-ink-faint">還沒有帳號？<a href="#" onclick="return false" class="font-medium text-ink hover:underline">立即註冊</a></p>
 </form>`,
     },
+    {
+      name: '行內編輯標題',
+      en: 'Inline Editable Title',
+      tags: ['行內編輯', 'contenteditable'],
+      spec: [
+        '頁面標題平時為純文字，hover 時出現淺灰底與右側 fa-pen 圖示，點擊即可直接編輯（contenteditable）。',
+        '編輯中顯示主色外框與光暈，下方以小字提示「按 Enter 儲存，Esc 取消」。',
+        '標題 20px 粗體，編輯前後版面不跳動。',
+      ],
+      html: `<div class="w-80">
+  <p class="text-xs font-medium text-ink-faint mb-1">專案名稱</p>
+  <div class="group relative -mx-2">
+    <h4 contenteditable="true" spellcheck="false" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}" class="px-2 py-1 pr-8 rounded-lg text-xl font-semibold text-ink hover:bg-subtle focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500 focus:shadow-[0_0_0_6px_rgb(99_102_241/.12)] transition">2026 品牌識別更新</h4>
+    <i class="fa-solid fa-pen absolute right-3 top-1/2 -translate-y-1/2 text-xs text-ink-faint opacity-0 group-hover:opacity-100 group-focus-within:opacity-0 pointer-events-none transition"></i>
+  </div>
+  <p class="mt-1.5 text-xs text-ink-faint">點擊標題即可編輯，按 Enter 儲存</p>
+</div>`,
+    },
+    {
+      name: '範圍搜尋框',
+      en: 'Scoped Search Input',
+      tags: ['搜尋', '下拉'],
+      spec: [
+        '搜尋框左側內嵌一個範圍選擇（全部 / 文件 / 成員 / 專案），以細分隔線與輸入區隔開。',
+        '中間為搜尋輸入，右側為深色正方形搜尋按鈕 fa-magnifying-glass。',
+        '整體高度 44px、圓角 12px，focus-within 時外框主色光暈。',
+      ],
+      html: `<form onsubmit="event.preventDefault()" class="w-[420px] max-w-full flex items-center h-11 p-1 rounded-xl border border-line bg-surface shadow-sm focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/15 transition">
+  <div class="relative h-full">
+    <select aria-label="搜尋範圍" class="h-full pl-3 pr-7 rounded-lg bg-transparent text-sm font-medium text-ink appearance-none cursor-pointer hover:bg-subtle focus:outline-none"><option>全部</option><option>文件</option><option>成員</option><option>專案</option></select>
+    <i class="fa-solid fa-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] text-ink-faint pointer-events-none"></i>
+  </div>
+  <span class="w-px h-5 bg-line mx-1"></span>
+  <input type="search" placeholder="輸入關鍵字" class="flex-1 min-w-0 px-2 bg-transparent text-sm text-ink placeholder:text-ink-faint focus:outline-none">
+  <button type="submit" aria-label="搜尋" class="w-9 h-full rounded-lg bg-ink text-canvas grid place-items-center hover:opacity-85"><i class="fa-solid fa-magnifying-glass text-xs"></i></button>
+</form>`,
+    },
+    {
+      name: '時間選擇輸入',
+      en: 'Time Picker Field',
+      tags: ['時間', '分段'],
+      spec: [
+        '左側 fa-clock 圖示與時、分兩個等寬數字輸入格（以冒號分隔），右側為「上午 / 下午」分段切換。',
+        '數字格為 type="number"，隱藏原生上下箭頭，focus 時格子出現淺主色底。',
+        '下方提供四個常用時間的快捷膠囊。',
+      ],
+      html: `<div class="w-80">
+  <label class="block mb-1.5 text-sm font-medium text-ink">會議時間</label>
+  <div class="flex items-center gap-2 h-11 pl-3 pr-1 rounded-xl border border-line bg-surface shadow-sm focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/15 transition">
+    <i class="fa-regular fa-clock text-ink-faint"></i>
+    <input type="number" min="1" max="12" value="10" aria-label="時" class="w-9 h-8 rounded-md text-center text-base font-semibold font-mono text-ink bg-transparent focus:bg-brand-500/10 focus:outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none">
+    <span class="font-semibold text-ink-faint">:</span>
+    <input type="number" min="0" max="59" value="30" aria-label="分" class="w-9 h-8 rounded-md text-center text-base font-semibold font-mono text-ink bg-transparent focus:bg-brand-500/10 focus:outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none">
+    <div data-pick data-on="bg-surface text-ink shadow-sm" data-off="text-ink-faint" class="ml-auto inline-flex p-0.5 rounded-lg bg-subtle text-xs font-medium">
+      <button type="button" data-item aria-selected="true" onclick="UIK.pick(this)" class="h-8 px-2.5 rounded-md bg-surface text-ink shadow-sm">上午</button>
+      <button type="button" data-item onclick="UIK.pick(this)" class="h-8 px-2.5 rounded-md text-ink-faint">下午</button>
+    </div>
+  </div>
+  <div class="mt-2.5 flex gap-1.5 text-xs"><button type="button" class="h-7 px-2.5 rounded-full bg-subtle text-ink-soft hover:text-ink">09:00</button><button type="button" class="h-7 px-2.5 rounded-full bg-subtle text-ink-soft hover:text-ink">13:30</button><button type="button" class="h-7 px-2.5 rounded-full bg-subtle text-ink-soft hover:text-ink">15:00</button><button type="button" class="h-7 px-2.5 rounded-full bg-subtle text-ink-soft hover:text-ink">17:30</button></div>
+</div>`,
+    },
+    {
+      name: '顏色輸入框',
+      en: 'Color Input',
+      tags: ['顏色', '色碼'],
+      spec: [
+        '左側為圓角色塊（原生 type="color"，外觀改為 28px 圓角方塊），右側為 HEX 色碼文字輸入，兩者同步更新。',
+        '下方為一排預設色票，點擊後同時更新色塊與色碼。',
+        '色碼使用等寬字體並自動轉為大寫。',
+      ],
+      html: `<div class="w-72">
+  <label class="block mb-1.5 text-sm font-medium text-ink">品牌主色</label>
+  <div class="flex items-center gap-2 h-10 pl-1.5 pr-3 rounded-[10px] border border-line bg-surface shadow-sm focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/15 transition">
+    <input type="color" value="#4f46e5" aria-label="選擇顏色" oninput="this.nextElementSibling.value=this.value.toUpperCase()" class="w-7 h-7 rounded-md cursor-pointer bg-transparent border-0 p-0 [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-md [&::-webkit-color-swatch]:border-0">
+    <input type="text" value="#4F46E5" aria-label="色碼" oninput="if(/^#[0-9a-f]{6}$/i.test(this.value))this.previousElementSibling.value=this.value" class="flex-1 min-w-0 bg-transparent text-sm font-mono uppercase text-ink focus:outline-none">
+    <i class="fa-solid fa-eye-dropper text-xs text-ink-faint"></i>
+  </div>
+  <div class="mt-3 flex gap-2">
+    <button type="button" aria-label="#4F46E5" onclick="const r=this.parentElement.previousElementSibling;r.children[0].value='#4f46e5';r.children[1].value='#4F46E5'" class="w-6 h-6 rounded-md bg-[#4f46e5] ring-1 ring-black/10"></button>
+    <button type="button" aria-label="#0EA5E9" onclick="const r=this.parentElement.previousElementSibling;r.children[0].value='#0ea5e9';r.children[1].value='#0EA5E9'" class="w-6 h-6 rounded-md bg-[#0ea5e9] ring-1 ring-black/10"></button>
+    <button type="button" aria-label="#10B981" onclick="const r=this.parentElement.previousElementSibling;r.children[0].value='#10b981';r.children[1].value='#10B981'" class="w-6 h-6 rounded-md bg-[#10b981] ring-1 ring-black/10"></button>
+    <button type="button" aria-label="#F59E0B" onclick="const r=this.parentElement.previousElementSibling;r.children[0].value='#f59e0b';r.children[1].value='#F59E0B'" class="w-6 h-6 rounded-md bg-[#f59e0b] ring-1 ring-black/10"></button>
+    <button type="button" aria-label="#F43F5E" onclick="const r=this.parentElement.previousElementSibling;r.children[0].value='#f43f5e';r.children[1].value='#F43F5E'" class="w-6 h-6 rounded-md bg-[#f43f5e] ring-1 ring-black/10"></button>
+    <button type="button" aria-label="#18181B" onclick="const r=this.parentElement.previousElementSibling;r.children[0].value='#18181b';r.children[1].value='#18181B'" class="w-6 h-6 rounded-md bg-[#18181b] ring-1 ring-black/10"></button>
+  </div>
+</div>`,
+    },
+    {
+      name: '留言輸入框',
+      en: 'Comment Composer',
+      tags: ['留言', '社群'],
+      spec: [
+        '左側為使用者頭像，右側為圓角輸入卡片：上方多行文字區，下方工具列含粗體、連結、圖片、提及圖示按鈕。',
+        '工具列右側為「取消」文字按鈕與主色「留言」按鈕；文字區為空時留言按鈕為停用狀態。',
+        'focus-within 時卡片外框轉為主色。',
+      ],
+      html: `<div class="w-[440px] max-w-full flex gap-3">
+  <span class="w-9 h-9 shrink-0 rounded-full bg-gradient-to-br from-amber-300 to-orange-500 text-white grid place-items-center text-sm font-semibold">林</span>
+  <div class="flex-1 rounded-xl border border-line bg-surface shadow-sm focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/15 transition">
+    <textarea rows="2" placeholder="留下你的想法…" oninput="this.parentElement.querySelector('[data-submit]').disabled=!this.value.trim()" class="block w-full px-3.5 pt-3 bg-transparent text-sm text-ink placeholder:text-ink-faint resize-none focus:outline-none"></textarea>
+    <div class="flex items-center gap-0.5 p-1.5">
+      <button type="button" aria-label="粗體" class="w-8 h-8 rounded-lg grid place-items-center text-ink-faint hover:text-ink hover:bg-subtle"><i class="fa-solid fa-bold text-xs"></i></button>
+      <button type="button" aria-label="連結" class="w-8 h-8 rounded-lg grid place-items-center text-ink-faint hover:text-ink hover:bg-subtle"><i class="fa-solid fa-link text-xs"></i></button>
+      <button type="button" aria-label="圖片" class="w-8 h-8 rounded-lg grid place-items-center text-ink-faint hover:text-ink hover:bg-subtle"><i class="fa-regular fa-image text-xs"></i></button>
+      <button type="button" aria-label="提及" class="w-8 h-8 rounded-lg grid place-items-center text-ink-faint hover:text-ink hover:bg-subtle"><i class="fa-solid fa-at text-xs"></i></button>
+      <button type="button" class="ml-auto h-8 px-3 rounded-lg text-xs font-medium text-ink-soft hover:bg-subtle">取消</button>
+      <button type="button" data-submit disabled class="h-8 px-3.5 rounded-lg bg-brand-600 text-white text-xs font-semibold hover:bg-brand-500 disabled:opacity-40 disabled:cursor-not-allowed transition">留言</button>
+    </div>
+  </div>
+</div>`,
+    },
   ],
 });

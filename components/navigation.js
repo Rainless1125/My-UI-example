@@ -484,5 +484,120 @@
   </div>
 </div>`,
     },
+    {
+      name: '雙層導覽列',
+      en: 'Two-tier Header',
+      tags: ['Header', '次級導覽'],
+      wide: true,
+      spec: [
+        '上層為品牌、專案切換麵包屑（組織 / 專案，以斜線分隔）與右側使用者頭像；下層為水平次級分頁。',
+        '次級分頁選取項目下方有 2px 深色指示線並依寬度滑動，hover 時文字出現淺灰底。',
+        '兩層共用白底並以下緣 1px 分隔線結束，類似 Vercel / GitHub 的專案頁頭。',
+      ],
+      html: `<header class="w-full max-w-3xl rounded-2xl border border-line bg-surface shadow-sm overflow-hidden">
+  <div class="flex items-center gap-3 px-5 h-14 text-sm">
+    <span class="w-7 h-7 rounded-lg bg-ink text-canvas grid place-items-center text-xs"><i class="fa-solid fa-play rotate-[-90deg]"></i></span>
+    <span class="text-line text-lg">/</span>
+    <button type="button" class="flex items-center gap-2 h-8 px-2 rounded-lg hover:bg-subtle"><span class="w-5 h-5 rounded-full bg-gradient-to-br from-pink-400 to-orange-400"></span><span class="font-medium text-ink">acme-team</span><span class="px-1.5 rounded bg-subtle text-[10px] text-ink-faint">Pro</span></button>
+    <span class="text-line text-lg">/</span>
+    <button type="button" class="flex items-center gap-2 h-8 px-2 rounded-lg hover:bg-subtle"><span class="font-medium text-ink">storefront</span><i class="fa-solid fa-sort text-[10px] text-ink-faint"></i></button>
+    <span class="ml-auto w-8 h-8 rounded-full bg-gradient-to-br from-indigo-400 to-sky-500 text-white grid place-items-center text-xs font-semibold">AL</span>
+  </div>
+  <nav data-pick data-on="text-ink" data-off="text-ink-soft" class="relative flex gap-1 px-3 text-sm border-t border-line overflow-x-auto [scrollbar-width:none]">
+    <button type="button" data-item aria-selected="true" onclick="UIK.pick(this)" class="my-1.5 h-8 px-3 rounded-md text-ink hover:bg-subtle whitespace-nowrap">總覽</button>
+    <button type="button" data-item onclick="UIK.pick(this)" class="my-1.5 h-8 px-3 rounded-md text-ink-soft hover:bg-subtle whitespace-nowrap">部署</button>
+    <button type="button" data-item onclick="UIK.pick(this)" class="my-1.5 h-8 px-3 rounded-md text-ink-soft hover:bg-subtle whitespace-nowrap">分析</button>
+    <button type="button" data-item onclick="UIK.pick(this)" class="my-1.5 h-8 px-3 rounded-md text-ink-soft hover:bg-subtle whitespace-nowrap">日誌</button>
+    <button type="button" data-item onclick="UIK.pick(this)" class="my-1.5 h-8 px-3 rounded-md text-ink-soft hover:bg-subtle whitespace-nowrap">設定</button>
+    <span data-indicator="x" class="absolute bottom-0 h-0.5 bg-ink transition-all duration-300"></span>
+  </nav>
+</header>`,
+    },
+    {
+      name: '捲動進度回頂按鈕',
+      en: 'Back-to-top with Progress',
+      tags: ['捲動', '回到頂端'],
+      spec: [
+        '右下角 48px 圓形按鈕，外圍以 SVG 圓環顯示頁面捲動進度（stroke-dashoffset 隨捲動比例變化）。',
+        '中央為 fa-arrow-up 圖示，hover 時圖示向上移動 2px，按鈕背景轉為深色。',
+        '示範中以 65% 的進度呈現；實作時監聽 scroll 事件計算 scrollTop / (scrollHeight - clientHeight)。',
+      ],
+      html: `<div class="flex items-center gap-6">
+  <button type="button" aria-label="回到頂端，已閱讀 65%" class="group relative w-12 h-12 rounded-full bg-surface shadow-lift grid place-items-center hover:bg-ink transition-colors">
+    <svg viewBox="0 0 48 48" class="absolute inset-0 -rotate-90"><circle cx="24" cy="24" r="22" fill="none" stroke="rgb(var(--line))" stroke-width="2"/><circle cx="24" cy="24" r="22" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-dasharray="138.2" stroke-dashoffset="48.4"/></svg>
+    <i class="fa-solid fa-arrow-up text-sm text-ink group-hover:text-canvas group-hover:-translate-y-0.5 transition"></i>
+  </button>
+  <span class="text-xs text-ink-faint">已閱讀 <span class="font-semibold text-ink">65%</span></span>
+</div>`,
+    },
+    {
+      name: '應用程式啟動器',
+      en: 'App Launcher Grid',
+      tags: ['九宮格', '應用切換'],
+      spec: [
+        '點擊 fa-grip 九宮格按鈕展開的應用程式面板，以 3 × 3 網格排列，每格為彩色圓角圖示與名稱。',
+        '格子 hover 時出現淺灰底；面板底部為「更多應用程式」連結。',
+        '面板寬 280px、圓角 18px、柔和陰影。',
+      ],
+      html: `<div class="w-[280px] p-3 rounded-[18px] border border-line bg-surface shadow-lift">
+  <div class="grid grid-cols-3 gap-1 text-center text-[11px] text-ink-soft">
+    <a href="#" onclick="return false" class="p-2.5 rounded-xl hover:bg-subtle"><span class="mx-auto w-10 h-10 rounded-xl bg-sky-500 text-white grid place-items-center"><i class="fa-solid fa-envelope"></i></span><span class="block mt-1.5">郵件</span></a>
+    <a href="#" onclick="return false" class="p-2.5 rounded-xl hover:bg-subtle"><span class="mx-auto w-10 h-10 rounded-xl bg-emerald-500 text-white grid place-items-center"><i class="fa-solid fa-calendar-days"></i></span><span class="block mt-1.5">行事曆</span></a>
+    <a href="#" onclick="return false" class="p-2.5 rounded-xl hover:bg-subtle"><span class="mx-auto w-10 h-10 rounded-xl bg-amber-500 text-white grid place-items-center"><i class="fa-solid fa-folder"></i></span><span class="block mt-1.5">雲端硬碟</span></a>
+    <a href="#" onclick="return false" class="p-2.5 rounded-xl hover:bg-subtle"><span class="mx-auto w-10 h-10 rounded-xl bg-indigo-500 text-white grid place-items-center"><i class="fa-solid fa-file-lines"></i></span><span class="block mt-1.5">文件</span></a>
+    <a href="#" onclick="return false" class="p-2.5 rounded-xl hover:bg-subtle"><span class="mx-auto w-10 h-10 rounded-xl bg-green-600 text-white grid place-items-center"><i class="fa-solid fa-table"></i></span><span class="block mt-1.5">試算表</span></a>
+    <a href="#" onclick="return false" class="p-2.5 rounded-xl hover:bg-subtle"><span class="mx-auto w-10 h-10 rounded-xl bg-orange-500 text-white grid place-items-center"><i class="fa-solid fa-person-chalkboard"></i></span><span class="block mt-1.5">簡報</span></a>
+    <a href="#" onclick="return false" class="p-2.5 rounded-xl hover:bg-subtle"><span class="mx-auto w-10 h-10 rounded-xl bg-rose-500 text-white grid place-items-center"><i class="fa-solid fa-video"></i></span><span class="block mt-1.5">會議</span></a>
+    <a href="#" onclick="return false" class="p-2.5 rounded-xl hover:bg-subtle"><span class="mx-auto w-10 h-10 rounded-xl bg-violet-500 text-white grid place-items-center"><i class="fa-solid fa-comments"></i></span><span class="block mt-1.5">聊天</span></a>
+    <a href="#" onclick="return false" class="p-2.5 rounded-xl hover:bg-subtle"><span class="mx-auto w-10 h-10 rounded-xl bg-zinc-700 text-white grid place-items-center"><i class="fa-solid fa-note-sticky"></i></span><span class="block mt-1.5">筆記</span></a>
+  </div>
+  <a href="#" onclick="return false" class="mt-2 flex items-center justify-center h-9 rounded-xl text-xs font-medium text-ink-soft hover:bg-subtle">更多應用程式<i class="fa-solid fa-arrow-right text-[10px] ml-1.5"></i></a>
+</div>`,
+    },
+    {
+      name: '可收合側邊欄',
+      en: 'Collapsible Sidebar',
+      tags: ['側欄', '收合'],
+      spec: [
+        '點擊頂部 fa-angles-left 按鈕時，側邊欄寬度由 224px 收合為 64px，只保留圖示，文字與徽章淡出隱藏。',
+        '收合狀態下按鈕圖示旋轉 180 度；寬度轉場 300ms。',
+        '使用 aria-pressed 與 group 選擇器控制內部文字顯示。',
+      ],
+      html: `<aside aria-pressed="false" data-on="w-16" data-off="w-56" class="group w-56 p-3 rounded-2xl border border-line bg-surface shadow-sm text-sm overflow-hidden transition-[width] duration-300">
+  <div class="flex items-center gap-2.5 h-9 px-1.5">
+    <span class="w-7 h-7 shrink-0 rounded-lg bg-brand-600 text-white grid place-items-center text-xs group-aria-pressed:hidden"><i class="fa-solid fa-feather"></i></span>
+    <span class="font-semibold text-ink whitespace-nowrap group-aria-pressed:hidden">Quill</span>
+    <button type="button" aria-label="收合側邊欄" onclick="UIK.flip(this.closest('aside'))" class="ml-auto shrink-0 w-7 h-7 rounded-lg grid place-items-center text-ink-faint hover:bg-subtle"><i class="fa-solid fa-angles-left text-xs transition-transform duration-300 group-aria-pressed:rotate-180"></i></button>
+  </div>
+  <nav class="mt-3 space-y-0.5 text-ink-soft">
+    <a href="#" onclick="return false" class="flex items-center gap-3 h-9 px-3 rounded-lg bg-subtle text-ink font-medium"><i class="fa-solid fa-house w-4 shrink-0 text-center text-xs"></i><span class="whitespace-nowrap group-aria-pressed:opacity-0 transition-opacity">首頁</span></a>
+    <a href="#" onclick="return false" class="flex items-center gap-3 h-9 px-3 rounded-lg hover:bg-subtle"><i class="fa-regular fa-file-lines w-4 shrink-0 text-center text-xs"></i><span class="whitespace-nowrap group-aria-pressed:opacity-0 transition-opacity">文章</span></a>
+    <a href="#" onclick="return false" class="flex items-center gap-3 h-9 px-3 rounded-lg hover:bg-subtle"><i class="fa-regular fa-comment w-4 shrink-0 text-center text-xs"></i><span class="flex-1 whitespace-nowrap group-aria-pressed:opacity-0 transition-opacity">留言</span><span class="px-1.5 rounded bg-brand-600 text-white text-[10px] leading-5 group-aria-pressed:opacity-0">4</span></a>
+    <a href="#" onclick="return false" class="flex items-center gap-3 h-9 px-3 rounded-lg hover:bg-subtle"><i class="fa-solid fa-chart-simple w-4 shrink-0 text-center text-xs"></i><span class="whitespace-nowrap group-aria-pressed:opacity-0 transition-opacity">數據</span></a>
+    <a href="#" onclick="return false" class="flex items-center gap-3 h-9 px-3 rounded-lg hover:bg-subtle"><i class="fa-solid fa-gear w-4 shrink-0 text-center text-xs"></i><span class="whitespace-nowrap group-aria-pressed:opacity-0 transition-opacity">設定</span></a>
+  </nav>
+</aside>`,
+    },
+    {
+      name: '上一篇 / 下一篇導覽',
+      en: 'Prev / Next Navigation',
+      tags: ['文章', '文件'],
+      wide: true,
+      spec: [
+        '文章或文件底部的前後頁導覽，兩張等寬卡片左右並排。',
+        '左卡為「上一篇」小字加 fa-arrow-left 與文章標題（靠左），右卡為「下一篇」與 fa-arrow-right（靠右）。',
+        'hover 時卡片邊框轉為主色、標題變主色、箭頭向外平移 2px。',
+      ],
+      html: `<nav class="w-full max-w-2xl grid sm:grid-cols-2 gap-3">
+  <a href="#" onclick="return false" class="group p-4 rounded-xl border border-line bg-surface hover:border-brand-500/60 transition">
+    <p class="text-xs text-ink-faint"><i class="fa-solid fa-arrow-left mr-1.5 transition-transform group-hover:-translate-x-0.5"></i>上一篇</p>
+    <p class="mt-1 text-sm font-semibold text-ink group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">建立色彩 Token 的五個原則</p>
+  </a>
+  <a href="#" onclick="return false" class="group p-4 rounded-xl border border-line bg-surface hover:border-brand-500/60 text-right transition">
+    <p class="text-xs text-ink-faint">下一篇<i class="fa-solid fa-arrow-right ml-1.5 transition-transform group-hover:translate-x-0.5"></i></p>
+    <p class="mt-1 text-sm font-semibold text-ink group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">元件文件該怎麼寫才有人看</p>
+  </a>
+</nav>`,
+    },
   ],
 });

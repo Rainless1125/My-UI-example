@@ -429,6 +429,93 @@
   </div>
 </div>`,
       },
+      {
+        name: '文字標示開關',
+        en: 'Labeled Switch',
+        tags: ['開關', '文字'],
+        spec: [
+          '寬 72px 的開關，軌道內顯示文字：關閉時右側顯示灰色「OFF」，開啟時左側顯示白色「ON」，軌道轉為 emerald。',
+          '白色滑塊 28px，切換時滑動 300ms，文字同步淡入淡出。',
+          '旁邊附「自動備份」標題與說明。',
+        ],
+        html: `<label class="flex items-center gap-4 cursor-pointer">
+    <span class="relative inline-flex">
+      <input type="checkbox" checked class="peer sr-only">
+      <span class="w-[72px] h-9 rounded-full bg-line peer-checked:bg-emerald-500 transition-colors duration-300"></span>
+      <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-ink-faint peer-checked:opacity-0 transition-opacity">OFF</span>
+      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-white opacity-0 peer-checked:opacity-100 transition-opacity">ON</span>
+      <span class="absolute left-1 top-1 w-7 h-7 rounded-full bg-white shadow-md transition-transform duration-300 peer-checked:translate-x-9"></span>
+    </span>
+    <span><span class="block text-sm font-semibold text-ink">自動備份</span><span class="block text-xs text-ink-faint">每天凌晨 3 點備份所有檔案</span></span>
+  </label>`,
+      },
+      {
+        name: '刻度步進滑桿',
+        en: 'Stepped Slider',
+        tags: ['滑桿', '刻度'],
+        spec: [
+          '具有 5 個固定刻度（step=25）的滑桿，軌道下方對齊顯示刻度點與標籤（很少、少、適中、多、很多）。',
+          '已選取段為主色，目前刻度的標籤為主色粗體。',
+          '上方標題「每週通知量」與右側目前選取的文字。',
+        ],
+        html: `<div class="w-80" data-range data-labels="很少,少,適中,多,很多" style="--p:50%">
+    <div class="flex justify-between mb-3 text-sm"><span class="font-medium text-ink">每週通知量</span><span class="font-semibold text-brand-600 dark:text-brand-400" data-out>適中</span></div>
+    <input type="range" min="0" max="100" step="25" value="50" oninput="UIK.range(this)" aria-label="每週通知量" style="--p:50%" class="w-full h-2 rounded-full appearance-none cursor-pointer bg-[linear-gradient(to_right,#4f46e5_var(--p),rgb(var(--line))_var(--p))] focus:outline-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-brand-600 [&::-webkit-slider-thumb]:shadow-md">
+    <div class="mt-2 flex justify-between px-1.5"><span class="w-1 h-1 rounded-full bg-ink-faint"></span><span class="w-1 h-1 rounded-full bg-ink-faint"></span><span class="w-1 h-1 rounded-full bg-ink-faint"></span><span class="w-1 h-1 rounded-full bg-ink-faint"></span><span class="w-1 h-1 rounded-full bg-ink-faint"></span></div>
+    <div class="mt-1 flex justify-between text-[11px] text-ink-faint"><span>很少</span><span>少</span><span>適中</span><span>多</span><span>很多</span></div>
+  </div>`,
+      },
+      {
+        name: '圖片單選卡',
+        en: 'Image Radio Picker',
+        tags: ['單選', '主題'],
+        spec: [
+          '三張 4:3 的視覺選項卡（以漸層示意不同封面風格），選取時外圍出現 2px 主色外框與 2px 間隔，右上角顯示主色圓形 fa-check。',
+          '卡片下方為風格名稱；未選取的卡片 hover 時微微放大。',
+          '使用原生 radio 與 peer-checked 實作。',
+        ],
+        html: `<div class="grid grid-cols-3 gap-3 w-[400px] max-w-full text-center text-xs font-medium">
+    <label class="cursor-pointer"><input type="radio" name="cover" checked class="peer sr-only"><span class="relative block aspect-[4/3] rounded-xl bg-gradient-to-br from-sky-300 to-indigo-500 ring-2 ring-transparent ring-offset-2 ring-offset-canvas peer-checked:ring-brand-600 hover:scale-[1.03] transition"><span class="absolute right-1.5 top-1.5 w-5 h-5 rounded-full bg-brand-600 text-white grid place-items-center text-[9px] opacity-0 [input:checked+span_&]:opacity-100"><i class="fa-solid fa-check"></i></span></span><span class="block mt-2 text-ink">海洋</span></label>
+    <label class="cursor-pointer"><input type="radio" name="cover" class="peer sr-only"><span class="relative block aspect-[4/3] rounded-xl bg-gradient-to-br from-amber-200 to-rose-500 ring-2 ring-transparent ring-offset-2 ring-offset-canvas peer-checked:ring-brand-600 hover:scale-[1.03] transition"><span class="absolute right-1.5 top-1.5 w-5 h-5 rounded-full bg-brand-600 text-white grid place-items-center text-[9px] opacity-0 [input:checked+span_&]:opacity-100"><i class="fa-solid fa-check"></i></span></span><span class="block mt-2 text-ink">夕陽</span></label>
+    <label class="cursor-pointer"><input type="radio" name="cover" class="peer sr-only"><span class="relative block aspect-[4/3] rounded-xl bg-gradient-to-br from-emerald-200 to-teal-600 ring-2 ring-transparent ring-offset-2 ring-offset-canvas peer-checked:ring-brand-600 hover:scale-[1.03] transition"><span class="absolute right-1.5 top-1.5 w-5 h-5 rounded-full bg-brand-600 text-white grid place-items-center text-[9px] opacity-0 [input:checked+span_&]:opacity-100"><i class="fa-solid fa-check"></i></span></span><span class="block mt-2 text-ink">森林</span></label>
+  </div>`,
+      },
+      {
+        name: '三態全選核取',
+        en: 'Tri-state Select All',
+        tags: ['核取', '全選'],
+        spec: [
+          '頂部「全選」核取方塊會依子項目狀態呈現三種狀態：全選（勾選）、部分選取（indeterminate 橫線）、未選。',
+          '勾選全選時所有子項目一併勾選；子項目變更時即時更新全選狀態與「已選 N 項」計數。',
+          '子項目以 24px 縮排，列表包在圓角卡片中並以分隔線隔開全選列。',
+        ],
+        html: `<div data-tri class="w-72 rounded-xl border border-line bg-surface shadow-sm text-sm">
+    <label class="flex items-center gap-3 px-4 h-11 border-b border-line cursor-pointer"><input type="checkbox" data-tri-all onchange="UIK.tri(this)" class="w-4 h-4 accent-brand-600"><span class="flex-1 font-semibold text-ink">所有權限</span><span class="text-xs text-ink-faint">已選 <span data-out>2</span> 項</span></label>
+    <div class="p-2">
+      <label class="flex items-center gap-3 pl-8 pr-2 h-9 rounded-lg hover:bg-subtle cursor-pointer"><input type="checkbox" data-tri-item checked onchange="UIK.tri(this)" class="w-4 h-4 accent-brand-600"><span class="text-ink">檢視專案</span></label>
+      <label class="flex items-center gap-3 pl-8 pr-2 h-9 rounded-lg hover:bg-subtle cursor-pointer"><input type="checkbox" data-tri-item checked onchange="UIK.tri(this)" class="w-4 h-4 accent-brand-600"><span class="text-ink">編輯內容</span></label>
+      <label class="flex items-center gap-3 pl-8 pr-2 h-9 rounded-lg hover:bg-subtle cursor-pointer"><input type="checkbox" data-tri-item onchange="UIK.tri(this)" class="w-4 h-4 accent-brand-600"><span class="text-ink">管理成員</span></label>
+      <label class="flex items-center gap-3 pl-8 pr-2 h-9 rounded-lg hover:bg-subtle cursor-pointer"><input type="checkbox" data-tri-item onchange="UIK.tri(this)" class="w-4 h-4 accent-brand-600"><span class="text-ink">刪除專案</span></label>
+    </div>
+  </div>`,
+      },
+      {
+        name: '付款方式選擇',
+        en: 'Payment Method Selector',
+        tags: ['結帳', '單選'],
+        spec: [
+          '垂直排列的付款方式單選列，每列左側為品牌圖示（fa-cc-visa、fa-paypal、fa-apple-pay、fa-building-columns 銀行轉帳），中間為名稱與說明。',
+          '選取列為主色邊框與淡主色底，右側為單選圓鈕。',
+          '信用卡選項附「末四碼 4242 · 08/29」說明。',
+        ],
+        html: `<fieldset class="w-[380px] max-w-full space-y-2">
+    <legend class="mb-2.5 text-sm font-semibold text-ink">付款方式</legend>
+    <label class="flex items-center gap-3.5 p-3.5 rounded-xl border border-line bg-surface cursor-pointer has-[:checked]:border-brand-500 has-[:checked]:bg-brand-500/[.04] has-[:checked]:ring-1 has-[:checked]:ring-brand-500 transition"><span class="w-10 h-7 rounded-md border border-line bg-surface grid place-items-center text-lg text-[#1a1f71] dark:text-sky-300"><i class="fa-brands fa-cc-visa"></i></span><span class="flex-1"><span class="block text-sm font-medium text-ink">Visa 信用卡</span><span class="block text-xs text-ink-faint">末四碼 4242 · 08/29</span></span><input type="radio" name="pay" checked class="appearance-none w-[18px] h-[18px] rounded-full border-[1.5px] border-line checked:border-brand-600 checked:border-[5px] transition-all"></label>
+    <label class="flex items-center gap-3.5 p-3.5 rounded-xl border border-line bg-surface cursor-pointer has-[:checked]:border-brand-500 has-[:checked]:bg-brand-500/[.04] has-[:checked]:ring-1 has-[:checked]:ring-brand-500 transition"><span class="w-10 h-7 rounded-md border border-line bg-surface grid place-items-center text-base text-[#003087] dark:text-sky-300"><i class="fa-brands fa-paypal"></i></span><span class="flex-1 text-sm font-medium text-ink">PayPal</span><input type="radio" name="pay" class="appearance-none w-[18px] h-[18px] rounded-full border-[1.5px] border-line checked:border-brand-600 checked:border-[5px] transition-all"></label>
+    <label class="flex items-center gap-3.5 p-3.5 rounded-xl border border-line bg-surface cursor-pointer has-[:checked]:border-brand-500 has-[:checked]:bg-brand-500/[.04] has-[:checked]:ring-1 has-[:checked]:ring-brand-500 transition"><span class="w-10 h-7 rounded-md border border-line bg-surface grid place-items-center text-xl text-ink"><i class="fa-brands fa-apple-pay"></i></span><span class="flex-1 text-sm font-medium text-ink">Apple Pay</span><input type="radio" name="pay" class="appearance-none w-[18px] h-[18px] rounded-full border-[1.5px] border-line checked:border-brand-600 checked:border-[5px] transition-all"></label>
+    <label class="flex items-center gap-3.5 p-3.5 rounded-xl border border-line bg-surface cursor-pointer has-[:checked]:border-brand-500 has-[:checked]:bg-brand-500/[.04] has-[:checked]:ring-1 has-[:checked]:ring-brand-500 transition"><span class="w-10 h-7 rounded-md border border-line bg-surface grid place-items-center text-sm text-ink-soft"><i class="fa-solid fa-building-columns"></i></span><span class="flex-1"><span class="block text-sm font-medium text-ink">銀行轉帳</span><span class="block text-xs text-ink-faint">1–2 個工作天入帳</span></span><input type="radio" name="pay" class="appearance-none w-[18px] h-[18px] rounded-full border-[1.5px] border-line checked:border-brand-600 checked:border-[5px] transition-all"></label>
+  </fieldset>`,
+      },
     ],
   });
 })();

@@ -394,5 +394,93 @@
   </div>
 </div>`,
     },
+    {
+      name: '文件提示區塊',
+      en: 'Docs Callouts',
+      tags: ['文件', 'Callout'],
+      spec: [
+        '技術文件常見的提示區塊：提示（emerald、fa-lightbulb）、注意（amber、fa-triangle-exclamation）、重要（violet、fa-circle-exclamation）。',
+        '左側 3px 對應色實線，背景為對應色 6% 淡色，標題為對應色粗體 13px、內文為一般文字色。',
+        '內文中可包含行內程式碼（淡灰底等寬字）。',
+      ],
+      html: `<div class="w-full max-w-md space-y-3 text-[13px]">
+  <div class="pl-4 pr-3 py-3 border-l-[3px] border-emerald-500 rounded-r-lg bg-emerald-500/[.06]"><p class="font-semibold text-emerald-700 dark:text-emerald-400"><i class="fa-solid fa-lightbulb mr-1.5"></i>提示</p><p class="mt-1 text-ink-soft leading-relaxed">使用 <code class="px-1 py-0.5 rounded bg-subtle font-mono text-[12px] text-ink">npm run dev</code> 啟動開發伺服器，修改後會自動重新整理。</p></div>
+  <div class="pl-4 pr-3 py-3 border-l-[3px] border-amber-500 rounded-r-lg bg-amber-500/[.06]"><p class="font-semibold text-amber-700 dark:text-amber-400"><i class="fa-solid fa-triangle-exclamation mr-1.5"></i>注意</p><p class="mt-1 text-ink-soft leading-relaxed">v3 起已移除舊版設定格式，升級前請先備份設定檔。</p></div>
+  <div class="pl-4 pr-3 py-3 border-l-[3px] border-violet-500 rounded-r-lg bg-violet-500/[.06]"><p class="font-semibold text-violet-700 dark:text-violet-400"><i class="fa-solid fa-circle-exclamation mr-1.5"></i>重要</p><p class="mt-1 text-ink-soft leading-relaxed">API 金鑰只會顯示一次，請立即保存在安全的位置。</p></div>
+</div>`,
+    },
+    {
+      name: 'NPS 推薦度調查',
+      en: 'NPS Survey',
+      tags: ['問卷', '評分'],
+      spec: [
+        '卡片標題「你有多大可能把我們推薦給朋友？」，下方為 0 到 10 共 11 個等寬方形數字按鈕。',
+        '選取的數字為主色實心白字；0–6 hover 偏 rose、7–8 偏 amber、9–10 偏 emerald 的淡色底。',
+        '按鈕下方左右兩端標示「完全不可能」與「非常可能」，右上角有關閉按鈕。',
+      ],
+      html: `<div data-dismiss class="w-[440px] max-w-full p-5 rounded-2xl border border-line bg-surface shadow-lift">
+  <div class="flex items-start justify-between gap-3"><p class="text-sm font-semibold text-ink">你有多大可能把我們推薦給朋友？</p><button type="button" onclick="UIK.dismiss(this)" aria-label="關閉" class="w-6 h-6 shrink-0 rounded grid place-items-center text-ink-faint hover:text-ink"><i class="fa-solid fa-xmark text-xs"></i></button></div>
+  <div data-pick data-on="!bg-brand-600 !text-white !border-brand-600" data-off="" class="mt-4 grid grid-cols-11 gap-1 text-xs font-semibold tabular-nums">
+    <button type="button" data-item onclick="UIK.pick(this)" class="h-9 rounded-md border border-line text-ink-soft hover:bg-rose-500/10">0</button><button type="button" data-item onclick="UIK.pick(this)" class="h-9 rounded-md border border-line text-ink-soft hover:bg-rose-500/10">1</button><button type="button" data-item onclick="UIK.pick(this)" class="h-9 rounded-md border border-line text-ink-soft hover:bg-rose-500/10">2</button><button type="button" data-item onclick="UIK.pick(this)" class="h-9 rounded-md border border-line text-ink-soft hover:bg-rose-500/10">3</button><button type="button" data-item onclick="UIK.pick(this)" class="h-9 rounded-md border border-line text-ink-soft hover:bg-rose-500/10">4</button><button type="button" data-item onclick="UIK.pick(this)" class="h-9 rounded-md border border-line text-ink-soft hover:bg-rose-500/10">5</button><button type="button" data-item onclick="UIK.pick(this)" class="h-9 rounded-md border border-line text-ink-soft hover:bg-rose-500/10">6</button><button type="button" data-item onclick="UIK.pick(this)" class="h-9 rounded-md border border-line text-ink-soft hover:bg-amber-500/10">7</button><button type="button" data-item onclick="UIK.pick(this)" class="h-9 rounded-md border border-line text-ink-soft hover:bg-amber-500/10">8</button><button type="button" data-item aria-selected="true" onclick="UIK.pick(this)" class="h-9 rounded-md border border-line text-ink-soft hover:bg-emerald-500/10 !bg-brand-600 !text-white !border-brand-600">9</button><button type="button" data-item onclick="UIK.pick(this)" class="h-9 rounded-md border border-line text-ink-soft hover:bg-emerald-500/10">10</button>
+  </div>
+  <div class="mt-2 flex justify-between text-[11px] text-ink-faint"><span>完全不可能</span><span>非常可能</span></div>
+</div>`,
+    },
+    {
+      name: '載入失敗重試',
+      en: 'Error Retry State',
+      tags: ['錯誤', '重試'],
+      spec: [
+        '區塊內的載入失敗狀態：中央為 rose 淡底圓形中的 fa-plug-circle-xmark 圖示。',
+        '標題「無法載入資料」、說明錯誤原因與錯誤代碼（等寬字小膠囊）。',
+        '下方為「重新嘗試」按鈕（點擊時圖示 fa-rotate-right 旋轉並顯示載入中）與「回報問題」文字連結。',
+      ],
+      html: `<div class="w-80 p-6 rounded-2xl border border-line bg-surface text-center">
+  <span class="mx-auto w-12 h-12 rounded-full bg-rose-500/10 text-rose-600 grid place-items-center text-lg"><i class="fa-solid fa-plug-circle-xmark"></i></span>
+  <h4 class="mt-4 font-semibold text-ink">無法載入資料</h4>
+  <p class="mt-1 text-sm text-ink-soft">伺服器暫時沒有回應，請稍後再試一次。</p>
+  <span class="mt-3 inline-block px-2 py-0.5 rounded-md bg-subtle font-mono text-[11px] text-ink-faint">ERR_TIMEOUT · 504</span>
+  <div class="mt-5 flex items-center justify-center gap-4">
+    <button type="button" onclick="UIK.load(this,'已重新載入')" class="inline-flex items-center gap-2 h-9 px-4 rounded-[10px] bg-ink text-canvas text-sm font-medium hover:opacity-85 disabled:opacity-70"><i class="fa-solid fa-rotate-right"></i><span>重新嘗試</span></button>
+    <a href="#" onclick="return false" class="text-sm text-ink-soft hover:text-ink">回報問題</a>
+  </div>
+</div>`,
+    },
+    {
+      name: '帶動作的 Toast',
+      en: 'Actionable Toast',
+      tags: ['Toast', '下載'],
+      spec: [
+        'Toast 左側為主色淡底的 fa-file-export 圖示，標題「匯出完成」與說明「報表已準備好下載」。',
+        '下方有兩個按鈕：「下載 CSV」（深色實心，附 fa-download）與「稍後」（文字）。',
+        '右上角關閉按鈕，Toast 寬 360px、圓角 14px。',
+      ],
+      html: `<div data-dismiss class="w-[360px] max-w-full flex gap-3 p-4 rounded-[14px] border border-line bg-surface shadow-lift">
+  <span class="w-9 h-9 shrink-0 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 grid place-items-center"><i class="fa-solid fa-file-export text-sm"></i></span>
+  <div class="flex-1">
+    <p class="text-sm font-semibold text-ink">匯出完成</p>
+    <p class="mt-0.5 text-[13px] text-ink-soft">2026 年 10 月的銷售報表已準備好下載。</p>
+    <div class="mt-3 flex gap-2"><button type="button" class="h-8 px-3 rounded-lg bg-ink text-canvas text-xs font-medium"><i class="fa-solid fa-download mr-1.5 text-[10px]"></i>下載 CSV</button><button type="button" onclick="UIK.dismiss(this)" class="h-8 px-3 rounded-lg text-xs font-medium text-ink-soft hover:bg-subtle">稍後</button></div>
+  </div>
+  <button type="button" onclick="UIK.dismiss(this)" aria-label="關閉" class="w-6 h-6 rounded-md grid place-items-center text-ink-faint hover:bg-subtle"><i class="fa-solid fa-xmark text-xs"></i></button>
+</div>`,
+    },
+    {
+      name: '權限不足頁',
+      en: 'Access Denied State',
+      tags: ['403', '權限'],
+      spec: [
+        '置中的權限不足狀態：64px 圓角方塊中的 fa-lock 圖示，右下角疊放 rose 小圓形 fa-xmark 徽章。',
+        '標題「你沒有存取權限」、說明「這個專案僅限受邀成員檢視」，並顯示目前登入帳號（頭像 + 電子郵件）。',
+        '下方「申請存取」主要按鈕與「切換帳號」外框按鈕。',
+      ],
+      html: `<div class="w-80 text-center">
+  <div class="relative mx-auto w-16 h-16"><span class="w-16 h-16 rounded-2xl bg-subtle border border-line grid place-items-center text-2xl text-ink-soft"><i class="fa-solid fa-lock"></i></span><span class="absolute -right-1.5 -bottom-1.5 w-6 h-6 rounded-full bg-rose-500 text-white grid place-items-center text-[10px] ring-4 ring-canvas"><i class="fa-solid fa-xmark"></i></span></div>
+  <h4 class="mt-5 text-lg font-semibold text-ink">你沒有存取權限</h4>
+  <p class="mt-1 text-sm text-ink-soft">這個專案僅限受邀成員檢視。</p>
+  <div class="mt-4 inline-flex items-center gap-2 h-8 pl-1 pr-3 rounded-full bg-subtle text-xs text-ink-soft"><span class="w-6 h-6 rounded-full bg-sky-500 text-white grid place-items-center text-[10px]">陳</span>chen@studio.tw</div>
+  <div class="mt-5 flex justify-center gap-2"><button type="button" class="h-9 px-4 rounded-[10px] bg-ink text-canvas text-sm font-medium"><i class="fa-solid fa-paper-plane mr-1.5 text-xs"></i>申請存取</button><button type="button" class="h-9 px-4 rounded-[10px] border border-line text-sm font-medium text-ink hover:bg-subtle">切換帳號</button></div>
+</div>`,
+    },
   ],
 });

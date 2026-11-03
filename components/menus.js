@@ -426,5 +426,139 @@
   <p data-panel="y" class="hidden mt-5"><span class="text-4xl font-bold tracking-tight text-ink">$24</span><span class="text-sm text-ink-faint"> / 月，年繳 $288</span></p>
 </div>`,
     },
+    {
+      name: '欄位顯示選單',
+      en: 'Column Visibility Menu',
+      tags: ['表格', '自訂欄位'],
+      spec: [
+        '資料表常見的「顯示欄位」選單：每列左側為 fa-grip-vertical 拖曳把手，中間為欄位名稱，右側為小型開關。',
+        '必要欄位（名稱）的開關為停用並附 fa-lock 圖示。',
+        '選單頂部為標題與「重設」連結，底部為「已顯示 4 / 6 欄」。',
+      ],
+      html: `<div class="w-64 rounded-xl border border-line bg-surface shadow-lift text-sm">
+  <div class="flex items-center justify-between px-3.5 h-11 border-b border-line"><span class="font-semibold text-ink">顯示欄位</span><button type="button" class="text-xs text-ink-faint hover:text-ink">重設</button></div>
+  <div class="p-1.5">
+    <div class="flex items-center gap-2.5 h-9 px-2 rounded-lg"><i class="fa-solid fa-grip-vertical text-[10px] text-ink-faint/50"></i><span class="flex-1 text-ink">名稱</span><i class="fa-solid fa-lock text-[10px] text-ink-faint"></i></div>
+    <label class="flex items-center gap-2.5 h-9 px-2 rounded-lg hover:bg-subtle cursor-pointer"><i class="fa-solid fa-grip-vertical text-[10px] text-ink-faint cursor-grab"></i><span class="flex-1 text-ink">狀態</span><span class="relative inline-flex"><input type="checkbox" checked class="peer sr-only"><span class="w-7 h-4 rounded-full bg-line peer-checked:bg-brand-600 transition-colors"></span><span class="absolute left-0.5 top-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-3"></span></span></label>
+    <label class="flex items-center gap-2.5 h-9 px-2 rounded-lg hover:bg-subtle cursor-pointer"><i class="fa-solid fa-grip-vertical text-[10px] text-ink-faint cursor-grab"></i><span class="flex-1 text-ink">負責人</span><span class="relative inline-flex"><input type="checkbox" checked class="peer sr-only"><span class="w-7 h-4 rounded-full bg-line peer-checked:bg-brand-600 transition-colors"></span><span class="absolute left-0.5 top-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-3"></span></span></label>
+    <label class="flex items-center gap-2.5 h-9 px-2 rounded-lg hover:bg-subtle cursor-pointer"><i class="fa-solid fa-grip-vertical text-[10px] text-ink-faint cursor-grab"></i><span class="flex-1 text-ink">截止日</span><span class="relative inline-flex"><input type="checkbox" checked class="peer sr-only"><span class="w-7 h-4 rounded-full bg-line peer-checked:bg-brand-600 transition-colors"></span><span class="absolute left-0.5 top-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-3"></span></span></label>
+    <label class="flex items-center gap-2.5 h-9 px-2 rounded-lg hover:bg-subtle cursor-pointer"><i class="fa-solid fa-grip-vertical text-[10px] text-ink-faint cursor-grab"></i><span class="flex-1 text-ink">標籤</span><span class="relative inline-flex"><input type="checkbox" class="peer sr-only"><span class="w-7 h-4 rounded-full bg-line peer-checked:bg-brand-600 transition-colors"></span><span class="absolute left-0.5 top-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-3"></span></span></label>
+  </div>
+  <p class="px-3.5 h-9 flex items-center border-t border-line text-xs text-ink-faint">已顯示 4 / 6 欄</p>
+</div>`,
+    },
+    {
+      name: '表情回應選單',
+      en: 'Reaction Picker',
+      tags: ['回應', '社群'],
+      spec: [
+        '膠囊形浮動選單，排列 6 個 Font Awesome 回應圖示（讚、愛心、大笑、驚訝、火、慶祝），不使用 emoji。',
+        '每個圖示 hover 時放大 135% 並上移 4px，上方浮現名稱提示。',
+        '下方為貼文的已選回應統計列（圖示堆疊 + 人數）。',
+      ],
+      html: `<div class="flex flex-col items-center gap-4 pt-6">
+  <div class="flex items-center gap-1 h-12 px-2 rounded-full border border-line bg-surface shadow-lift">
+    <button type="button" aria-label="讚" class="group relative w-9 h-9 grid place-items-center text-xl text-sky-500 hover:scale-[1.35] hover:-translate-y-1 transition"><i class="fa-solid fa-thumbs-up"></i><span class="pointer-events-none absolute -top-8 px-1.5 py-0.5 rounded bg-ink text-canvas text-[10px] opacity-0 group-hover:opacity-100 whitespace-nowrap">讚</span></button>
+    <button type="button" aria-label="愛心" class="group relative w-9 h-9 grid place-items-center text-xl text-rose-500 hover:scale-[1.35] hover:-translate-y-1 transition"><i class="fa-solid fa-heart"></i><span class="pointer-events-none absolute -top-8 px-1.5 py-0.5 rounded bg-ink text-canvas text-[10px] opacity-0 group-hover:opacity-100 whitespace-nowrap">愛心</span></button>
+    <button type="button" aria-label="大笑" class="group relative w-9 h-9 grid place-items-center text-xl text-amber-400 hover:scale-[1.35] hover:-translate-y-1 transition"><i class="fa-solid fa-face-laugh-squint"></i><span class="pointer-events-none absolute -top-8 px-1.5 py-0.5 rounded bg-ink text-canvas text-[10px] opacity-0 group-hover:opacity-100 whitespace-nowrap">大笑</span></button>
+    <button type="button" aria-label="驚訝" class="group relative w-9 h-9 grid place-items-center text-xl text-amber-400 hover:scale-[1.35] hover:-translate-y-1 transition"><i class="fa-solid fa-face-surprise"></i><span class="pointer-events-none absolute -top-8 px-1.5 py-0.5 rounded bg-ink text-canvas text-[10px] opacity-0 group-hover:opacity-100 whitespace-nowrap">驚訝</span></button>
+    <button type="button" aria-label="火" class="group relative w-9 h-9 grid place-items-center text-xl text-orange-500 hover:scale-[1.35] hover:-translate-y-1 transition"><i class="fa-solid fa-fire"></i><span class="pointer-events-none absolute -top-8 px-1.5 py-0.5 rounded bg-ink text-canvas text-[10px] opacity-0 group-hover:opacity-100 whitespace-nowrap">火熱</span></button>
+    <button type="button" aria-label="慶祝" class="group relative w-9 h-9 grid place-items-center text-xl text-violet-500 hover:scale-[1.35] hover:-translate-y-1 transition"><i class="fa-solid fa-champagne-glasses"></i><span class="pointer-events-none absolute -top-8 px-1.5 py-0.5 rounded bg-ink text-canvas text-[10px] opacity-0 group-hover:opacity-100 whitespace-nowrap">慶祝</span></button>
+  </div>
+  <div class="flex items-center gap-2 text-xs text-ink-soft">
+    <span class="flex -space-x-1"><span class="w-5 h-5 rounded-full bg-sky-500 text-white grid place-items-center text-[9px] ring-2 ring-canvas"><i class="fa-solid fa-thumbs-up"></i></span><span class="w-5 h-5 rounded-full bg-rose-500 text-white grid place-items-center text-[9px] ring-2 ring-canvas"><i class="fa-solid fa-heart"></i></span><span class="w-5 h-5 rounded-full bg-orange-500 text-white grid place-items-center text-[9px] ring-2 ring-canvas"><i class="fa-solid fa-fire"></i></span></span>
+    你和其他 86 人
+  </div>
+</div>`,
+    },
+    {
+      name: '階層選擇器',
+      en: 'Cascader Menu',
+      tags: ['多層級', '地區'],
+      spec: [
+        '兩欄並排的階層選單：左欄為縣市清單，選取項目為淺灰底並在右側顯示 fa-chevron-right；右欄顯示該縣市的行政區。',
+        '點選左欄項目時切換右欄內容（data-panel），右欄已選項目以主色 fa-check 標示。',
+        '上方顯示目前選取路徑「台北市 / 大安區」。',
+      ],
+      html: `<div class="w-80">
+  <div class="flex items-center gap-2 h-10 px-3 rounded-[10px] border border-brand-500 ring-4 ring-brand-500/15 bg-surface text-sm text-ink"><i class="fa-solid fa-location-dot text-xs text-ink-faint"></i>台北市 / 大安區<i class="ml-auto fa-solid fa-chevron-up text-[10px] text-ink-faint"></i></div>
+  <div data-pick data-on="bg-subtle text-ink font-medium" data-off="text-ink-soft" class="mt-2 grid grid-cols-2 rounded-xl border border-line bg-surface shadow-lift text-sm overflow-hidden">
+    <div class="p-1.5 border-r border-line">
+      <button type="button" data-item data-tab="tpe" aria-selected="true" onclick="UIK.pick(this)" class="w-full flex items-center h-8 px-2.5 rounded-lg bg-subtle text-ink font-medium">台北市<i class="ml-auto fa-solid fa-chevron-right text-[9px] text-ink-faint"></i></button>
+      <button type="button" data-item data-tab="ntp" onclick="UIK.pick(this)" class="w-full flex items-center h-8 px-2.5 rounded-lg text-ink-soft hover:bg-subtle">新北市<i class="ml-auto fa-solid fa-chevron-right text-[9px] text-ink-faint"></i></button>
+      <button type="button" data-item data-tab="txg" onclick="UIK.pick(this)" class="w-full flex items-center h-8 px-2.5 rounded-lg text-ink-soft hover:bg-subtle">台中市<i class="ml-auto fa-solid fa-chevron-right text-[9px] text-ink-faint"></i></button>
+    </div>
+    <div class="p-1.5">
+      <div data-panel="tpe"><p class="flex items-center h-8 px-2.5 rounded-lg text-brand-600 dark:text-brand-400 font-medium">大安區<i class="ml-auto fa-solid fa-check text-[10px]"></i></p><p class="flex items-center h-8 px-2.5 rounded-lg text-ink hover:bg-subtle">信義區</p><p class="flex items-center h-8 px-2.5 rounded-lg text-ink hover:bg-subtle">中山區</p></div>
+      <div data-panel="ntp" class="hidden"><p class="flex items-center h-8 px-2.5 rounded-lg text-ink hover:bg-subtle">板橋區</p><p class="flex items-center h-8 px-2.5 rounded-lg text-ink hover:bg-subtle">新店區</p><p class="flex items-center h-8 px-2.5 rounded-lg text-ink hover:bg-subtle">淡水區</p></div>
+      <div data-panel="txg" class="hidden"><p class="flex items-center h-8 px-2.5 rounded-lg text-ink hover:bg-subtle">西屯區</p><p class="flex items-center h-8 px-2.5 rounded-lg text-ink hover:bg-subtle">北屯區</p></div>
+    </div>
+  </div>
+</div>`,
+    },
+    {
+      name: '日期快捷選單',
+      en: 'Date Preset Menu',
+      tags: ['日期', '報表'],
+      spec: [
+        '報表常見的日期範圍選單，左側為快捷選項清單（今天、近 7 天、近 30 天、本季、自訂），選取項為主色淡底。',
+        '右側為迷你月曆：週標題、日期網格，選取的範圍以淡主色連續底色呈現，起訖日為主色實心圓。',
+        '底部為「取消 / 套用」按鈕。',
+      ],
+      html: `<div class="flex rounded-2xl border border-line bg-surface shadow-lift text-sm overflow-hidden">
+  <div data-pick data-on="bg-brand-500/10 text-brand-700 dark:text-brand-300 font-medium" data-off="text-ink-soft" class="w-28 p-2 border-r border-line space-y-0.5">
+    <button type="button" data-item onclick="UIK.pick(this)" class="w-full h-8 px-2.5 rounded-lg text-left text-ink-soft hover:bg-subtle">今天</button>
+    <button type="button" data-item aria-selected="true" onclick="UIK.pick(this)" class="w-full h-8 px-2.5 rounded-lg text-left bg-brand-500/10 text-brand-700 dark:text-brand-300 font-medium">近 7 天</button>
+    <button type="button" data-item onclick="UIK.pick(this)" class="w-full h-8 px-2.5 rounded-lg text-left text-ink-soft hover:bg-subtle">近 30 天</button>
+    <button type="button" data-item onclick="UIK.pick(this)" class="w-full h-8 px-2.5 rounded-lg text-left text-ink-soft hover:bg-subtle">本季</button>
+    <button type="button" data-item onclick="UIK.pick(this)" class="w-full h-8 px-2.5 rounded-lg text-left text-ink-soft hover:bg-subtle">自訂</button>
+  </div>
+  <div class="p-3">
+    <div class="flex items-center justify-between px-1 mb-2"><button type="button" aria-label="上個月" class="w-6 h-6 text-ink-faint"><i class="fa-solid fa-chevron-left text-[10px]"></i></button><span class="text-[13px] font-semibold text-ink">2026 年 11 月</span><button type="button" aria-label="下個月" class="w-6 h-6 text-ink-faint"><i class="fa-solid fa-chevron-right text-[10px]"></i></button></div>
+    <div class="grid grid-cols-7 text-center text-[11px] tabular-nums">
+      <span class="h-7 leading-7 text-ink-faint">日</span><span class="h-7 leading-7 text-ink-faint">一</span><span class="h-7 leading-7 text-ink-faint">二</span><span class="h-7 leading-7 text-ink-faint">三</span><span class="h-7 leading-7 text-ink-faint">四</span><span class="h-7 leading-7 text-ink-faint">五</span><span class="h-7 leading-7 text-ink-faint">六</span>
+      <span class="h-7 leading-7 text-ink">1</span><span class="h-7 leading-7 text-ink">2</span><span class="h-7 leading-7 text-ink">3</span><span class="h-7 leading-7 text-ink">4</span><span class="h-7 leading-7 text-ink">5</span><span class="h-7 leading-7 text-ink">6</span><span class="h-7 leading-7 text-ink">7</span>
+      <span class="h-7 leading-7 text-ink">8</span><span class="h-7 leading-7 bg-brand-500/10 rounded-l-full"><span class="inline-block w-7 h-7 rounded-full bg-brand-600 text-white">9</span></span><span class="h-7 leading-7 bg-brand-500/10 text-ink">10</span><span class="h-7 leading-7 bg-brand-500/10 text-ink">11</span><span class="h-7 leading-7 bg-brand-500/10 text-ink">12</span><span class="h-7 leading-7 bg-brand-500/10 text-ink">13</span><span class="h-7 leading-7 bg-brand-500/10 text-ink">14</span>
+      <span class="h-7 leading-7 bg-brand-500/10 rounded-r-full"><span class="inline-block w-7 h-7 rounded-full bg-brand-600 text-white">15</span></span><span class="h-7 leading-7 text-ink">16</span><span class="h-7 leading-7 text-ink">17</span><span class="h-7 leading-7 text-ink">18</span><span class="h-7 leading-7 text-ink">19</span><span class="h-7 leading-7 text-ink">20</span><span class="h-7 leading-7 text-ink">21</span>
+    </div>
+    <div class="mt-2 flex justify-end gap-1.5"><button type="button" class="h-7 px-2.5 rounded-md text-xs text-ink-soft hover:bg-subtle">取消</button><button type="button" class="h-7 px-2.5 rounded-md bg-ink text-canvas text-xs font-medium">套用</button></div>
+  </div>
+</div>`,
+    },
+    {
+      name: '手風琴側邊選單',
+      en: 'Accordion Sidebar Menu',
+      tags: ['手風琴', '文件導覽'],
+      spec: [
+        '文件網站的分組側邊選單，每個分組標題為按鈕（圖示 + 名稱 + fa-chevron-down），點擊後展開或收合子項目。',
+        '展開時箭頭旋轉 180 度、子項目以 grid-template-rows 平滑展開；子項目左側有垂直引導線。',
+        '目前頁面的子項目為主色文字並在引導線上覆蓋主色線段。',
+      ],
+      html: `<nav class="w-60 p-2 rounded-2xl border border-line bg-surface shadow-sm text-sm">
+  <div>
+    <button type="button" aria-expanded="true" onclick="UIK.acc(this)" class="w-full flex items-center gap-2.5 h-9 px-2.5 rounded-lg font-medium text-ink hover:bg-subtle"><i class="fa-solid fa-rocket w-4 text-xs text-ink-faint"></i>快速開始<i data-chevron style="transform:rotate(180deg)" class="ml-auto fa-solid fa-chevron-down text-[10px] text-ink-faint transition-transform duration-300"></i></button>
+    <div class="grid transition-[grid-template-rows] duration-300" style="grid-template-rows:1fr"><div class="overflow-hidden"><div class="ml-[21px] my-1 border-l border-line">
+      <a href="#" onclick="return false" class="-ml-px block py-1.5 pl-4 border-l border-transparent text-ink-soft hover:text-ink">安裝</a>
+      <a href="#" onclick="return false" class="-ml-px block py-1.5 pl-4 border-l-2 border-brand-600 text-brand-600 dark:text-brand-400 font-medium">專案設定</a>
+      <a href="#" onclick="return false" class="-ml-px block py-1.5 pl-4 border-l border-transparent text-ink-soft hover:text-ink">第一個元件</a>
+    </div></div></div>
+  </div>
+  <div>
+    <button type="button" aria-expanded="false" onclick="UIK.acc(this)" class="w-full flex items-center gap-2.5 h-9 px-2.5 rounded-lg font-medium text-ink hover:bg-subtle"><i class="fa-solid fa-cubes w-4 text-xs text-ink-faint"></i>元件<i data-chevron class="ml-auto fa-solid fa-chevron-down text-[10px] text-ink-faint transition-transform duration-300"></i></button>
+    <div class="grid transition-[grid-template-rows] duration-300" style="grid-template-rows:0fr"><div class="overflow-hidden"><div class="ml-[21px] my-1 border-l border-line">
+      <a href="#" onclick="return false" class="-ml-px block py-1.5 pl-4 text-ink-soft hover:text-ink">按鈕</a>
+      <a href="#" onclick="return false" class="-ml-px block py-1.5 pl-4 text-ink-soft hover:text-ink">表單</a>
+      <a href="#" onclick="return false" class="-ml-px block py-1.5 pl-4 text-ink-soft hover:text-ink">對話框</a>
+    </div></div></div>
+  </div>
+  <div>
+    <button type="button" aria-expanded="false" onclick="UIK.acc(this)" class="w-full flex items-center gap-2.5 h-9 px-2.5 rounded-lg font-medium text-ink hover:bg-subtle"><i class="fa-solid fa-palette w-4 text-xs text-ink-faint"></i>主題<i data-chevron class="ml-auto fa-solid fa-chevron-down text-[10px] text-ink-faint transition-transform duration-300"></i></button>
+    <div class="grid transition-[grid-template-rows] duration-300" style="grid-template-rows:0fr"><div class="overflow-hidden"><div class="ml-[21px] my-1 border-l border-line">
+      <a href="#" onclick="return false" class="-ml-px block py-1.5 pl-4 text-ink-soft hover:text-ink">色彩</a>
+      <a href="#" onclick="return false" class="-ml-px block py-1.5 pl-4 text-ink-soft hover:text-ink">深色模式</a>
+    </div></div></div>
+  </div>
+</nav>`,
+    },
   ],
 });

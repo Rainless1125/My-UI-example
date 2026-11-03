@@ -39,6 +39,8 @@
           'gradient-x': { '0%,100%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' } },
           'fade-up': { '0%': { opacity: '0', transform: 'translateY(6px)' }, '100%': { opacity: '1', transform: 'none' } },
           radar: { '0%': { transform: 'scale(.6)', opacity: '.8' }, '100%': { transform: 'scale(2.4)', opacity: '0' } },
+          draw: { '0%': { strokeDashoffset: '400' }, '60%,100%': { strokeDashoffset: '0' } },
+          'grid-fade': { '0%,70%,100%': { transform: 'scale(1)', opacity: '1' }, '35%': { transform: 'scale(.4)', opacity: '.3' } },
           dash: {
             '0%': { strokeDasharray: '1 150', strokeDashoffset: '0' },
             '50%': { strokeDasharray: '90 150', strokeDashoffset: '-35' },
@@ -58,6 +60,8 @@
           radar: 'radar 2.2s ease-out infinite',
           'spin-slow': 'spin 3s linear infinite',
           dash: 'dash 1.5s ease-in-out infinite',
+          draw: 'draw 2.4s ease-in-out infinite',
+          'grid-fade': 'grid-fade 1.3s ease-in-out infinite',
         },
       },
     },
@@ -207,7 +211,10 @@
         input.style.setProperty('--p', p + '%');
         const g = input.closest('[data-range]');
         const out = g && g.querySelector('[data-out]');
-        if (out) out.textContent = input.value + (g.dataset.unit || '');
+        if (out) {
+          const labels = g.dataset.labels && g.dataset.labels.split(',');
+          out.textContent = labels ? labels[Math.round((input.value - input.min) / (+input.step || 1))] : input.value + (g.dataset.unit || '');
+        }
         if (g) g.style.setProperty('--p', p + '%');
       },
       count(el) {
@@ -314,7 +321,20 @@
           fd.classList.toggle('fa-folder-open');
         }
       },
+      /* 三態全選：容器 [data-tri]，全選 [data-tri-all]，子項目 [data-tri-item] */
+      tri(el) {
+        const g = el.closest('[data-tri]');
+        const all = g.querySelector('[data-tri-all]');
+        const kids = [...g.querySelectorAll('[data-tri-item]')];
+        if (el === all) kids.forEach((k) => (k.checked = all.checked));
+        const n = kids.filter((k) => k.checked).length;
+        all.checked = n === kids.length;
+        all.indeterminate = n > 0 && n < kids.length;
+        const out = g.querySelector('[data-out]');
+        if (out) out.textContent = n;
+      },
       init(root) {
+        (root || document).querySelectorAll('[data-tri]').forEach((g) => UIK.tri(g.querySelector('[data-tri-item]')));
         (root || document).querySelectorAll('[data-pick]').forEach((g) => UIK.indicator(g));
         (root || document).querySelectorAll('[data-range] input[type=range]').forEach((i) => UIK.range(i));
       },

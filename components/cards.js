@@ -493,5 +493,109 @@
   <button type="button" class="mt-3 text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline">升級方案 <i class="fa-solid fa-arrow-right text-[10px] ml-0.5"></i></button>
 </div>`,
     },
+    {
+      name: '迷你統計卡組',
+      en: 'Mini Stat Tiles',
+      tags: ['儀表板', '數據'],
+      wide: true,
+      spec: [
+        '三張並排的小型統計卡，每張左側為對應色淡底的圓角圖示方塊，右側為指標名稱、大字數值與比較文字。',
+        '比較文字中的漲跌以 emerald / rose 顏色與箭頭圖示標示。',
+        '卡片之間以 12px 間距排列，窄螢幕時改為單欄堆疊。',
+      ],
+      html: `<div class="w-full max-w-3xl grid sm:grid-cols-3 gap-3">
+  <div class="flex items-center gap-4 p-4 rounded-2xl border border-line bg-surface shadow-sm"><span class="w-11 h-11 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 grid place-items-center"><i class="fa-solid fa-users"></i></span><div><p class="text-xs text-ink-faint">活躍使用者</p><p class="text-xl font-bold text-ink tabular-nums">12,846</p><p class="text-[11px] text-emerald-600 dark:text-emerald-400"><i class="fa-solid fa-arrow-up text-[9px]"></i> 4.3% 較上週</p></div></div>
+  <div class="flex items-center gap-4 p-4 rounded-2xl border border-line bg-surface shadow-sm"><span class="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 grid place-items-center"><i class="fa-solid fa-sack-dollar"></i></span><div><p class="text-xs text-ink-faint">本月營收</p><p class="text-xl font-bold text-ink tabular-nums">$3.2M</p><p class="text-[11px] text-emerald-600 dark:text-emerald-400"><i class="fa-solid fa-arrow-up text-[9px]"></i> 12.1% 較上月</p></div></div>
+  <div class="flex items-center gap-4 p-4 rounded-2xl border border-line bg-surface shadow-sm"><span class="w-11 h-11 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 grid place-items-center"><i class="fa-solid fa-user-minus"></i></span><div><p class="text-xs text-ink-faint">流失率</p><p class="text-xl font-bold text-ink tabular-nums">2.4%</p><p class="text-[11px] text-rose-600 dark:text-rose-400"><i class="fa-solid fa-arrow-up text-[9px]"></i> 0.3% 較上月</p></div></div>
+</div>`,
+    },
+    {
+      name: '圖片疊字卡',
+      en: 'Image Overlay Card',
+      tags: ['圖片', 'hover 展開'],
+      spec: [
+        '直式 3:4 圖片卡（以漸層與大圖示示意），底部有由黑色 70% 往上透明的漸層遮罩，上面疊放白色標題與地點。',
+        'hover 時圖片放大 105%，標題下方的描述文字與「查看行程」按鈕由下往上滑入。',
+        '左上角為白色半透明毛玻璃分類標籤。',
+      ],
+      html: `<a href="#" onclick="return false" class="group relative block w-60 aspect-[3/4] rounded-2xl overflow-hidden shadow-lift">
+  <div class="absolute inset-0 bg-gradient-to-br from-sky-400 via-indigo-500 to-purple-700 grid place-items-center transition-transform duration-500 group-hover:scale-105"><i class="fa-solid fa-mountain text-7xl text-white/30"></i></div>
+  <span class="absolute left-3 top-3 px-2.5 py-1 rounded-full bg-white/20 backdrop-blur text-white text-[11px] font-medium"><i class="fa-solid fa-person-hiking mr-1"></i>登山</span>
+  <div class="absolute inset-x-0 bottom-0 p-4 pt-16 bg-gradient-to-t from-black/75 via-black/30 to-transparent text-white">
+    <h4 class="font-semibold text-lg">合歡山北峰</h4>
+    <p class="text-xs text-white/75"><i class="fa-solid fa-location-dot mr-1"></i>南投縣仁愛鄉</p>
+    <div class="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-300"><div class="overflow-hidden"><p class="mt-2 text-xs text-white/85 leading-relaxed">海拔 3,422 公尺，一日往返，適合初階登山者。</p><span class="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold">查看行程<i class="fa-solid fa-arrow-right text-[10px]"></i></span></div></div>
+  </div>
+</a>`,
+    },
+    {
+      name: '翻轉卡片',
+      en: 'Flip Card',
+      tags: ['3D', '翻轉'],
+      spec: [
+        'hover 時卡片以 Y 軸 3D 翻轉 180 度（perspective 1000px、700ms），顯示背面內容。',
+        '正面為主色漸層、fa-lightbulb 圖示與「今日小知識」標題；背面為白底說明文字與「了解更多」連結。',
+        '兩面皆設定 backface-visibility: hidden，背面預先旋轉 180 度。',
+      ],
+      html: `<div class="group w-64 h-40 [perspective:1000px]">
+  <div class="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+    <div class="absolute inset-0 p-5 rounded-2xl bg-gradient-to-br from-brand-500 to-violet-600 text-white flex flex-col justify-between [backface-visibility:hidden] shadow-lift">
+      <i class="fa-solid fa-lightbulb text-2xl text-amber-200"></i>
+      <div><p class="text-xs text-white/70">滑鼠移入翻面</p><p class="text-lg font-semibold">今日小知識</p></div>
+    </div>
+    <div class="absolute inset-0 p-5 rounded-2xl border border-line bg-surface flex flex-col [backface-visibility:hidden] [transform:rotateY(180deg)] shadow-lift">
+      <p class="text-sm text-ink-soft leading-relaxed">人眼對綠色最敏感，因此夜視裝置多半使用綠色畫面呈現影像。</p>
+      <a href="#" onclick="return false" class="mt-auto text-xs font-semibold text-brand-600 dark:text-brand-400">了解更多 <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+    </div>
+  </div>
+</div>`,
+    },
+    {
+      name: '聯絡人名片',
+      en: 'Contact Card',
+      tags: ['聯絡人', '名片'],
+      spec: [
+        '水平排列的名片：左側 56px 圓角方形頭像，右側為姓名、職稱與公司。',
+        '下方以圖示列出電話（fa-phone）、電子郵件（fa-envelope）與地點（fa-location-dot）。',
+        '底部三個等寬圖示按鈕：通話、傳訊息、視訊，以分隔線隔開。',
+      ],
+      html: `<div class="w-80 rounded-2xl border border-line bg-surface shadow-sm overflow-hidden">
+  <div class="p-5">
+    <div class="flex items-center gap-4"><span class="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-400 to-sky-600 text-white grid place-items-center text-lg font-semibold">許</span><div><p class="font-semibold text-ink">許雅婷</p><p class="text-xs text-ink-faint">業務經理 · Lumen Labs</p></div></div>
+    <ul class="mt-4 space-y-2 text-[13px] text-ink-soft">
+      <li class="flex items-center gap-2.5"><i class="fa-solid fa-phone w-4 text-xs text-ink-faint"></i>0912-345-678</li>
+      <li class="flex items-center gap-2.5"><i class="fa-regular fa-envelope w-4 text-xs text-ink-faint"></i>yating@lumen.tw</li>
+      <li class="flex items-center gap-2.5"><i class="fa-solid fa-location-dot w-4 text-xs text-ink-faint"></i>台北市信義區</li>
+    </ul>
+  </div>
+  <div class="grid grid-cols-3 border-t border-line divide-x divide-line text-ink-soft">
+    <button type="button" aria-label="通話" class="h-11 hover:bg-subtle hover:text-emerald-600"><i class="fa-solid fa-phone"></i></button>
+    <button type="button" aria-label="傳訊息" class="h-11 hover:bg-subtle hover:text-brand-600"><i class="fa-regular fa-message"></i></button>
+    <button type="button" aria-label="視訊" class="h-11 hover:bg-subtle hover:text-sky-600"><i class="fa-solid fa-video"></i></button>
+  </div>
+</div>`,
+    },
+    {
+      name: '課程進度卡',
+      en: 'Course Progress Card',
+      tags: ['教育', '進度'],
+      spec: [
+        '左側為 80px 方形課程縮圖（漸層與 fa-code 圖示），右側為課程名稱、講師與「第 8 / 12 堂」。',
+        '下方為主色進度條與百分比，以及「繼續學習」主要按鈕與剩餘時間說明。',
+        '卡片 hover 時陰影加深。',
+      ],
+      html: `<div class="w-[380px] max-w-full p-4 rounded-2xl border border-line bg-surface shadow-sm hover:shadow-lift transition">
+  <div class="flex gap-4">
+    <span class="w-20 h-20 shrink-0 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white grid place-items-center text-2xl"><i class="fa-solid fa-code"></i></span>
+    <div class="min-w-0">
+      <span class="px-1.5 py-0.5 rounded bg-violet-500/10 text-violet-600 dark:text-violet-400 text-[10px] font-semibold">前端開發</span>
+      <h4 class="mt-1.5 text-sm font-semibold text-ink leading-snug">從零打造 React 設計系統</h4>
+      <p class="mt-0.5 text-xs text-ink-faint">講師 陳柏宇 · 第 8 / 12 堂</p>
+    </div>
+  </div>
+  <div class="mt-4 flex items-center gap-3"><div class="flex-1 h-1.5 rounded-full bg-subtle"><div class="h-full w-2/3 rounded-full bg-brand-600"></div></div><span class="text-xs font-semibold text-ink tabular-nums">67%</span></div>
+  <div class="mt-4 flex items-center justify-between"><span class="text-xs text-ink-faint"><i class="fa-regular fa-clock mr-1"></i>剩餘約 2 小時</span><button type="button" class="h-8 px-3.5 rounded-lg bg-ink text-canvas text-xs font-medium hover:opacity-85"><i class="fa-solid fa-play text-[10px] mr-1.5"></i>繼續學習</button></div>
+</div>`,
+    },
   ],
 });

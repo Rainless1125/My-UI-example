@@ -494,5 +494,115 @@
   <p class="px-5 py-3 border-t border-line text-xs text-ink-faint">隨時按 <kbd class="px-1 rounded border border-line font-sans">?</kbd> 開啟此視窗</p>
 </div>`,
     },
+    {
+      name: '未儲存變更提醒',
+      en: 'Unsaved Changes Dialog',
+      tags: ['確認', '離開頁面'],
+      spec: [
+        '離開頁面前的提醒對話框：amber 淡底圓形中的 fa-floppy-disk 圖示、標題「要儲存變更嗎？」。',
+        '說明「你有 3 項尚未儲存的變更，離開後將會遺失」。',
+        '底部三個按鈕：左側「不儲存」（rose 文字），右側「取消」（外框）與「儲存並離開」（深色）。',
+      ],
+      html: `<div role="alertdialog" aria-modal="true" class="w-[420px] max-w-full p-6 rounded-2xl border border-line bg-surface shadow-lift">
+  <span class="w-10 h-10 rounded-full bg-amber-500/10 text-amber-600 grid place-items-center"><i class="fa-regular fa-floppy-disk"></i></span>
+  <h4 class="mt-4 font-semibold text-ink">要儲存變更嗎？</h4>
+  <p class="mt-1.5 text-sm text-ink-soft">你有 <span class="font-semibold text-ink">3 項</span>尚未儲存的變更，離開後將會遺失。</p>
+  <div class="mt-6 flex items-center gap-2">
+    <button type="button" class="mr-auto h-9 px-2 text-sm font-medium text-rose-600 hover:underline">不儲存</button>
+    <button type="button" class="h-9 px-4 rounded-[10px] border border-line text-sm font-medium text-ink hover:bg-subtle">取消</button>
+    <button type="button" class="h-9 px-4 rounded-[10px] bg-ink text-canvas text-sm font-medium hover:opacity-85">儲存並離開</button>
+  </div>
+</div>`,
+    },
+    {
+      name: '意見回饋小視窗',
+      en: 'Feedback Widget',
+      tags: ['回饋', '浮動面板'],
+      spec: [
+        '右下角浮動的意見回饋面板：標題「傳送意見回饋」與關閉按鈕。',
+        '回饋類型以三個圖示膠囊單選（問題 fa-bug、建議 fa-lightbulb、其他 fa-comment），下方為多行文字區與「附加截圖」連結。',
+        '底部右側為深色「送出」按鈕，面板寬 320px、圓角 18px。',
+      ],
+      html: `<div class="w-80 p-4 rounded-[18px] border border-line bg-surface shadow-lift">
+  <div class="flex items-center justify-between"><p class="text-sm font-semibold text-ink">傳送意見回饋</p><button type="button" aria-label="關閉" class="w-7 h-7 rounded-lg grid place-items-center text-ink-faint hover:bg-subtle"><i class="fa-solid fa-xmark text-sm"></i></button></div>
+  <div data-pick data-on="bg-brand-500/10 border-brand-500/40 text-brand-700 dark:text-brand-300" data-off="border-line text-ink-soft" class="mt-3 grid grid-cols-3 gap-1.5 text-xs font-medium">
+    <button type="button" data-item aria-selected="true" onclick="UIK.pick(this)" class="h-9 rounded-lg border bg-brand-500/10 border-brand-500/40 text-brand-700 dark:text-brand-300"><i class="fa-solid fa-bug mr-1"></i>問題</button>
+    <button type="button" data-item onclick="UIK.pick(this)" class="h-9 rounded-lg border border-line text-ink-soft"><i class="fa-solid fa-lightbulb mr-1"></i>建議</button>
+    <button type="button" data-item onclick="UIK.pick(this)" class="h-9 rounded-lg border border-line text-ink-soft"><i class="fa-solid fa-comment mr-1"></i>其他</button>
+  </div>
+  <textarea rows="3" placeholder="告訴我們發生了什麼事…" class="mt-3 block w-full px-3 py-2.5 rounded-xl border border-line bg-surface text-sm text-ink placeholder:text-ink-faint resize-none focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15"></textarea>
+  <div class="mt-3 flex items-center justify-between"><button type="button" class="text-xs font-medium text-ink-soft hover:text-ink"><i class="fa-solid fa-camera mr-1.5"></i>附加截圖</button><button type="button" class="h-8 px-4 rounded-lg bg-ink text-canvas text-xs font-medium">送出</button></div>
+</div>`,
+    },
+    {
+      name: '日期選擇浮層',
+      en: 'Date Picker Popover',
+      tags: ['日期', '月曆'],
+      spec: [
+        '日期輸入框下方展開的月曆浮層：頂部為月份標題與左右切換箭頭，下方為 7 欄日期網格。',
+        '今天以主色文字與下方小圓點標示，選取日期為主色實心圓、白字；上個月的日期為淡灰色。',
+        '日期格 hover 時出現淺灰圓形底，底部有「今天」與「清除」文字按鈕。',
+      ],
+      html: `<div class="w-72">
+  <div class="flex items-center gap-2 h-10 px-3 rounded-[10px] border border-brand-500 ring-4 ring-brand-500/15 bg-surface text-sm text-ink"><i class="fa-regular fa-calendar text-ink-faint"></i>2026 / 11 / 12</div>
+  <div class="mt-2 p-3 rounded-2xl border border-line bg-surface shadow-lift">
+    <div class="flex items-center justify-between mb-2"><button type="button" aria-label="上個月" class="w-7 h-7 rounded-lg grid place-items-center text-ink-faint hover:bg-subtle"><i class="fa-solid fa-chevron-left text-[10px]"></i></button><span class="text-sm font-semibold text-ink">2026 年 11 月</span><button type="button" aria-label="下個月" class="w-7 h-7 rounded-lg grid place-items-center text-ink-faint hover:bg-subtle"><i class="fa-solid fa-chevron-right text-[10px]"></i></button></div>
+    <div data-pick data-on="!bg-brand-600 !text-white" data-off="" class="grid grid-cols-7 gap-y-0.5 text-center text-xs tabular-nums">
+      <span class="h-8 leading-8 text-ink-faint">日</span><span class="h-8 leading-8 text-ink-faint">一</span><span class="h-8 leading-8 text-ink-faint">二</span><span class="h-8 leading-8 text-ink-faint">三</span><span class="h-8 leading-8 text-ink-faint">四</span><span class="h-8 leading-8 text-ink-faint">五</span><span class="h-8 leading-8 text-ink-faint">六</span>
+      <span class="h-8 leading-8 text-ink-faint/50">26</span><span class="h-8 leading-8 text-ink-faint/50">27</span><span class="h-8 leading-8 text-ink-faint/50">28</span><span class="h-8 leading-8 text-ink-faint/50">29</span><span class="h-8 leading-8 text-ink-faint/50">30</span><span class="h-8 leading-8 text-ink-faint/50">31</span><button type="button" data-item onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle">1</button>
+      <button type="button" data-item onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle">2</button><button type="button" data-item onclick="UIK.pick(this)" class="relative mx-auto w-8 h-8 rounded-full text-brand-600 dark:text-brand-400 font-semibold hover:bg-subtle">3<span class="absolute left-1/2 bottom-1 -translate-x-1/2 w-1 h-1 rounded-full bg-current"></span></button><button type="button" data-item onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle">4</button><button type="button" data-item onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle">5</button><button type="button" data-item onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle">6</button><button type="button" data-item onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle">7</button><button type="button" data-item onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle">8</button>
+      <button type="button" data-item onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle">9</button><button type="button" data-item onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle">10</button><button type="button" data-item onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle">11</button><button type="button" data-item aria-selected="true" onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle !bg-brand-600 !text-white">12</button><button type="button" data-item onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle">13</button><button type="button" data-item onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle">14</button><button type="button" data-item onclick="UIK.pick(this)" class="mx-auto w-8 h-8 rounded-full text-ink hover:bg-subtle">15</button>
+    </div>
+    <div class="mt-2 pt-2 border-t border-line flex justify-between text-xs font-medium"><button type="button" class="h-7 px-2 rounded-md text-brand-600 dark:text-brand-400 hover:bg-subtle">今天</button><button type="button" class="h-7 px-2 rounded-md text-ink-soft hover:bg-subtle">清除</button></div>
+  </div>
+</div>`,
+    },
+    {
+      name: '線上客服視窗',
+      en: 'Chat Support Widget',
+      tags: ['客服', '聊天'],
+      spec: [
+        '浮動聊天視窗：頂部為主色漸層標題列，顯示客服頭像群組、「通常在 5 分鐘內回覆」與收合按鈕。',
+        '對話區有客服訊息（左側灰泡泡）與使用者訊息（右側主色泡泡），以及快速回覆膠囊。',
+        '底部為輸入列：附件圖示、輸入框與主色圓形送出按鈕 fa-paper-plane。',
+      ],
+      html: `<div class="w-80 rounded-[20px] border border-line bg-surface shadow-lift overflow-hidden">
+  <div class="p-4 bg-gradient-to-br from-brand-600 to-violet-600 text-white">
+    <div class="flex items-center justify-between"><div class="flex -space-x-2"><span class="w-8 h-8 rounded-full ring-2 ring-brand-600 bg-amber-400 grid place-items-center text-xs font-semibold">美</span><span class="w-8 h-8 rounded-full ring-2 ring-brand-600 bg-emerald-400 grid place-items-center text-xs font-semibold">傑</span></div><button type="button" aria-label="收合" class="w-7 h-7 rounded-lg hover:bg-white/15"><i class="fa-solid fa-chevron-down text-xs"></i></button></div>
+    <p class="mt-3 font-semibold">嗨，需要幫忙嗎？</p>
+    <p class="text-xs text-white/75"><span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-300 mr-1.5"></span>通常在 5 分鐘內回覆</p>
+  </div>
+  <div class="p-4 space-y-2.5 text-[13px]">
+    <div class="max-w-[80%] px-3 py-2 rounded-2xl rounded-tl-md bg-subtle text-ink">你好，請問有什麼可以協助你的？</div>
+    <div class="ml-auto max-w-[80%] w-fit px-3 py-2 rounded-2xl rounded-tr-md bg-brand-600 text-white">我想升級成年繳方案</div>
+    <div class="flex flex-wrap gap-1.5 pt-1"><button type="button" class="h-7 px-2.5 rounded-full border border-brand-500/40 text-brand-600 dark:text-brand-400 text-xs">查看方案比較</button><button type="button" class="h-7 px-2.5 rounded-full border border-brand-500/40 text-brand-600 dark:text-brand-400 text-xs">付款方式</button></div>
+  </div>
+  <div class="flex items-center gap-2 p-2.5 border-t border-line"><button type="button" aria-label="附加檔案" class="w-8 h-8 rounded-full grid place-items-center text-ink-faint hover:bg-subtle"><i class="fa-solid fa-paperclip text-sm"></i></button><input type="text" placeholder="輸入訊息…" class="flex-1 min-w-0 bg-transparent text-sm text-ink placeholder:text-ink-faint focus:outline-none"><button type="button" aria-label="送出" class="w-8 h-8 rounded-full bg-brand-600 text-white grid place-items-center"><i class="fa-solid fa-paper-plane text-xs"></i></button></div>
+</div>`,
+    },
+    {
+      name: '頭像裁切對話框',
+      en: 'Avatar Crop Dialog',
+      tags: ['上傳', '裁切'],
+      spec: [
+        '對話框中央為正方形裁切區：背景圖片（漸層示意）上覆蓋半透明黑色遮罩，中央挖空一個圓形可視區並有白色細框。',
+        '下方為縮放滑桿，左右兩端為 fa-magnifying-glass-minus 與 fa-magnifying-glass-plus，以及旋轉按鈕 fa-rotate。',
+        '底部「重新選擇」與「套用頭像」按鈕。',
+      ],
+      html: `<div role="dialog" aria-modal="true" class="w-80 p-5 rounded-[20px] border border-line bg-surface shadow-lift">
+  <div class="flex items-center justify-between"><h4 class="font-semibold text-ink">調整頭像</h4><button type="button" aria-label="關閉" class="w-7 h-7 rounded-lg grid place-items-center text-ink-faint hover:bg-subtle"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="relative mt-4 aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-amber-300 via-rose-400 to-indigo-600">
+    <i class="fa-solid fa-user absolute inset-0 m-auto w-fit h-fit text-[120px] text-white/50"></i>
+    <div class="absolute inset-0 grid place-items-center"><span class="w-3/4 aspect-square rounded-full ring-2 ring-white shadow-[0_0_0_999px_rgb(0_0_0/.5)]"></span></div>
+  </div>
+  <div class="mt-4 flex items-center gap-3" data-range style="--p:40%">
+    <i class="fa-solid fa-magnifying-glass-minus text-xs text-ink-faint"></i>
+    <input type="range" min="0" max="100" value="40" oninput="UIK.range(this)" aria-label="縮放" style="--p:40%" class="flex-1 h-1.5 rounded-full appearance-none cursor-pointer bg-[linear-gradient(to_right,rgb(var(--ink))_var(--p),rgb(var(--line))_var(--p))] [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:ring-1 [&::-webkit-slider-thumb]:ring-black/10 focus:outline-none">
+    <i class="fa-solid fa-magnifying-glass-plus text-xs text-ink-faint"></i>
+    <button type="button" aria-label="旋轉" class="w-8 h-8 rounded-lg border border-line grid place-items-center text-ink-soft hover:bg-subtle"><i class="fa-solid fa-rotate text-xs"></i></button>
+  </div>
+  <div class="mt-5 grid grid-cols-2 gap-2"><button type="button" class="h-10 rounded-[10px] border border-line text-sm font-medium text-ink hover:bg-subtle">重新選擇</button><button type="button" class="h-10 rounded-[10px] bg-ink text-canvas text-sm font-medium">套用頭像</button></div>
+</div>`,
+    },
   ],
 });
