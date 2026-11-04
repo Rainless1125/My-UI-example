@@ -18,24 +18,28 @@
       label: 'HTML + Tailwind CSS',
       desc: '語意化 HTML 與 Tailwind utility class',
       line: '以語意化 HTML 撰寫，樣式全部使用 Tailwind CSS v3 utility class，互動以少量原生 JavaScript 完成，不依賴其他框架。',
+      lineEn: 'Write semantic HTML styled entirely with Tailwind CSS v3 utility classes; use a little vanilla JavaScript for interactions and no other frameworks.',
     },
     react: {
       short: 'React + Tailwind',
       label: 'React + TypeScript + Tailwind CSS',
       desc: '函式元件、props 型別與 useState',
       line: '輸出為 React 函式元件（TypeScript），文字、狀態與事件皆以 props 控制並定義型別，內部狀態使用 useState，樣式使用 Tailwind CSS。',
+      lineEn: 'Output a React function component in TypeScript. Expose text, state and events as typed props, manage internal state with useState, and style with Tailwind CSS.',
     },
     vue: {
       short: 'Vue 3 + Tailwind',
       label: 'Vue 3 + Tailwind CSS',
       desc: '<script setup> 單檔元件',
       line: '輸出為 Vue 3 單檔元件（<script setup lang="ts">），以 props 與 emits 控制內容與事件，樣式使用 Tailwind CSS。',
+      lineEn: 'Output a Vue 3 single-file component (<script setup lang="ts">) that uses props and emits for content and events, styled with Tailwind CSS.',
     },
     css: {
       short: 'HTML + 原生 CSS',
       label: 'HTML + 原生 CSS',
       desc: '不使用框架，CSS 變數管理主題',
       line: '不使用任何 CSS 框架，以原生 CSS 撰寫；顏色、圓角、陰影抽成 CSS 變數，並分別定義 :root（淺色）與 .dark（深色）兩組，互動以原生 JavaScript 完成。',
+      lineEn: 'Use no CSS framework. Write plain CSS with colors, radii and shadows as CSS custom properties, defined for both :root (light) and .dark (dark), and vanilla JavaScript for interactions.',
     },
   };
 
@@ -60,6 +64,8 @@
     query: '',
     stack: STACKS[store.get('ui-atlas-stack', 'tailwind')] ? store.get('ui-atlas-stack', 'tailwind') : 'tailwind',
     favs: new Set(store.get('ui-atlas-favs', [])),
+    lang: store.get('ui-atlas-lang', 'zh') === 'en' ? 'en' : 'zh',
+    withCode: store.get('ui-atlas-with-code', false) === true,
     drawerItem: null,
   };
 
@@ -67,13 +73,47 @@
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
   /* ---------- 提示詞 ---------- */
-  function buildPrompt(item, stackKey) {
-    const S = STACKS[stackKey || state.stack];
+  const LANGS = { zh: '中文', en: 'English' };
+
+  function buildPrompt(item) {
+    const S = STACKS[state.stack];
+    const code = item.html.trim();
+    if (state.lang === 'en') {
+      return [
+        `Build a "${item.en}" UI component (category: ${item.cat.en}) using ${S.label}.`,
+        `Original name (Traditional Chinese): ${item.name}`,
+        '',
+        '[Key design details] (written in Traditional Chinese; follow every point)',
+        ...item.spec.map((t, i) => `${i + 1}. ${t}`),
+        '',
+        '[Visual and shared guidelines]',
+        '- Style: modern and clean with generous whitespace, soft corner radii and shadows; avoid unnecessary decoration.',
+        '- Typography: Inter, with Noto Sans TC for CJK text; headings at weight 600, body text at 400–500.',
+        '- Colors: neutral zinc grays as the base, primary Indigo #4F46E5, and emerald / amber / rose for status colors.',
+        '- Icons: Font Awesome 6 only (fa-solid / fa-regular / fa-brands). Never use emoji.',
+        '- Theme: light mode by default, with matching dark mode styles.',
+        '- States: hover, focus-visible, active and disabled; 150–300ms transitions; respect prefers-reduced-motion.',
+        '- Accessibility: semantic markup and correct ARIA attributes, fully keyboard operable, WCAG AA text contrast.',
+        `- Tech: ${S.lineEn}`,
+        ...(state.withCode
+          ? [
+              '',
+              '[Reference implementation (HTML + Tailwind)]',
+              'Use the source below as the visual reference. Custom color tokens: canvas = page background, surface = component background (white), subtle = light gray fill, line = border gray, ink / ink-soft / ink-faint = primary / secondary / muted text, brand = Indigo. UIK.* calls are demo-only helpers; rewrite them idiomatically for the chosen tech.',
+              '```html',
+              code,
+              '```',
+            ]
+          : []),
+        '',
+        'Output complete, runnable code with a short usage note.',
+      ].join('\n');
+    }
     return [
       `請使用 ${S.label} 實作一個「${item.name}」（${item.en}）UI 元件，屬於「${item.cat.name}」類別。`,
       '',
       '【設計重點】',
-      ...item.spec.map((s, i) => `${i + 1}. ${s}`),
+      ...item.spec.map((t, i) => `${i + 1}. ${t}`),
       '',
       '【視覺與共通規範】',
       '- 風格：現代、簡潔、留白充足，圓角與陰影柔和，避免過度裝飾。',
@@ -84,6 +124,16 @@
       '- 狀態：具備 hover、focus-visible、active、disabled 狀態，動畫 150–300ms，並尊重 prefers-reduced-motion。',
       '- 無障礙：使用正確的語意標籤與 aria 屬性，可完全以鍵盤操作，文字對比符合 WCAG AA。',
       `- 技術：${S.line}`,
+      ...(state.withCode
+        ? [
+            '',
+            '【參考實作（HTML + Tailwind）】',
+            '以下是預覽效果的原始碼，請以它作為視覺基準。自訂顏色 Token 對應：canvas＝頁面底色、surface＝元件底色（白）、subtle＝淺灰底、line＝邊框灰、ink / ink-soft / ink-faint＝主要 / 次要 / 輔助文字色、brand＝Indigo。UIK.* 為示範用的互動函式，請改寫為所選技術的寫法。',
+            '```html',
+            code,
+            '```',
+          ]
+        : []),
       '',
       '請直接輸出完整、可執行的程式碼，並附上簡短的使用說明。',
     ].join('\n');
@@ -166,17 +216,43 @@ ${item.html.trim()}
           <span class="min-w-0"><span class="block text-[13px] font-medium text-ink">${esc(s.label)}</span><span class="block text-xs text-ink-faint">${esc(s.desc)}</span></span>
         </button>`
         )
-        .join('');
+        .join('') +
+      `<div class="my-1.5 h-px bg-line"></div>
+      <p class="px-2.5 pt-1 pb-2 text-[11px] font-semibold uppercase tracking-wider text-ink-faint">提示詞語言</p>
+      <div class="grid grid-cols-2 gap-1 px-1.5 pb-1">${Object.entries(LANGS)
+        .map(([k, l]) => `<button type="button" data-lang="${k}" class="h-8 rounded-lg text-[13px] font-medium transition ${k === state.lang ? 'bg-ink text-canvas' : 'bg-subtle text-ink-soft hover:text-ink'}">${l}</button>`)
+        .join('')}</div>
+      <label class="flex items-start gap-3 m-1 p-2.5 rounded-lg hover:bg-subtle cursor-pointer"><input type="checkbox" data-withcode ${state.withCode ? 'checked' : ''} class="mt-0.5 w-4 h-4 accent-brand-600"><span><span class="block text-[13px] font-medium text-ink">附上參考 HTML</span><span class="block text-xs text-ink-faint">把預覽原始碼一併放進提示詞，產生結果更接近</span></span></label>`;
+    $('#drawerLang').innerHTML = Object.entries(LANGS)
+      .map(([k, l]) => `<button type="button" data-lang="${k}" aria-pressed="${k === state.lang}" class="h-8 px-3 rounded-md transition ${k === state.lang ? 'bg-surface text-ink shadow-sm' : 'text-ink-faint hover:text-ink'}">${l}</button>`)
+      .join('');
+    $('#drawerWithCode').checked = state.withCode;
     $('#drawerStack').innerHTML = Object.entries(STACKS)
       .map(([k, s]) => `<option value="${k}" ${k === state.stack ? 'selected' : ''}>${esc(s.label)}</option>`)
       .join('');
   }
 
+  function refreshPrompt() {
+    renderStackMenu();
+    if (state.drawerItem) $('#drawerPrompt').textContent = buildPrompt(state.drawerItem);
+  }
+
   function setStack(k) {
     state.stack = k;
     store.set('ui-atlas-stack', k);
-    renderStackMenu();
-    if (state.drawerItem) $('#drawerPrompt').textContent = buildPrompt(state.drawerItem);
+    refreshPrompt();
+  }
+
+  function setLang(k) {
+    state.lang = k;
+    store.set('ui-atlas-lang', k);
+    refreshPrompt();
+  }
+
+  function setWithCode(on) {
+    state.withCode = on;
+    store.set('ui-atlas-with-code', on);
+    refreshPrompt();
   }
 
   /* ---------- 主內容 ---------- */
@@ -295,6 +371,7 @@ ${item.html.trim()}
     document.body.classList.add('drawer-open');
     requestAnimationFrame(() => window.UIK.init($('#drawerStage')));
     setTimeout(() => $('#drawerClose').focus(), 50);
+    history.replaceState(null, '', '#' + item.id);
   }
 
   function closeDrawer() {
@@ -303,12 +380,23 @@ ${item.html.trim()}
     setTimeout(() => {
       if (!$('#drawerRoot').classList.contains('is-open')) $('#drawerStage').innerHTML = '';
     }, 320);
+    if (state.drawerItem) history.replaceState(null, '', '#' + (state.query.trim() ? state.drawerItem.cat.id : state.cat));
     state.drawerItem = null;
   }
 
   /* ---------- 路由 ---------- */
   function fromHash() {
     const h = decodeURIComponent(location.hash.slice(1));
+    const target = byId[h];
+    if (target) {
+      state.cat = target.cat.id;
+      state.query = '';
+      $('#search').value = '';
+      render();
+      closeNav();
+      openDrawer(target);
+      return;
+    }
     if (h === 'favorites' || CATS.some((c) => c.id === h)) state.cat = h;
     else if (!h) state.cat = CATS[0].id;
     state.query = '';
@@ -345,6 +433,17 @@ ${item.html.trim()}
     toast(`提示詞將輸出為 ${STACKS[b.dataset.stack].label}`, 'fa-code text-brand-300');
   });
   $('#drawerStack').addEventListener('change', (e) => setStack(e.target.value));
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-lang]');
+    if (b) setLang(b.dataset.lang);
+  });
+  $('#stackMenu').addEventListener('change', (e) => {
+    if (e.target.matches('[data-withcode]')) setWithCode(e.target.checked);
+  });
+  $('#drawerWithCode').addEventListener('change', (e) => setWithCode(e.target.checked));
+  $('#drawerLink').addEventListener('click', () => {
+    if (state.drawerItem) copyText(location.href.split('#')[0] + '#' + state.drawerItem.id, '已複製元件連結');
+  });
 
   let searchTimer;
   $('#search').addEventListener('input', (e) => {

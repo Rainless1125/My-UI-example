@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UI Atlas — 現代化網頁 UI 元件庫與提示詞</title>
-  <meta name="description" content="10 大類別、共 260 個現代化網頁 UI 元件，可即時預覽並一鍵複製 AI 提示詞與程式碼。">
+  <meta name="description" content="14 大類別、共 340 個現代化網頁 UI 元件，可即時預覽並一鍵複製 AI 提示詞與程式碼。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
           <i class="fa-solid fa-shapes text-[13px]"></i>
         </span>
         <span class="font-semibold tracking-tight">UI Atlas</span>
-        <span class="hidden md:inline-flex items-center h-5 px-1.5 rounded-md bg-subtle text-[11px] font-medium text-ink-soft border border-line">260 元件</span>
+        <span class="hidden md:inline-flex items-center h-5 px-1.5 rounded-md bg-subtle text-[11px] font-medium text-ink-soft border border-line">340 元件</span>
       </a>
 
       <div class="flex-1 flex justify-center px-2">
@@ -99,7 +99,7 @@
           <p class="mt-1 text-sm text-ink-soft" id="emptyDesc">換個關鍵字試試，例如「卡片」、「進度」或「玻璃」。</p>
         </div>
         <footer class="mt-16 pt-6 border-t border-line text-xs text-ink-faint flex flex-wrap items-center justify-between gap-3">
-          <span>UI Atlas · 10 類別 · 260 款元件 · 圖示使用 Font Awesome 6</span>
+          <span>UI Atlas · 14 類別 · 340 款元件 · 圖示使用 Font Awesome 6</span>
           <span>預覽以 Tailwind CSS 建置，提示詞可輸出至多種技術組合</span>
         </footer>
       </div>
@@ -115,6 +115,7 @@
           <h2 id="drawerTitle" class="font-semibold truncate"></h2>
           <p id="drawerSub" class="text-xs text-ink-faint truncate"></p>
         </div>
+        <button id="drawerLink" type="button" class="w-8 h-8 rounded-lg grid place-items-center text-ink-faint hover:text-ink hover:bg-subtle transition" aria-label="複製元件連結"><i class="fa-solid fa-link"></i></button>
         <button id="drawerFav" type="button" class="w-8 h-8 rounded-lg grid place-items-center text-ink-faint hover:bg-subtle transition" aria-label="收藏"><i class="fa-regular fa-heart"></i></button>
         <button id="drawerClose" type="button" class="w-8 h-8 rounded-lg grid place-items-center text-ink-faint hover:text-ink hover:bg-subtle transition" aria-label="關閉"><i class="fa-solid fa-xmark"></i></button>
       </div>
@@ -126,9 +127,13 @@
               <button type="button" data-item data-tab="prompt" aria-selected="true" onclick="UIK.pick(this)" class="h-8 px-3 rounded-md text-[13px] font-medium bg-surface text-ink shadow-sm transition"><i class="fa-solid fa-wand-magic-sparkles mr-1.5 text-xs"></i>提示詞</button>
               <button type="button" data-item data-tab="code" aria-selected="false" onclick="UIK.pick(this)" class="h-8 px-3 rounded-md text-[13px] font-medium text-ink-soft transition"><i class="fa-solid fa-code mr-1.5 text-xs"></i>HTML 原始碼</button>
             </div>
-            <select id="drawerStack" class="h-9 px-2.5 rounded-lg border border-line bg-surface text-[13px] text-ink-soft focus:outline-none focus:ring-4 focus:ring-brand-500/10"></select>
           </div>
           <div id="panelPrompt" class="mt-4">
+            <div class="mb-3 flex flex-wrap items-center gap-2">
+              <select id="drawerStack" aria-label="輸出技術" class="h-9 px-2.5 rounded-lg border border-line bg-surface text-[13px] text-ink-soft focus:outline-none focus:ring-4 focus:ring-brand-500/10"></select>
+              <div id="drawerLang" class="inline-flex p-0.5 rounded-lg bg-subtle text-[13px] font-medium" role="group" aria-label="提示詞語言"></div>
+              <label class="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-line bg-surface text-[13px] text-ink-soft cursor-pointer select-none hover:text-ink"><input type="checkbox" id="drawerWithCode" class="w-4 h-4 accent-brand-600">附上參考 HTML</label>
+            </div>
             <pre id="drawerPrompt" class="code-block whitespace-pre-wrap"></pre>
             <div class="mt-3 flex flex-wrap gap-2">
               <button type="button" id="copyPromptBtn" class="btn-primary"><i class="fa-regular fa-copy"></i>複製提示詞</button>
@@ -161,6 +166,10 @@
   <script src="components/badges.js"></script>
   <script src="components/overlays.js"></script>
   <script src="components/loading.js"></script>
+  <script src="components/tables.js"></script>
+  <script src="components/charts.js"></script>
+  <script src="components/timeline.js"></script>
+  <script src="components/sections.js"></script>
   <script src="assets/app.js"></script>
 </body>
 </html>
